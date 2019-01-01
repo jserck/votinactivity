@@ -1,0 +1,9 @@
+@mixin setFontSize($size) {
+	font-size: $size !important;
+	[data-dpr="2"] & {
+		font-size: $size * 2 !important;
+	}
+	[data-dpr="3"] & {
+		font-size: $size * 3 !important;
+	}
+}
