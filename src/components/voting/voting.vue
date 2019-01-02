@@ -91,8 +91,7 @@ export default {
           Btn: () => import('../common/btn.vue'),
           FirstIn: () => import('./firstin.vue'),
           Attention: () => import('./attention.vue'),
-          Video: () => import('./video.vue'),
-          Dialog: () => import('../common/dialog.vue'),
+          Video: () => import('./video.vue')
      },
      data() {
           return {
@@ -196,8 +195,7 @@ export default {
           setTimeout(() => {
                this.$vux.loading.hide()
                this.type = 1
-               // this.isFirst = true;
-               this.dialogShow(1, true);
+               this.isFirst = true;
           }, 1000)
      }
 }
