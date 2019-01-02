@@ -1,41 +1,32 @@
 <template>
      <section>
-          <x-dialog
-               v-model="isVideo"
-               :dialog-style="dialogStyle"
-               @on-hide="hideHandler"
-               hide-on-blur
-               class="dialog-demo"
-          >
-               <section class="g-video">
-                    <section class="g-as">
-                         <video-player
-                              class="video-player vjs-custom-skin"
-                              ref="videoPlayer"
-                              :playsinline="true"
-                              :options="playerOptions"
-                              @play="onPlayerPlay($event)"
-                              @pause="onPlayerPause($event)"
-                         ></video-player>
-                         <!-- <div
+          <section class="g-video">
+               <section class="g-as">
+                    <video-player
+                         class="video-player vjs-custom-skin"
+                         ref="videoPlayer"
+                         :playsinline="true"
+                         :options="playerOptions"
+                         @play="onPlayerPlay($event)"
+                         @pause="onPlayerPause($event)"
+                    ></video-player>
+                    <!-- <div
                               class="fullScreen vjs-fullscreen-control vjs-control vjs-button"
                               aria-live="polite"
                               @click="fullScreenHandle"
                               aria-disabled="false"
-                         >全屏</div>-->
-                    </section>
-                    <!-- <p class="u-noWifi" v-if="inter === 0">播放视频会消耗手机流量</p>
+                    >全屏</div>-->
+               </section>
+               <!-- <p class="u-noWifi" v-if="inter === 0">播放视频会消耗手机流量</p>
                     <section class="g-noInter" v-else>
                          <p>最尴尬的事情是断网了</p>
                          <span>刷新</span>
                     </section>
-                    <section class="u-icon" v-if="false"></section>-->
-               </section>
-          </x-dialog>
+               <section class="u-icon" v-if="false"></section>-->
+          </section>
      </section>
 </template>
 <script>
-import { XDialog } from 'vux'
 import 'video.js/dist/video-js.css'
 // import 'vue-video-player/src/custom-theme.css'
 import { videoPlayer } from 'vue-video-player'
@@ -44,7 +35,6 @@ export default {
 
      },
      components: {
-          XDialog,
           videoPlayer
      },
      data() {

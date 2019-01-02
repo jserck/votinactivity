@@ -1,49 +1,27 @@
 <template>
      <section>
-          <x-dialog
-               v-model="isfirstIn"
-               :dialog-style="dialogStyle"
-               @on-hide="hideHandler"
-               hide-on-blur
-               class="dialog-demo"
-          >
-               <section>
-                    <section class="g-firstIn">
-                         <p>恭喜免费获得电子书一本！！</p>
-                         <section class="u-img">PIC</section>
-                    </section>
-                    <section class="u-btn displayFlex">
-                         <span style="border-right:none">继续阅读</span>
-                         <span>我要投票</span>
-                    </section>
+          <section>
+               <section class="g-firstIn">
+                    <p>恭喜免费获得电子书一本！！</p>
+                    <section class="u-img">PIC</section>
                </section>
-          </x-dialog>
+               <section class="u-btn displayFlex">
+                    <span style="border-right:none">继续阅读</span>
+                    <span>我要投票</span>
+               </section>
+          </section>
      </section>
 </template>
 <script>
-import { XDialog } from 'vux'
 export default {
-     props: ['isShow'],
-     components: {
-          XDialog
-     },
      data() {
           return {
-               isfirstIn: false,
-               dialogStyle: {
-                    width: '6.933333rem'
-               }
-          }
-     },
-     methods: {
-          hideHandler() {
 
           }
      },
+
      created() {
-          if (this.isShow) {
-               this.isfirstIn = true
-          }
+
      }
 }
 </script>

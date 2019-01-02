@@ -1,39 +1,33 @@
 <template>
      <section>
-          <section class="u-myVoteCon-link clearfix" @click="myVoteCon">
-               <span class="u-myVoteCon-text">我的投票记录 ></span>
+          <section class="g-ViteList">
+               <p class="g-ViteList-tit">我的投票记录</p>
+               <scroller lock-x height="100%" @on-scroll="onScroll" ref="scrollerEvent">
+                    <div class="box2">
+                         <ul>
+                              <li
+                                   v-for="i in 15"
+                                   :key="i"
+                                   class="displayFlex flexAlignItemsCenter flexJustifybetween"
+                              >
+                                   <span class="u-img"></span>
+                                   <span class="u-name">潘晨凯</span>
+                                   <span class="u-count">一亿票</span>
+                              </li>
+                         </ul>
+                    </div>
+               </scroller>
           </section>
-          <x-dialog v-model="isViteList" @on-hide="hideHandler" hide-on-blur class="dialog-demo">
-               <section class="g-ViteList">
-                    <p class="g-ViteList-tit">我的投票记录</p>
-                    <scroller lock-x height="100%" @on-scroll="onScroll" ref="scrollerEvent">
-                         <div class="box2">
-                              <ul>
-                                   <li
-                                        v-for="i in 15"
-                                        :key="i"
-                                        class="displayFlex flexAlignItemsCenter flexJustifybetween"
-                                   >
-                                        <span class="u-img"></span>
-                                        <span class="u-name">潘晨凯</span>
-                                        <span class="u-count">一亿票</span>
-                                   </li>
-                              </ul>
-                         </div>
-                    </scroller>
-               </section>
-          </x-dialog>
      </section>
 </template>
 <script>
-import { XDialog, Scroller } from 'vux'
+import { Scroller } from 'vux'
 export default {
      components: {
-          XDialog, Scroller
+          Scroller
      },
      data() {
           return {
-               isViteList: false,
                scrollTop: 0,
           }
      },
@@ -41,9 +35,6 @@ export default {
 
      },
      methods: {
-          myVoteCon() {
-               this.isViteList = true
-          },
           hideHandler() {
 
           },
@@ -55,17 +46,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../../assets/css/mixin.scss";
-.u-myVoteCon-link {
-     position: relative;
-     .u-myVoteCon-text {
-          margin-right: 0.346667rem /* 13/37.5 */;
-          display: inline-block;
-          float: right;
-          @include setFontSize(14px);
-          font-family: "PingFangSC-regular";
-          color: #101010;
-     }
-}
+
 .g-ViteList {
      // width: 6.933333rem /* 260/37.5 */;
      height: 11.253333rem /* 422/37.5 */;

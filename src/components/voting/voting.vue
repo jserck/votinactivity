@@ -1,16 +1,13 @@
 <template>
      <section class="m-voting-template">
-          <FirstIn v-if="isFirst" :isShow="type"></FirstIn>
-          <Attention @dialogClose="isAttention=false" v-if="isAttention"></Attention>
-          <Video v-if="isVideo" @dialogClose="isVideo=false"></Video>
           <Dialog
-               v-if="dialogOpations['isShowDialog']"
+               v-if="isShowDialog"
                :dialogType="dialogOpations['dialogType']"
-               @isCloase="dialogOpations['isShowDialog']=false"
+               @isCloase="dialogClose"
           ></Dialog>
           <header>
                <section class="g-video-container">
-                    <Rule></Rule>
+                    <i class="u-rule" @click="ruleHandler">规则</i>
                     <h3>活动标题</h3>
                     <span>2019.01.18—2019.02.10</span>
                     <section class="g-video-banner" @click="videoPlay">
@@ -20,13 +17,21 @@
           </header>
           <!-- 投票记录 -->
           <section class="g-myVoteCon">
-               <ViteList></ViteList>
+               <section class="u-myVoteCon-link clearfix" @click="myVoteCon">
+                    <span class="u-myVoteCon-text">我的投票记录 ></span>
+               </section>
                <section class="g-vote-list">
                     <ul class="displayFlex flexWrap flexJustifybetween">
                          <li v-for="(item,index) in voteList" :key="index">
                               <span class="u-img"></span>
                               <span class="u-vote-num">{{item.count}}票</span>
-                              <DoVoting :RightToVote="false"></DoVoting>
+                              <section class="g-btn">
+                                   <Btn
+                                        btnText="投票"
+                                        eventName="btnClickHandler"
+                                        @btnClickHandler="doVotingHandler"
+                                   ></Btn>
+                              </section>
                          </li>
                     </ul>
                </section>
@@ -83,28 +88,18 @@ import { XInput, Scroller, XButton } from 'vux'
 export default {
      components: {
           XInput, Scroller, XButton,
-          ViteList: () => import('./votelist.vue'),
-          Rule: () => import('./rule.vue'),
-          DoVoting: () => import('./dovoting.vue'),
           StarBook: () => import('../common/starbook.vue'),
           BookItem: () => import('../common/bookitem.vue'),
           Btn: () => import('../common/btn.vue'),
-          FirstIn: () => import('./firstin.vue'),
-          Attention: () => import('./attention.vue'),
-          Video: () => import('./video.vue'),
           Dialog: () => import('../common/dialog.vue'),
      },
      data() {
           return {
                dialogOpations: {
-                    isShowDialog: false,
                     dialogType: 0
                },
-               isViteList: false,
+               isShowDialog: false,
                type: 0,
-               isFirst: false,
-               isAttention: false,
-               isVideo: false,
                voteList: [
                     {
                          count: 10
@@ -147,14 +142,15 @@ export default {
           voteClick(type) {
                if (type === 1) {
                     //关注
-                    my.postMessage({
+                    this.$vux.loading.show()
+                    setTimeout(() => {
+                         this.$vux.loading.hide()
+                         this.dialogShow(4, true);
+                    }, 1000)
+                    // my.postMessage({
 
-                    })
-                    // this.$vux.loading.show()
-                    // setTimeout(() => {
-                    //      this.$vux.loading.hide()
-                    //      this.isAttention = true;
-                    // }, 1000)
+                    // })
+
                } else if (type === 2) {
                     // 签到
                } else if (type === 3) {
@@ -175,6 +171,33 @@ export default {
                     })
                }
           },
+          dialogClose() {
+               /**
+                * dialog关闭事件处理
+                */
+               this.isShowDialog = false
+          },
+          doVotingHandler() {
+               /**
+               * 投票
+               */
+               this.dialogShow(5, true);
+          },
+          votingHandler() {
+               console.log('别恩了');
+          },
+          ruleHandler() {
+               /**
+                * 查看规则
+                */
+               this.dialogShow(2, true);
+          },
+          myVoteCon() {
+               /**
+               * 查看投票纪录
+               */
+               this.dialogShow(3, true);
+          },
           videoPlay(src) {
                /**
                 * 视频播放
@@ -182,13 +205,15 @@ export default {
                this.$vux.loading.show()
                setTimeout(() => {
                     this.$vux.loading.hide()
-                    this.isVideo = true
-                    console.log(src);
+                    this.dialogShow(6, true);
                }, 1000)
           },
           dialogShow(type, isShow) {
+               /**
+                * 呼起弹窗并传递数据给dialog
+                */
+               this.isShowDialog = isShow;
                this['dialogOpations']['dialogType'] = type;
-               this['dialogOpations']['isShowDialog'] = isShow;
           }
      },
      created() {
@@ -196,7 +221,6 @@ export default {
           setTimeout(() => {
                this.$vux.loading.hide()
                this.type = 1
-               // this.isFirst = true;
                this.dialogShow(1, true);
           }, 1000)
      }
@@ -226,6 +250,17 @@ export default {
                     font-family: "PingFangSC-regular";
                     color: #101010;
                }
+               .u-rule {
+                    position: absolute;
+                    padding: 0.08rem 0.48rem /* 18/37.5 */;
+                    display: inline-block;
+                    top: 1.52rem /* 57/37.5 */;
+                    right: 0;
+                    background: #f6f6f6;
+                    color: #1f2028;
+                    @include setFontSize(14px);
+                    text-align: center;
+               }
                .g-video-banner {
                     position: relative;
                     margin: 0.8rem /* 30/37.5 */ auto;
@@ -248,6 +283,17 @@ export default {
           }
      }
      .g-myVoteCon {
+          .u-myVoteCon-link {
+               position: relative;
+               .u-myVoteCon-text {
+                    margin-right: 0.346667rem /* 13/37.5 */;
+                    display: inline-block;
+                    float: right;
+                    @include setFontSize(14px);
+                    font-family: "PingFangSC-regular";
+                    color: #101010;
+               }
+          }
           .g-vote-list {
                ul {
                     padding: 0 0.213333rem /* 8/37.5 */;
@@ -268,6 +314,16 @@ export default {
                               text-align: center;
                          }
                     }
+               }
+               .g-btn {
+                    margin: 0.373333rem /* 14/37.5 */ auto 0;
+                    @include setFontSize(14px);
+                    width: 2.4rem /* 90/37.5 */;
+                    height: 0.8rem /* 30/37.5 */;
+                    text-align: center;
+                    font-family: PingFang SC;
+                    border-radius: 0.106667rem /* 4/37.5 */;
+                    line-height: 0.8rem /* 30/37.5 */;
                }
           }
      }
@@ -412,6 +468,15 @@ export default {
 .u-myVote-btn {
      .weui-btn {
           @include setFontSize(13px);
+     }
+}
+.g-btn {
+     .vux-number-input {
+          @include setFontSize(14px);
+          line-height: 0.533333rem /* 20/37.5 */;
+     }
+     .weui-btn {
+          @include setFontSize(15px);
      }
 }
 </style>

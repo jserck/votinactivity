@@ -1,42 +1,27 @@
 <template>
      <section>
-          <x-dialog
-               v-model="isAttention"
-               :dialog-style="dialogStyle"
-               @on-hide="hideHandler"
-               hide-on-blur
-               class="dialog-demo"
-          >
-               <section class="g-attention">
-                    <p>感谢您关注天猫读书小程序</p>
-                    <p class="u-text2">
-                         送您一张投票，可以投给喜欢的明星哦
-                         成功投票后可获取电子书一本！
-                    </p>
-                    <section class="u-btn">
-                         <span>立即投票</span>
-                    </section>
+          <section class="g-attention">
+               <p>感谢您关注天猫读书小程序</p>
+               <p class="u-text2">
+                    送您一张投票，可以投给喜欢的明星哦
+                    成功投票后可获取电子书一本！
+               </p>
+               <section class="u-btn">
+                    <span>立即投票</span>
                </section>
-          </x-dialog>
+          </section>
      </section>
 </template>
 <script>
-import { XDialog } from 'vux'
 export default {
-     components: {
-          XDialog
-     },
      data() {
           return {
-               isAttention: true,
-               dialogStyle: {
-                    width: '6.933333rem'
-               }
+
           }
      },
      methods: {
           hideHandler() {
-               this.$emit('dialogClose')
+               // this.$emit('dialogClose')
           }
      },
      created() {
