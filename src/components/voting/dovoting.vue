@@ -58,17 +58,17 @@ export default {
      border-radius: 0.106667rem /* 4/37.5 */;
      line-height: 0.8rem /* 30/37.5 */;
      .g-noRightToVote {
-             padding-top: 1.333333rem /* 50/37.5 */;
+          padding-top: 1.333333rem /* 50/37.5 */;
           p {
                color: rgba(16, 16, 16, 1);
                @include setFontSize(14px);
                text-align: center;
                font-family: PingFangSC-regular;
-               line-height: .8rem /* 30/37.5 */;
+               line-height: 0.8rem /* 30/37.5 */;
           }
           span {
                display: inline-block;
-               margin: .533333rem /* 20/37.5 */ auto;
+               margin: 0.533333rem /* 20/37.5 */ auto;
                height: 0.533333rem /* 20/37.5 */;
           }
      }
@@ -93,8 +93,13 @@ export default {
 </style>
 <style lang="scss">
 @import "../../assets/css/mixin.scss";
-.vux-number-input {
-     @include setFontSize(14px);
-     line-height: 0.533333rem /* 20/37.5 */;
+.u-vote-btn {
+     .vux-number-input {
+          @include setFontSize(14px);
+          line-height: 0.533333rem /* 20/37.5 */;
+     }
+     .weui-btn {
+          @include setFontSize(15px);
+     }
 }
 </style>

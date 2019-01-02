@@ -3,23 +3,32 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import FastClick from 'fastclick'
+import Axios from './assets/js/axios'
 import './assets/css/common.css'
 import './assets/js/flexible'
 import './assets/js/flexible_css'
-import FastClick from 'fastclick'
-import Axios from './assets/js/axios'
-import { LoadingPlugin } from 'vux'
+import {
+  LoadingPlugin
+} from 'vux'
+import {
+  ConfigPlugin
+} from 'vux'
 
+// Vue.use(ConfigPlugin, {
+//   $layout: 'VIEW_BOX'
+// })
 Vue.use(LoadingPlugin)
 
 Vue.prototype.$Http = Axios
-
 Vue.config.productionTip = false
 FastClick.attach(document.body)
 /* eslint-disable no-new */
 new Vue({
-        el: '#app',
-        router,
-        components: { App },
-        template: '<App/>'
+  el: '#app',
+  router,
+  components: {
+    App
+  },
+  template: '<App/>'
 })

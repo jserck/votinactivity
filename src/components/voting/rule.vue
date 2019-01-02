@@ -1,9 +1,15 @@
 <template>
-     <section>
+     <section class="g-rule">
           <i class="u-rule" @click="ruleHandler">规则</i>
-          <x-dialog v-model="isViteList" @on-hide="hideHandler" hide-on-blur class="dialog-demo">
+          <x-dialog
+               v-model="isViteList"
+               @on-hide="hideHandler"
+               :dialog-style="dialogStyle"
+               hide-on-blur
+               class="dialog-demo"
+          >
                <section class="g-ViteList">
-                    <scroller lock-x height="200px" @on-scroll="onScroll" ref="scrollerEvent">
+                    <scroller lock-x height="5.333333rem" @on-scroll="onScroll" ref="scrollerEvent">
                          <div class="box2">
                               <ul>
                                    <li
@@ -11,7 +17,7 @@
                                         :key="i"
                                         class="displayFlex flexAlignItemsCenter flexJustifybetween"
                                    >
-                                       <span>潘晨凯潘晨凯你最帅</span>
+                                        <span>潘晨凯潘晨凯你最帅</span>
                                    </li>
                               </ul>
                          </div>
@@ -30,6 +36,9 @@ export default {
           return {
                isViteList: false,
                scrollTop: 0,
+               dialogStyle: {
+                    width: '6.933333rem'
+               }
           }
      },
      created() {
@@ -61,4 +70,9 @@ export default {
      @include setFontSize(14px);
      text-align: center;
 }
+</style>
+<style>
+/* .g-rule .vux-x-dialog-absolute .weui-dialog {
+     position: fixed !important;
+} */
 </style>

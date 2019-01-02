@@ -3,6 +3,11 @@
           <FirstIn v-if="isFirst" :isShow="type"></FirstIn>
           <Attention @dialogClose="isAttention=false" v-if="isAttention"></Attention>
           <Video v-if="isVideo" @dialogClose="isVideo=false"></Video>
+          <Dialog
+               v-if="dialogOpations['isShowDialog']"
+               :dialogType="dialogOpations['dialogType']"
+               @isCloase="dialogOpations['isShowDialog']=false"
+          ></Dialog>
           <header>
                <section class="g-video-container">
                     <Rule></Rule>
@@ -43,7 +48,7 @@
                                    @click="voteClick(index+1)"
                               >
                                    <span>{{item.name}}</span>
-                                   <section>
+                                   <section class="u-myVote-btn">
                                         <x-button mini>{{item.btn}}</x-button>
                                    </section>
                               </li>
@@ -86,10 +91,15 @@ export default {
           Btn: () => import('../common/btn.vue'),
           FirstIn: () => import('./firstin.vue'),
           Attention: () => import('./attention.vue'),
-          Video: () => import('./video.vue')
+          Video: () => import('./video.vue'),
+          Dialog: () => import('../common/dialog.vue'),
      },
      data() {
           return {
+               dialogOpations: {
+                    isShowDialog: false,
+                    dialogType: 0
+               },
                isViteList: false,
                type: 0,
                isFirst: false,
@@ -137,17 +147,32 @@ export default {
           voteClick(type) {
                if (type === 1) {
                     //关注
-                    this.$vux.loading.show()
-                    setTimeout(() => {
-                         this.$vux.loading.hide()
-                         this.isAttention = true;
-                    }, 1000)
+                    my.postMessage({
+
+                    })
+                    // this.$vux.loading.show()
+                    // setTimeout(() => {
+                    //      this.$vux.loading.hide()
+                    //      this.isAttention = true;
+                    // }, 1000)
                } else if (type === 2) {
                     // 签到
                } else if (type === 3) {
                     // 分享
+                    my.postMessage({
+
+                    })
                } else {
                     // 阅读
+                    my.navigateTo({
+                         url: '',
+                         //跳转成功
+                         success() { },
+                         //跳转失败
+                         fail() { },
+                         //调用完成（无论成功失败）
+                         complete() { }
+                    })
                }
           },
           videoPlay(src) {
@@ -160,6 +185,10 @@ export default {
                     this.isVideo = true
                     console.log(src);
                }, 1000)
+          },
+          dialogShow(type, isShow) {
+               this['dialogOpations']['dialogType'] = type;
+               this['dialogOpations']['isShowDialog'] = isShow;
           }
      },
      created() {
@@ -167,7 +196,8 @@ export default {
           setTimeout(() => {
                this.$vux.loading.hide()
                this.type = 1
-               this.isFirst = true;
+               // this.isFirst = true;
+               this.dialogShow(1, true);
           }, 1000)
      }
 }
@@ -377,3 +407,11 @@ export default {
 }
 </style>
 
+<style lang="scss">
+@import "../../assets/css/mixin.scss";
+.u-myVote-btn {
+     .weui-btn {
+          @include setFontSize(13px);
+     }
+}
+</style>

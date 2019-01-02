@@ -67,7 +67,7 @@ export default {
      }
 }
 .g-ViteList {
-     width: 6.933333rem /* 260/37.5 */;
+     // width: 6.933333rem /* 260/37.5 */;
      height: 11.253333rem /* 422/37.5 */;
      padding: 0.8rem /* 30/37.5 */ 0.72rem /* 27/37.5 */;
      .g-ViteList-tit {
