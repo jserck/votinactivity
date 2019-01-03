@@ -20,7 +20,7 @@ import {
 // })
 Vue.use(LoadingPlugin)
 
-Vue.prototype.$Http = Axios
+Vue.prototype.$http = Axios
 Vue.config.productionTip = false
 FastClick.attach(document.body)
 /* eslint-disable no-new */

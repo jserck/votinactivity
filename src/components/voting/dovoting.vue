@@ -30,7 +30,9 @@ export default {
           }
      },
      methods: {
+          votingHandler() {
 
+          },
           hideHandler() {
 
           }

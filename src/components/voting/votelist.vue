@@ -6,13 +6,18 @@
                     <div class="box2">
                          <ul>
                               <li
-                                   v-for="i in 15"
-                                   :key="i"
+                                   v-for="(item,index) in starList"
+                                   :key="index"
                                    class="displayFlex flexAlignItemsCenter flexJustifybetween"
                               >
-                                   <span class="u-img"></span>
-                                   <span class="u-name">潘晨凯</span>
-                                   <span class="u-count">一亿票</span>
+                                   <span
+                                        class="u-img"
+                                        :style="`background:url(${item.starPicUrl});
+                                        backgroundRepeat:no-repeat;
+                                        backgroundSize:cover`"
+                                   ></span>
+                                   <span class="u-name">{{item.starName}}</span>
+                                   <span class="u-count">{{item.ticketCount}}</span>
                               </li>
                          </ul>
                     </div>
@@ -29,12 +34,34 @@ export default {
      data() {
           return {
                scrollTop: 0,
+               starList: []
           }
      },
      created() {
-
+          this.getData()
      },
      methods: {
+          getData() {
+               /**
+                * @name 获取投票记录列表接口
+                * @method post
+                * @param userId
+                */
+               this.$vux.loading.show()
+               let options = {
+                    urls: '/user/myVoteInfo/1',
+                    data: {},
+                    methods: 'post',
+                    types: 1,
+                    des: false
+               }
+               this.$http(options).then((res) => {
+                    if (res.data.code === 200) {
+                         this.starList = res.data.data.starList
+                    }
+                    this.$vux.loading.hide()
+               }).catch((err) => { })
+          },
           hideHandler() {
 
           },

@@ -2,8 +2,10 @@
      <section class="m-voting-template">
           <Dialog
                v-if="isShowDialog"
-               :dialogType="dialogOpations['dialogType']"
-               @isCloase="dialogClose"
+               :dialogType="dialogType"
+               :dialogOpations="dialogOpations"
+               @isCloase="isShowDialog=false"
+               @dialogListenEvent="dialogListenEvent"
           ></Dialog>
           <header>
                <section class="g-video-container">
@@ -16,15 +18,20 @@
                </section>
           </header>
           <!-- 投票记录 -->
-          <section class="g-myVoteCon">
+          <section class="g-myVoteCon" id="scroll">
                <section class="u-myVoteCon-link clearfix" @click="myVoteCon">
                     <span class="u-myVoteCon-text">我的投票记录 ></span>
                </section>
                <section class="g-vote-list">
                     <ul class="displayFlex flexWrap flexJustifybetween">
-                         <li v-for="(item,index) in voteList" :key="index">
-                              <span class="u-img"></span>
-                              <span class="u-vote-num">{{item.count}}票</span>
+                         <li v-for="(item,index) in starSoltData" :key="index">
+                              <span
+                                   class="u-img"
+                                   :style="`background:url(${item.starPicUrl});
+                                            backgroundRepeat:no-repeat;
+                                            backgroundSize:cover`"
+                              ></span>
+                              <span class="u-vote-num">{{item.ticketCount}}票</span>
                               <section class="g-btn">
                                    <Btn
                                         btnText="投票"
@@ -42,8 +49,8 @@
                     <span>我的选票</span>
                </section>
                <section class="g-vote-context">
-                    <p class="u-vote-count">当前拥有很多张选票</p>
-                    <span class="u-vote-btn">立即投票</span>
+                    <p class="u-vote-count">当前拥有{{userTicketCount}}张选票</p>
+                    <span class="u-vote-btn" v-scroll="'scroll'">立即投票</span>
                     <section class="g-vote-list">
                          <ul>
                               <li
@@ -52,7 +59,7 @@
                                    class="displayFlex flexJustifybetween flexAlignItemsCenter"
                                    @click="voteClick(index+1)"
                               >
-                                   <span>{{item.name}}</span>
+                                   <span>{{index !==2?item.name:`分享获得选票 今日还有${shareCount}次机会`}}</span>
                                    <section class="u-myVote-btn">
                                         <x-button mini>{{item.btn}}</x-button>
                                    </section>
@@ -64,12 +71,16 @@
           <!-- 明星书单 -->
           <section class="g-star-bookList">
                <StarBook @videoPlay="videoPlay">
-                    <template slot-scope="{ indexNum }">
+                    <template slot-scope="{ indexNum,starBookData }">
                          <section class="g-scroll-book">
                               <scroller lock-y :scrollbar-x="false">
                                    <section class="g-scroll-book-box displayFlex">
-                                        <section class="g-box-item" v-for="i in 6" :key="i">
-                                             <BookItem :indexNum="indexNum"></BookItem>
+                                        <section
+                                             class="g-box-item"
+                                             v-for="(item,index) in starBookData"
+                                             :key="index"
+                                        >
+                                             <BookItem :indexNum="indexNum" :obj="item"></BookItem>
                                         </section>
                                    </section>
                               </scroller>
@@ -84,6 +95,8 @@
 </template>
 <script>
 import { XInput, Scroller, XButton } from 'vux'
+import StarBook from '../common/starbook.vue'
+import scroll from '../../assets/js/href.js'
 
 export default {
      components: {
@@ -96,30 +109,15 @@ export default {
      data() {
           return {
                dialogOpations: {
-                    dialogType: 0
+
                },
+               myVoteData: {
+                    userTicketCount: null
+               },
+               starSoltData: [],
+               dialogType: 0,
                isShowDialog: false,
-               type: 0,
-               voteList: [
-                    {
-                         count: 10
-                    },
-                    {
-                         count: 20
-                    },
-                    {
-                         count: 30
-                    },
-                    {
-                         count: 40
-                    },
-                    {
-                         count: 50
-                    },
-                    {
-                         count: 60
-                    },
-               ],
+               isFollow: false,
                myvotelist: [
                     {
                          name: '关注小程序可得 1 张选票',
@@ -138,44 +136,124 @@ export default {
                ]
           }
      },
+     computed: {
+          userTicketCount() {
+               return this.myVoteData['userTicketCount']
+          },
+          shareCount() {
+               return this.myVoteData['shareCount']
+          }
+     },
      methods: {
+          getStarSolt() {
+               /**
+                * @name 获取明星排名列表接口
+                * @method post
+                * @param null
+                */
+               let options = {
+                    urls: '/starRankingInfo',
+                    data: {},
+                    methods: 'post',
+                    types: 1,
+                    des: false
+               }
+               this.$http(options).then((res) => {
+                    if (res.data.code === 200) {
+                         this.starSoltData = res.data.data.starList
+                    }
+               }).catch((err) => { })
+
+          },
+          getMyVote() {
+               /**
+                * @name 获取我的选票接口
+                * @method post
+                * @param userId 用户ID
+                * @param isFollow 当前用户是否关注
+                */
+               let options = {
+                    urls: '/user/myInfo/1/1',
+                    data: {},
+                    methods: 'post',
+                    types: 1,
+                    des: false
+               }
+               this.$http(options).then((res) => {
+                    if (res.data.code === 200) {
+                         this.myVoteData = res.data.data
+                         if (res.data.data.bookId) {
+                              this.dialogShow(1, true, {
+                                   bookId: res.data.data.bookId,
+                                   bookPicUrl: res.data.data.bookPicUrl,
+                                   bookName: res.data.data.bookName,
+                                   bookWebUrl: res.data.data.bookWebUrl
+                              });
+                         }
+                    }
+               }).catch((err) => { })
+
+          },
+          attentionHandler() {
+               /**
+                * @name 关注
+               */
+               this.dialogShow(4, true)
+               // my.postMessage({
+
+               // })
+          },
+          obshareHandler() {
+               /**
+                * @name 分享
+               */
+               my.postMessage({
+
+               })
+          },
+          sugnInHandler() {
+               /**
+                * @name 签到
+               */
+          },
+          readHandler() {
+               /**
+                * @name 阅读
+               */
+               my.navigateTo({
+                    url: '',
+                    //跳转成功
+                    success() { },
+                    //跳转失败
+                    fail() { },
+                    //调用完成（无论成功失败）
+                    complete() { }
+               })
+          },
           voteClick(type) {
                if (type === 1) {
-                    //关注
-                    this.$vux.loading.show()
-                    setTimeout(() => {
-                         this.$vux.loading.hide()
-                         this.dialogShow(4, true);
-                    }, 1000)
-                    // my.postMessage({
-
-                    // })
-
+                    this.attentionHandler()
                } else if (type === 2) {
                     // 签到
+                    this.sugnInHandler()
                } else if (type === 3) {
                     // 分享
-                    my.postMessage({
-
-                    })
+                    this.obshareHandler()
                } else {
                     // 阅读
-                    my.navigateTo({
-                         url: '',
-                         //跳转成功
-                         success() { },
-                         //跳转失败
-                         fail() { },
-                         //调用完成（无论成功失败）
-                         complete() { }
-                    })
+                    this.readHandler()
                }
           },
-          dialogClose() {
+          dialogListenEvent(val) {
                /**
                 * dialog关闭事件处理
                 */
-               this.isShowDialog = false
+               if (val === 4) {
+                    this.dialogShow(val, false);
+               } else if (val === 5) {
+                    console.log("投票了");
+               }
+
           },
           doVotingHandler() {
                /**
@@ -183,9 +261,7 @@ export default {
                */
                this.dialogShow(5, true);
           },
-          votingHandler() {
-               console.log('别恩了');
-          },
+
           ruleHandler() {
                /**
                 * 查看规则
@@ -208,21 +284,19 @@ export default {
                     this.dialogShow(6, true);
                }, 1000)
           },
-          dialogShow(type, isShow) {
+          dialogShow(type, isShow, obj = {}) {
                /**
                 * 呼起弹窗并传递数据给dialog
                 */
+               this.dialogOpations = obj;
                this.isShowDialog = isShow;
-               this['dialogOpations']['dialogType'] = type;
+               this.dialogType = type;
           }
      },
      created() {
-          this.$vux.loading.show()
-          setTimeout(() => {
-               this.$vux.loading.hide()
-               this.type = 1
-               this.dialogShow(1, true);
-          }, 1000)
+          this.sugnInHandler()
+          this.getStarSolt()
+          this.getMyVote()
      }
 }
 </script>

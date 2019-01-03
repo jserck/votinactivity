@@ -3,10 +3,16 @@
           <section>
                <section class="g-firstIn">
                     <p>恭喜免费获得电子书一本！！</p>
-                    <section class="u-img">PIC</section>
+                    <section
+                         class="u-img"
+                         :style="`background:url(${dialogOpations.bookPicUrl});
+                              backgroundRepeat:no-repeat;
+                              backgroundSize:cover
+                         `"
+                    >{{dialogOpations.bookName}}</section>
                </section>
                <section class="u-btn displayFlex">
-                    <span style="border-right:none">继续阅读</span>
+                    <span style="border-right:none" @click="nextRead">继续阅读</span>
                     <span>我要投票</span>
                </section>
           </section>
@@ -14,14 +20,20 @@
 </template>
 <script>
 export default {
+     props: ['dialogOpations'],
      data() {
           return {
 
           }
      },
+     methods: {
+          nextRead() {
+               window.location.href = this.dialogOpations.bookWebUrl
+          }
+     },
 
      created() {
-
+          console.log(this.dialogOpations);
      }
 }
 </script>

@@ -1,7 +1,13 @@
 <template>
      <section class="u-box-item">
-          <section class="u-book-img"></section>
-          <p>书籍名称书籍名称书籍名称书籍名称书籍名...</p>
+          <section
+               class="u-book-img"
+               :style="`background:url(${obj.bookPicUrl});
+                        backgroundRepeat:no-repeat;
+                        backgroundSize:cover
+          `"
+          ></section>
+          <p>{{obj.bookName}}</p>
           <section class="g-author-name">
                <span>作者名称</span>
                <span>{{indexNum}}</span>
@@ -12,13 +18,20 @@
 export default {
      props: {
           indexNum: {
-               default: 1
+               default: 0
+          },
+          obj: {
+               default: {}
           }
      },
-     data(){
-             return{
+     data() {
+          return {
 
-             }
+          }
+     },
+     created() {
+          console.log(this.obj);
+
      }
 }
 </script>

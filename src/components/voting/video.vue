@@ -161,26 +161,19 @@ export default {
 <style lang="scss">
 @import "../../assets/css/mixin.scss";
 
-// .weui-dialog {
-//      max-width: 750px;
-// }
-// .vjs-custom-skin > .video-js .vjs-control{
-//         width:1.2rem /* 45/37.5 */;
-// }
-
 .video-js {
-     font-size: 0.266667rem /* 10/37.5 */;
+     font-size: 0.266667rem !important /* 10/37.5 */;
 }
 .video-js .vjs-control-bar {
      font-size: 0.373333rem !important /* 14/37.5 */;
 }
 .video-js .vjs-big-play-button {
-     width: 1.333333rem /* 50/37.5 */;
-     height: 1.333333rem /* 50/37.5 */;
-     border-radius: 0.666667rem /* 25/37.5 */;
-     top: 50%;
-     left: 50%;
-     margin-top: -0.666667rem /* -25/37.5 */;
-     margin-left: -0.666667rem /* -25/37.5 */;
+     width: 1.333333rem !important/* 50/37.5 */;
+     height: 1.333333rem !important/* 50/37.5 */;
+     border-radius: 0.666667rem !important /* 25/37.5 */;
+     top: 50% !important;
+     left: 50% !important;
+     margin-top: -0.666667rem !important /* -25/37.5 */;
+     margin-left: -0.666667rem !important /* -25/37.5 */;
 }
 </style>

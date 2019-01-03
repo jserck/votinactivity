@@ -7,12 +7,13 @@
                     成功投票后可获取电子书一本！
                </p>
                <section class="u-btn">
-                    <span>立即投票</span>
+                    <span @click="hideHandler" v-scroll="'scroll'">立即投票</span>
                </section>
           </section>
      </section>
 </template>
 <script>
+import scroll from '../../assets/js/href.js'
 export default {
      data() {
           return {
@@ -21,7 +22,7 @@ export default {
      },
      methods: {
           hideHandler() {
-               // this.$emit('dialogClose')
+               this.$emit('dialogComponentEvent', 4)
           }
      },
      created() {

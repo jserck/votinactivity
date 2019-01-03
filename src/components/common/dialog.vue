@@ -4,7 +4,7 @@
                <section>
                     <ul>
                          <li v-if="dialogType ===1">
-                              <FirstIn></FirstIn>
+                              <FirstIn :dialogOpations="dialogOpations"></FirstIn>
                          </li>
                          <li v-else-if="dialogType===2">
                               <Rule></Rule>
@@ -13,10 +13,13 @@
                               <VoteHistory></VoteHistory>
                          </li>
                          <li v-else-if="dialogType===4">
-                              <Attention></Attention>
+                              <Attention @dialogComponentEvent="dialogComponentEvent"></Attention>
                          </li>
                          <li v-else-if="dialogType===5">
-                              <DoVoting :RightToVote="true"></DoVoting>
+                              <DoVoting
+                                   @dialogComponentEvent="dialogComponentEvent"
+                                   :RightToVote="true"
+                              ></DoVoting>
                          </li>
                          <li v-else>
                               <VideoPlay></VideoPlay>
@@ -29,7 +32,7 @@
 <script>
 import { XDialog } from 'vux'
 export default {
-     props: ['dialogType'],
+     props: ['dialogType', 'dialogOpations'],
      components: {
           XDialog,
           FirstIn: () => import('../voting/firstin'),
@@ -47,6 +50,9 @@ export default {
      methods: {
           hideHandler() {
                this.$emit('isCloase')
+          },
+          dialogComponentEvent(val) {
+               this.$emit('dialogListenEvent', val)
           }
      },
      created() {
