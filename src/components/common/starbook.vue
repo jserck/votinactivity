@@ -22,7 +22,7 @@
                <span class="u-video-icon"></span>
           </section>
           <section class="g-star-recommend"></section>
-          <slot :indexNum="indexNum"></slot>
+          <slot :indexNum="indexNum" :starBookData="starBookData"></slot>
      </section>
 </template>
 <script>
@@ -34,29 +34,47 @@ export default {
      data() {
           return {
                indexNum: 1,
+               starBookData: []
           }
      },
 
      methods: {
+          getStarBook(index) {
+               /**
+                * @name 获取明星书单
+                * @method post
+                * @param starId
+               */
+               let options = {
+                    urls: '/starBookInfo/10000',
+                    data: {},
+                    methods: 'post',
+                    types: 1,
+                    des: false
+               }
+               this.$http(options).then((res) => {
+
+                    if (res.data.code === 200) {
+                         this.starBookData = res.data.data.starList
+                         this.indexNum = index
+                    }
+
+               }).catch((err) => { })
+          },
           videoPlay() {
                this.$emit('videoPlay', '1')
           },
           starChange(index) {
-               this.$vux.loading.show()
-               setTimeout(() => {
-                    this.$vux.loading.hide()
-                    this.indexNum = index
-               }, 1000)
+               this.getStarBook(index)
           }
      },
      created() {
-
+          this.getStarBook(1);
      }
 }
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/css/mixin.scss";
 .u-star-tit {
      padding-left: 0.453333rem /* 17/37.5 */;
      color: rgba(16, 16, 16, 1);

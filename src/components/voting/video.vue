@@ -1,41 +1,32 @@
 <template>
      <section>
-          <x-dialog
-               v-model="isVideo"
-               :dialog-style="dialogStyle"
-               @on-hide="hideHandler"
-               hide-on-blur
-               class="dialog-demo"
-          >
-               <section class="g-video">
-                    <section class="g-as">
-                         <video-player
-                              class="video-player vjs-custom-skin"
-                              ref="videoPlayer"
-                              :playsinline="true"
-                              :options="playerOptions"
-                              @play="onPlayerPlay($event)"
-                              @pause="onPlayerPause($event)"
-                         ></video-player>
-                         <!-- <div
+          <section class="g-video">
+               <section class="g-as">
+                    <video-player
+                         class="video-player vjs-custom-skin"
+                         ref="videoPlayer"
+                         :playsinline="true"
+                         :options="playerOptions"
+                         @play="onPlayerPlay($event)"
+                         @pause="onPlayerPause($event)"
+                    ></video-player>
+                    <!-- <div
                               class="fullScreen vjs-fullscreen-control vjs-control vjs-button"
                               aria-live="polite"
                               @click="fullScreenHandle"
                               aria-disabled="false"
-                         >全屏</div>-->
-                    </section>
-                    <!-- <p class="u-noWifi" v-if="inter === 0">播放视频会消耗手机流量</p>
+                    >全屏</div>-->
+               </section>
+               <!-- <p class="u-noWifi" v-if="inter === 0">播放视频会消耗手机流量</p>
                     <section class="g-noInter" v-else>
                          <p>最尴尬的事情是断网了</p>
                          <span>刷新</span>
                     </section>
-                    <section class="u-icon" v-if="false"></section>-->
-               </section>
-          </x-dialog>
+               <section class="u-icon" v-if="false"></section>-->
+          </section>
      </section>
 </template>
 <script>
-import { XDialog } from 'vux'
 import 'video.js/dist/video-js.css'
 // import 'vue-video-player/src/custom-theme.css'
 import { videoPlayer } from 'vue-video-player'
@@ -44,7 +35,6 @@ export default {
 
      },
      components: {
-          XDialog,
           videoPlayer
      },
      data() {
@@ -127,7 +117,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
+;
 
 .g-video {
      overflow: hidden;
@@ -169,28 +159,19 @@ export default {
 }
 </style>
 <style lang="scss">
-@import "../../assets/css/mixin.scss";
-
-// .weui-dialog {
-//      max-width: 750px;
-// }
-// .vjs-custom-skin > .video-js .vjs-control{
-//         width:1.2rem /* 45/37.5 */;
-// }
-
 .video-js {
-     font-size: 0.266667rem /* 10/37.5 */;
+     font-size: 0.266667rem !important /* 10/37.5 */;
 }
 .video-js .vjs-control-bar {
      font-size: 0.373333rem !important /* 14/37.5 */;
 }
 .video-js .vjs-big-play-button {
-     width: 1.333333rem /* 50/37.5 */;
-     height: 1.333333rem /* 50/37.5 */;
-     border-radius: 0.666667rem /* 25/37.5 */;
-     top: 50%;
-     left: 50%;
-     margin-top: -0.666667rem /* -25/37.5 */;
-     margin-left: -0.666667rem /* -25/37.5 */;
+     width: 1.333333rem !important/* 50/37.5 */;
+     height: 1.333333rem !important/* 50/37.5 */;
+     border-radius: 0.666667rem !important /* 25/37.5 */;
+     top: 50% !important;
+     left: 50% !important;
+     margin-top: -0.666667rem !important /* -25/37.5 */;
+     margin-left: -0.666667rem !important /* -25/37.5 */;
 }
 </style>

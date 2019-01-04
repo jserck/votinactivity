@@ -1,62 +1,64 @@
 <template>
      <section class="u-vote-btn">
-          <Btn btnText="投票" eventName="btnClickHandler" @btnClickHandler="doVotingHandler"></Btn>
-          <x-dialog v-model="isDoVoting" @on-hide="hideHandler" hide-on-blur class="dialog-demo">
-               <section v-if="RightToVote" class="g-doDoting">
-                    <p>选择投票的数量</p>
-                    <section class="g-doDoting-number">
-                         <inline-x-number :min="0" width="50px"></inline-x-number>
-                    </section>
-                    <section class="g-doDoting-btn">
-                         <Btn btnText="投票" eventName="votingHandler" @votingHandler="votingHandler"></Btn>
-                    </section>
+          <section v-if="RightToVote" class="g-doDoting">
+               <p>选择投票的数量</p>
+               <section class="g-doDoting-number">
+                    <inline-x-number v-model="voteNum" @input="voteNumChange" :min="0" width="50px"></inline-x-number>
                </section>
-               <section v-else class="g-noRightToVote">
-                    <p>您还没有投票权，快去做任务获取吧</p>
-                    <p>更有电子书免费领取哦~</p>
-                    <span>去做任务</span>
+               <section class="g-doDoting-btn">
+                    <span class="g-btn" @click="votingHandler">投票</span>
                </section>
-          </x-dialog>
+          </section>
+          <section v-else class="g-noRightToVote">
+               <p>您还没有投票权，快去做任务获取吧</p>
+               <p>更有电子书免费领取哦~</p>
+               <span v-scroll="`rule`" @click="goRule">去做任务</span>
+          </section>
      </section>
 </template>
 <script>
-import { InlineXNumber, XDialog, XButton } from 'vux'
+import { InlineXNumber } from 'vux'
+import Scroll from '../../assets/js/href.js'
 export default {
      props: ['RightToVote'],
      components: {
-          InlineXNumber, XDialog, XButton,
-          Btn: () => import('../common/btn.vue')
+          InlineXNumber
      },
      data() {
           return {
-               isDoVoting: false
+               voteNum: 1
           }
      },
      methods: {
-          doVotingHandler() {
-               this.isDoVoting = true
-          },
           votingHandler() {
-               console.log('别恩了');
+               this.$emit('dialogComponentEvent', 5)
+          },
+          goRule() {
+               this.$emit('goRule1')
           },
           hideHandler() {
 
+          },
+          voteNumChange(val) {
+               /**
+                * @name 投票数变更
+               */
+               this.$emit('voteNumChange2', val)
           }
      }
 }
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/css/mixin.scss";
 .u-vote-btn {
-     margin: 0.373333rem /* 14/37.5 */ auto 0;
-     @include setFontSize(14px);
-     width: 2.4rem /* 90/37.5 */;
-     height: 0.8rem /* 30/37.5 */;
-     text-align: center;
-     font-family: PingFang SC;
-     border-radius: 0.106667rem /* 4/37.5 */;
-     line-height: 0.8rem /* 30/37.5 */;
+     // margin: 0.373333rem /* 14/37.5 */ auto 0;
+     // @include setFontSize(14px);
+     // // width: 2.4rem /* 90/37.5 */;
+     // // height: 0.8rem /* 30/37.5 */;
+     // text-align: center;
+     // font-family: PingFang SC;
+     // border-radius: 0.106667rem /* 4/37.5 */;
+     // line-height: 0.8rem /* 30/37.5 */;
      .g-noRightToVote {
           padding-top: 1.333333rem /* 50/37.5 */;
           p {
@@ -88,18 +90,18 @@ export default {
           width: 2.4rem /* 90/37.5 */;
           height: 0.8rem /* 30/37.5 */;
           margin: 1.066667rem /* 40/37.5 */ auto;
-     }
-}
-</style>
-<style lang="scss">
-@import "../../assets/css/mixin.scss";
-.u-vote-btn {
-     .vux-number-input {
-          @include setFontSize(14px);
-          line-height: 0.533333rem /* 20/37.5 */;
-     }
-     .weui-btn {
-          @include setFontSize(15px);
+          .g-btn {
+               display: inline-block;
+               margin: 0.373333rem /* 14/37.5 */ auto 0;
+               @include setFontSize(14px);
+               width: 2.4rem /* 90/37.5 */;
+               height: 0.8rem /* 30/37.5 */;
+               text-align: center;
+               font-family: PingFang SC;
+               border-radius: 0.106667rem /* 4/37.5 */;
+               line-height: 0.8rem /* 30/37.5 */;
+               background: yellow;
+          }
      }
 }
 </style>
