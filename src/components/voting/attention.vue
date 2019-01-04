@@ -32,7 +32,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
 .g-attention {
      padding-top: 0.533333rem /* 20/37.5 */;
      p {

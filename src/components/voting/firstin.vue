@@ -13,7 +13,7 @@
                </section>
                <section class="u-btn displayFlex">
                     <span style="border-right:none" @click="nextRead">继续阅读</span>
-                    <span>我要投票</span>
+                    <span @click="dialogComponentEvent">我要投票</span>
                </section>
           </section>
      </section>
@@ -29,17 +29,19 @@ export default {
      methods: {
           nextRead() {
                window.location.href = this.dialogOpations.bookWebUrl
+          },
+          dialogComponentEvent() {
+               this.$emit('dialogComponentEvent', 1)
           }
      },
 
      created() {
-          console.log(this.dialogOpations);
+
      }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
 .g-firstIn {
      p {
           margin-top: 1.6rem /* 60/37.5 */;

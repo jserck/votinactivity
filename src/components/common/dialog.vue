@@ -4,7 +4,10 @@
                <section>
                     <ul>
                          <li v-if="dialogType ===1">
-                              <FirstIn :dialogOpations="dialogOpations"></FirstIn>
+                              <FirstIn
+                                   @dialogComponentEvent="dialogComponentEvent"
+                                   :dialogOpations="dialogOpations"
+                              ></FirstIn>
                          </li>
                          <li v-else-if="dialogType===2">
                               <Rule></Rule>
@@ -18,7 +21,9 @@
                          <li v-else-if="dialogType===5">
                               <DoVoting
                                    @dialogComponentEvent="dialogComponentEvent"
-                                   :RightToVote="true"
+                                   @voteNumChange2="voteNumChange2"
+                                   @goRule1="goRule1"
+                                   :RightToVote="dialogOpations.isCanVote"
                               ></DoVoting>
                          </li>
                          <li v-else>
@@ -53,6 +58,12 @@ export default {
           },
           dialogComponentEvent(val) {
                this.$emit('dialogListenEvent', val)
+          },
+          voteNumChange2(val) {
+               this.$emit('voteNumChange3', val)
+          },
+          goRule1() {
+               this.$emit('goRule2')
           }
      },
      created() {
@@ -62,5 +73,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
 </style>

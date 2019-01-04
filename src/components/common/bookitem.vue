@@ -30,14 +30,11 @@ export default {
           }
      },
      created() {
-          console.log(this.obj);
-
      }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
 .u-box-item {
      width: 3.653333rem /* 137/37.5 */;
      .u-book-img {

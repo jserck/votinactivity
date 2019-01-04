@@ -47,7 +47,6 @@ export default {
                 * @method post
                 * @param userId
                 */
-               this.$vux.loading.show()
                let options = {
                     urls: '/user/myVoteInfo/1',
                     data: {},
@@ -59,7 +58,6 @@ export default {
                     if (res.data.code === 200) {
                          this.starList = res.data.data.starList
                     }
-                    this.$vux.loading.hide()
                }).catch((err) => { })
           },
           hideHandler() {
@@ -72,8 +70,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
-
 .g-ViteList {
      // width: 6.933333rem /* 260/37.5 */;
      height: 11.253333rem /* 422/37.5 */;

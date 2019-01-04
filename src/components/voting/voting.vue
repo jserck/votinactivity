@@ -6,6 +6,8 @@
                :dialogOpations="dialogOpations"
                @isCloase="isShowDialog=false"
                @dialogListenEvent="dialogListenEvent"
+               @voteNumChange3="voteNumChange3"
+               @goRule2="goRule2"
           ></Dialog>
           <header>
                <section class="g-video-container">
@@ -33,18 +35,14 @@
                               ></span>
                               <span class="u-vote-num">{{item.ticketCount}}票</span>
                               <section class="g-btn">
-                                   <Btn
-                                        btnText="投票"
-                                        eventName="btnClickHandler"
-                                        @btnClickHandler="doVotingHandler"
-                                   ></Btn>
+                                   <span class="u-btn" @click="doVotingHandler(item['starId'])">投票</span>
                               </section>
                          </li>
                     </ul>
                </section>
           </section>
           <!-- 我的选票 -->
-          <section class="g-myVote">
+          <section class="g-myVote" id="rule">
                <section class="u-myVote-tit">
                     <span>我的选票</span>
                </section>
@@ -61,7 +59,7 @@
                               >
                                    <span>{{index !==2?item.name:`分享获得选票 今日还有${shareCount}次机会`}}</span>
                                    <section class="u-myVote-btn">
-                                        <x-button mini>{{item.btn}}</x-button>
+                                        <span class="g-btn">{{item.btn}}</span>
                                    </section>
                               </li>
                          </ul>
@@ -94,30 +92,33 @@
      </section>
 </template>
 <script>
-import { XInput, Scroller, XButton } from 'vux'
+import { Scroller } from 'vux'
 import StarBook from '../common/starbook.vue'
 import scroll from '../../assets/js/href.js'
+import { setTimeout } from 'timers'
 
 export default {
      components: {
-          XInput, Scroller, XButton,
+          Scroller,
           StarBook: () => import('../common/starbook.vue'),
           BookItem: () => import('../common/bookitem.vue'),
-          Btn: () => import('../common/btn.vue'),
           Dialog: () => import('../common/dialog.vue'),
      },
      data() {
           return {
-               dialogOpations: {
 
-               },
                myVoteData: {
                     userTicketCount: null
-               },
-               starSoltData: [],
-               dialogType: 0,
-               isShowDialog: false,
+               },//我的投票纪录
+               starSoltData: [],//明星排序数据
+               dialogOpations: {},//传递给dialog的数据
+               dialogType: 0,//dialog内容类型
+               isShowDialog: false,//dialog显示隐藏
                isFollow: false,
+               isCanVote: false,
+               starId: 0,//记录当前投票明星ID
+               nums: 0,//监听投票数
+               isFirst: false,//当天是否首次进入
                myvotelist: [
                     {
                          name: '关注小程序可得 1 张选票',
@@ -138,13 +139,30 @@ export default {
      },
      computed: {
           userTicketCount() {
-               return this.myVoteData['userTicketCount']
+               return this.myVoteData['userTicketCount'] || 0
           },
           shareCount() {
-               return this.myVoteData['shareCount']
+               return this.myVoteData['shareCount'] || 0
           }
      },
      methods: {
+          voteInit() {
+               this.getTicket(2)//签到
+               this.getStarSolt()//明星排序
+               this.getMyVote()//我的选票
+          },
+          voteNumChange3(val) {
+               /**
+                * @name 监听投票数
+               */
+               this.nums = val
+          },
+          goRule2() {
+               /**
+                 * @name 去做任务按钮事件监听
+                */
+               this.dialogShow(5, false)
+          },
           getStarSolt() {
                /**
                 * @name 获取明星排名列表接口
@@ -163,7 +181,6 @@ export default {
                          this.starSoltData = res.data.data.starList
                     }
                }).catch((err) => { })
-
           },
           getMyVote() {
                /**
@@ -182,14 +199,86 @@ export default {
                this.$http(options).then((res) => {
                     if (res.data.code === 200) {
                          this.myVoteData = res.data.data
-                         if (res.data.data.bookId) {
+                         this.isCanVote = res.data.data.userTicketCount > 0
+                         this.isFirst = res.data.data.isFirst
+                         if (this.isFirst) {
+                              this.saveBooks(1)
+                         }
+                    }
+               }).catch((err) => { })
+
+          },
+          saveBooks(type) {
+               /**
+                * @name 发书
+                * @method post
+                * @param userId 用户ID
+                * @param type 操作类型(1:第一次登陆，2，投票)
+               */
+               let options = {
+                    urls: '/user/getBook/1/1',
+                    data: {},
+                    methods: 'post',
+                    types: 1,
+                    des: false,
+               }
+               this.$http(options).then((res) => {
+                    if (res.data.code === 200) {
+                         if (type === 1) {
                               this.dialogShow(1, true, {
                                    bookId: res.data.data.bookId,
-                                   bookPicUrl: res.data.data.bookPicUrl,
-                                   bookName: res.data.data.bookName,
+                                   bookPicUrl: res.data.data.img,
+                                   bookName: res.data.data.name,
                                    bookWebUrl: res.data.data.bookWebUrl
                               });
                          }
+                    }
+               }).catch((err) => { })
+          },
+          getTicket(type) {
+               /**
+                * @name 签到/分享/关注
+                * @method post
+                * @param userId 用户ID
+                * @param type 操作类型(1:关注；2：签到；3：分享)
+                */
+               let options = {
+                    urls: '/user/getTicket/1/1',
+                    data: {},
+                    methods: 'post',
+                    types: 1,
+                    des: false
+               }
+               this.$http(options).then((res) => {
+                    if (res.data.code === 200) {
+
+                    }
+               }).catch((err) => { })
+
+          },
+          setVote() {
+               /**
+                * @name 投票
+                * @method post
+                * @param userId 用户ID
+                * @param starId 明星ID
+                * @param nums   投票数量
+                */
+               let options = {
+                    urls: '/user/vote',
+                    data: {
+                         userId: 1,
+                         starId: this.starId,
+                         nums: this.nums
+                    },
+                    methods: 'post',
+                    types: 1,
+                    des: false,
+                    responseType: 1
+               }
+               this.$http(options).then((res) => {
+                    if (res.data.code === 200) {
+                         this.dialogShow(5, false);
                     }
                }).catch((err) => { })
 
@@ -198,6 +287,7 @@ export default {
                /**
                 * @name 关注
                */
+               this.getTicket(1)
                this.dialogShow(4, true)
                // my.postMessage({
 
@@ -207,6 +297,7 @@ export default {
                /**
                 * @name 分享
                */
+               this.getTicket(3)
                my.postMessage({
 
                })
@@ -248,18 +339,39 @@ export default {
                /**
                 * dialog关闭事件处理
                 */
-               if (val === 4) {
-                    this.dialogShow(val, false);
-               } else if (val === 5) {
-                    console.log("投票了");
-               }
+               switch (val) {
+                    case 1:
+                         this.dialogShow(val, false);
+                         break;
 
+                    case 2:
+
+                         break;
+
+                    case 3:
+
+                         break;
+
+                    case 4:
+                         this.dialogShow(val, false);
+                         break;
+
+                    case 5:
+                         this.setVote()
+                         break;
+
+                    default:
+                         break;
+               }
           },
-          doVotingHandler() {
+          doVotingHandler(starId) {
                /**
                * 投票
                */
-               this.dialogShow(5, true);
+               this.starId = starId;
+               this.dialogShow(5, true, {
+                    isCanVote: this.isCanVote
+               });
           },
 
           ruleHandler() {
@@ -294,14 +406,11 @@ export default {
           }
      },
      created() {
-          this.sugnInHandler()
-          this.getStarSolt()
-          this.getMyVote()
+          this.voteInit()
      }
 }
 </script>
 <style scoped lang="scss">
-@import "../../assets/css/mixin.scss";
 .m-voting-template {
      header {
           .g-video-container {
@@ -398,6 +507,7 @@ export default {
                     font-family: PingFang SC;
                     border-radius: 0.106667rem /* 4/37.5 */;
                     line-height: 0.8rem /* 30/37.5 */;
+                    background: yellow;
                }
           }
      }
@@ -441,6 +551,19 @@ export default {
                          li {
                               padding: 0.293333rem /* 11/37.5 */ 0.346667rem
                                    /* 13/37.5 */;
+                              .u-myVote-btn {
+                                   .g-btn {
+                                        display: inline-block;
+                                        @include setFontSize(14px);
+                                        width: 2.4rem /* 90/37.5 */;
+                                        height: 0.8rem /* 30/37.5 */;
+                                        text-align: center;
+                                        font-family: PingFang SC;
+                                        border-radius: 0.106667rem /* 4/37.5 */;
+                                        line-height: 0.8rem /* 30/37.5 */;
+                                        background: yellow;
+                                   }
+                              }
                          }
                     }
                     .g-star-video {
@@ -538,19 +661,10 @@ export default {
 </style>
 
 <style lang="scss">
-@import "../../assets/css/mixin.scss";
-.u-myVote-btn {
-     .weui-btn {
-          @include setFontSize(13px);
-     }
-}
 .g-btn {
      .vux-number-input {
           @include setFontSize(14px);
           line-height: 0.533333rem /* 20/37.5 */;
-     }
-     .weui-btn {
-          @include setFontSize(15px);
      }
 }
 </style>

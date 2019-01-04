@@ -31,16 +31,12 @@
      </section>
 </template>
 <script>
-import { XInput, Scroller, XButton } from 'vux'
+import { Scroller } from 'vux'
 export default {
      components: {
-          XInput, Scroller, XButton,
+          Scroller,
           StarBook: () => import('../common/starbook.vue'),
-          BookItem: () => import('../common/bookitem.vue'),
-          //   Btn: () => import('../common/btn.vue'),
-          //   FirstIn: () => import('./firstin.vue'),
-          //   Attention: () => import('./attention.vue'),
-          //   Video: () => import('./video.vue')
+          BookItem: () => import('../common/bookitem.vue')
      },
      data() {
           return {
@@ -64,7 +60,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
 .m-voted {
      overflow: hidden;
      .g-star-bookList {

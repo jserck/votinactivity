@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/css/mixin.scss";
+;
 
 .g-video {
      overflow: hidden;
@@ -159,8 +159,6 @@ export default {
 }
 </style>
 <style lang="scss">
-@import "../../assets/css/mixin.scss";
-
 .video-js {
      font-size: 0.266667rem !important /* 10/37.5 */;
 }

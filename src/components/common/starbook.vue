@@ -45,7 +45,6 @@ export default {
                 * @method post
                 * @param starId
                */
-               this.$vux.loading.show()
                let options = {
                     urls: '/starBookInfo/10000',
                     data: {},
@@ -58,9 +57,7 @@ export default {
                     if (res.data.code === 200) {
                          this.starBookData = res.data.data.starList
                          this.indexNum = index
-                         console.log(this.starBookData);
                     }
-                    this.$vux.loading.hide()
 
                }).catch((err) => { })
           },
@@ -78,7 +75,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/css/mixin.scss";
 .u-star-tit {
      padding-left: 0.453333rem /* 17/37.5 */;
      color: rgba(16, 16, 16, 1);

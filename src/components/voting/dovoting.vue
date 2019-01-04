@@ -3,45 +3,53 @@
           <section v-if="RightToVote" class="g-doDoting">
                <p>选择投票的数量</p>
                <section class="g-doDoting-number">
-                    <inline-x-number :min="0" width="50px"></inline-x-number>
+                    <inline-x-number v-model="voteNum" @input="voteNumChange" :min="0" width="50px"></inline-x-number>
                </section>
                <section class="g-doDoting-btn">
-                    <Btn btnText="投票" eventName="votingHandler" @votingHandler="votingHandler"></Btn>
+                    <span class="g-btn" @click="votingHandler">投票</span>
                </section>
           </section>
           <section v-else class="g-noRightToVote">
                <p>您还没有投票权，快去做任务获取吧</p>
                <p>更有电子书免费领取哦~</p>
-               <span>去做任务</span>
+               <span v-scroll="`rule`" @click="goRule">去做任务</span>
           </section>
      </section>
 </template>
 <script>
 import { InlineXNumber } from 'vux'
+import Scroll from '../../assets/js/href.js'
 export default {
      props: ['RightToVote'],
      components: {
-          InlineXNumber,
-          Btn: () => import('../common/btn.vue')
+          InlineXNumber
      },
      data() {
           return {
-
+               voteNum: 1
           }
      },
      methods: {
           votingHandler() {
-
+               this.$emit('dialogComponentEvent', 5)
+          },
+          goRule() {
+               this.$emit('goRule1')
           },
           hideHandler() {
 
+          },
+          voteNumChange(val) {
+               /**
+                * @name 投票数变更
+               */
+               this.$emit('voteNumChange2', val)
           }
      }
 }
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/css/mixin.scss";
 .u-vote-btn {
      // margin: 0.373333rem /* 14/37.5 */ auto 0;
      // @include setFontSize(14px);
@@ -82,6 +90,18 @@ export default {
           width: 2.4rem /* 90/37.5 */;
           height: 0.8rem /* 30/37.5 */;
           margin: 1.066667rem /* 40/37.5 */ auto;
+          .g-btn {
+               display: inline-block;
+               margin: 0.373333rem /* 14/37.5 */ auto 0;
+               @include setFontSize(14px);
+               width: 2.4rem /* 90/37.5 */;
+               height: 0.8rem /* 30/37.5 */;
+               text-align: center;
+               font-family: PingFang SC;
+               border-radius: 0.106667rem /* 4/37.5 */;
+               line-height: 0.8rem /* 30/37.5 */;
+               background: yellow;
+          }
      }
 }
 </style>
