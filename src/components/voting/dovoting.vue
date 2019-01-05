@@ -6,13 +6,13 @@
                     <inline-x-number v-model="voteNum" @input="voteNumChange" :min="0" width="50px"></inline-x-number>
                </section>
                <section class="g-doDoting-btn">
-                    <span class="g-btn" @click="votingHandler">投票</span>
+                    <span class="g-btn" @click="dialogComponentEvent('dialogComponentEvent')">投票</span>
                </section>
           </section>
           <section v-else class="g-noRightToVote">
                <p>您还没有投票权，快去做任务获取吧</p>
                <p>更有电子书免费领取哦~</p>
-               <span v-scroll="`rule`" @click="goRule">去做任务</span>
+               <span v-scroll="`rule`" @click="dialogComponentEvent('goRule')">去做任务</span>
           </section>
      </section>
 </template>
@@ -30,11 +30,11 @@ export default {
           }
      },
      methods: {
-          votingHandler() {
-               this.$emit('dialogComponentEvent', 5)
-          },
-          goRule() {
-               this.$emit('goRule1')
+          dialogComponentEvent(eventType) {
+               this.$emit('dialogComponentEvent', {
+                    type: 5,
+                    eventType
+               })
           },
           hideHandler() {
 

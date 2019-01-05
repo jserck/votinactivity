@@ -117,8 +117,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-;
-
 .g-video {
      overflow: hidden;
      position: relative;

@@ -49,7 +49,9 @@ export default {
                 */
                let options = {
                     urls: '/user/myVoteInfo/1',
-                    data: {},
+                    data: {
+                         userId: this.userId,
+                    },
                     methods: 'post',
                     types: 1,
                     des: false
