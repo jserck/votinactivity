@@ -36,9 +36,9 @@ export default {
 
 <style lang="scss" scoped>
 .u-box-item {
-     width: 3.653333rem /* 137/37.5 */;
+     width: 100%;
      .u-book-img {
-          width: 3.653333rem /* 137/37.5 */;
+          width: 100%;
           height: 3.76rem /* 141/37.5 */;
           background: #101010;
      }

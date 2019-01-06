@@ -50,7 +50,10 @@
                 <span class="u-vote-btn" v-scroll="'scroll'">立即投票</span>
                 <section class="g-vote-list">
                     <ul>
-                        <li v-if="!isFollow" class="displayFlex flexJustifybetween flexAlignItemsCenter">
+                        <li
+                            v-if="!isFollow"
+                            class="displayFlex flexJustifybetween flexAlignItemsCenter"
+                        >
                             <span>关注小程序可得 1 张选票</span>
                             <section class="u-myVote-btn">
                                 <span v-if="!isFollow" class="g-btn" @click="voteClick(1)">去关注</span>
@@ -82,23 +85,7 @@
         </section>
         <!-- 明星书单 -->
         <section class="g-star-bookList">
-            <StarBook @videoPlay="videoPlay">
-                <template slot-scope="{ indexNum,starBookData }">
-                    <section class="g-scroll-book">
-                        <scroller lock-y :scrollbar-x="false">
-                            <section class="g-scroll-book-box displayFlex">
-                                <section
-                                    class="g-box-item"
-                                    v-for="(item,index) in starBookData"
-                                    :key="index"
-                                >
-                                    <BookItem :indexNum="indexNum" :obj="item"></BookItem>
-                                </section>
-                            </section>
-                        </scroller>
-                    </section>
-                </template>
-            </StarBook>
+            <StarBook @videoPlay="videoPlay" @starBookClick="starBookClick"></StarBook>
         </section>
         <footer>
             <section class="u-look-book">查看详细的书单</section>
@@ -106,21 +93,17 @@
     </section>
 </template>
 <script>
-import { Scroller } from 'vux'
 import StarBook from '../common/starbook.vue'
 import scroll from '../../assets/js/href.js'
 import { setTimeout } from 'timers'
 
 export default {
     components: {
-        Scroller,
         StarBook: () => import('../common/starbook.vue'),
-        BookItem: () => import('../common/bookitem.vue'),
         Dialog: () => import('../common/dialog.vue'),
     },
     data() {
         return {
-
             myVoteData: {
                 userTicketCount: null
             },//我的投票纪录
@@ -489,9 +472,7 @@ export default {
             /**
              * 视频播放
             */
-            this.$vux.loading.show()
             setTimeout(() => {
-                this.$vux.loading.hide()
                 this.dialogShow(6, true);
             }, 1000)
         },
@@ -681,7 +662,6 @@ export default {
             margin-top: 0.266667rem /* 10/37.5 */;
             .g-scroll-star-box {
                 padding: 0.133333rem /* 5/37.5 */ 0.32rem /* 12/37.5 */;
-                width: 13.44rem /* 504/37.5 */;
                 .u-box-item {
                     margin-left: 0.48rem /* 18/37.5 */;
                     width: 1.76rem /* 66/37.5 */;
@@ -752,15 +732,6 @@ export default {
             border: 1px solid rgba(187, 187, 187, 1);
             line-height: 0.8rem /* 30/37.5 */;
         }
-    }
-}
-</style>
-
-<style lang="scss">
-.g-btn {
-    .vux-number-input {
-        @include setFontSize(14px);
-        line-height: 0.533333rem /* 20/37.5 */;
     }
 }
 </style>

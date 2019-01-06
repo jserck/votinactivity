@@ -3,7 +3,7 @@
           <section v-if="RightToVote" class="g-doDoting">
                <p>选择投票的数量</p>
                <section class="g-doDoting-number">
-                    <inline-x-number v-model="voteNum" @input="voteNumChange" :min="0" width="50px"></inline-x-number>
+                   <x-number @voteNumChange="voteNumChange"></x-number>
                </section>
                <section class="g-doDoting-btn">
                     <span class="g-btn" @click="dialogComponentEvent('dialogComponentEvent')">投票</span>
@@ -17,12 +17,11 @@
      </section>
 </template>
 <script>
-import { InlineXNumber } from 'vux'
 import Scroll from '../../assets/js/href.js'
 export default {
      props: ['RightToVote'],
      components: {
-          InlineXNumber
+          XNumber:()=>import('../common/number.vue')
      },
      data() {
           return {
