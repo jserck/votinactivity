@@ -50,7 +50,7 @@
                 <span class="u-vote-btn" v-scroll="'scroll'">立即投票</span>
                 <section class="g-vote-list">
                     <ul>
-                        <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
+                        <li v-if="!isFollow" class="displayFlex flexJustifybetween flexAlignItemsCenter">
                             <span>关注小程序可得 1 张选票</span>
                             <section class="u-myVote-btn">
                                 <span v-if="!isFollow" class="g-btn" @click="voteClick(1)">去关注</span>
