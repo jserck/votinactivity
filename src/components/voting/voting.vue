@@ -7,7 +7,6 @@
             @isCloase="isShowDialog=false"
             @dialogListenEvent="dialogListenEvent"
             @voteNumChange3="voteNumChange3"
-            @goRule2="goRule2"
         ></Dialog>
         <header>
             <section class="g-video-container">
@@ -26,7 +25,7 @@
             </section>
             <section class="g-vote-list">
                 <ul class="displayFlex flexWrap flexJustifybetween">
-                    <li v-for="(item,index) in starSoltData" :key="index">
+                    <li v-for="(item,index) in starSoltData2" :key="index">
                         <span
                             class="u-img"
                             :style="`background:url(${item.starPicUrl});
@@ -51,15 +50,30 @@
                 <span class="u-vote-btn" v-scroll="'scroll'">立即投票</span>
                 <section class="g-vote-list">
                     <ul>
-                        <li
-                            v-for="(item,index) in myvotelist"
-                            :key="index"
-                            class="displayFlex flexJustifybetween flexAlignItemsCenter"
-                            @click="voteClick(index+1)"
-                        >
-                            <span>{{index !==2?item.name:`分享获得选票 今日还有${shareCount}次机会`}}</span>
+                        <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
+                            <span>关注小程序可得 1 张选票</span>
                             <section class="u-myVote-btn">
-                                <span class="g-btn">{{item.btn}}</span>
+                                <span v-if="!isFollow" class="g-btn" @click="voteClick(1)">去关注</span>
+                                <span v-else class="g-btn" style="background:#e7e7e7">已关注</span>
+                            </section>
+                        </li>
+                        <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
+                            <span>每日签到获得 1 张选票</span>
+                            <section class="u-myVote-btn">
+                                <span v-if="!isSignIn" class="g-btn" @click="voteClick(2)">去签到</span>
+                                <span v-else class="g-btn" style="background:#e7e7e7">已签到</span>
+                            </section>
+                        </li>
+                        <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
+                            <span>分享获得选票 今日还有{{shareCount}}次机会</span>
+                            <section class="u-myVote-btn">
+                                <span class="g-btn" @click="voteClick(3)">去分享</span>
+                            </section>
+                        </li>
+                        <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
+                            <span>阅读已购电子书得 1 张选票</span>
+                            <section class="u-myVote-btn">
+                                <span class="g-btn" @click="voteClick(4)">去阅读</span>
                             </section>
                         </li>
                     </ul>
@@ -106,15 +120,19 @@ export default {
     },
     data() {
         return {
+
             myVoteData: {
                 userTicketCount: null
             },//我的投票纪录
+            userId: this.$route.query.userId || 1,
             starSoltData: [],//明星排序数据
             dialogOpations: {},//传递给dialog的数据
             dialogType: 0,//dialog内容类型
             isShowDialog: false,//dialog显示隐藏
-            isFollow: false,
-            isCanVote: false,
+            isFollow: this.$route.query.isFollow || false,//是否关注
+            isclosefollow: false,
+            isSignIn: this.$route.query.isSignIn || false,//是否签到
+            isCanVote: false,//是否可以投票
             starId: 0,//记录当前投票明星ID
             nums: 0,//监听投票数
             isFirst: false,//当天是否首次进入
@@ -136,17 +154,22 @@ export default {
             ]
         }
     },
+    created() {
+        this.voteInit()
+    },
     computed: {
         userTicketCount() {
             return this.myVoteData['userTicketCount'] || 0
         },
         shareCount() {
             return this.myVoteData['shareCount'] || 0
+        },
+        starSoltData2() {
+            return this.starSoltData
         }
     },
     methods: {
         voteInit() {
-            this.getTicket(2)//签到
             this.getStarSolt()//明星排序
             this.getMyVote()//我的选票
         },
@@ -156,12 +179,7 @@ export default {
             */
             this.nums = val
         },
-        goRule2() {
-            /**
-              * @name 去做任务按钮事件监听
-             */
-            this.dialogShow(5, false)
-        },
+
         getStarSolt() {
             /**
              * @name 获取明星排名列表接口
@@ -190,7 +208,10 @@ export default {
              */
             let options = {
                 urls: '/user/myInfo/1/1',
-                data: {},
+                data: {
+                    userId: this.userId,
+                    isFollow: this.isFollow
+                },
                 methods: 'post',
                 types: 1,
                 des: false
@@ -200,6 +221,8 @@ export default {
                     this.myVoteData = res.data.data
                     this.isCanVote = res.data.data.userTicketCount > 0
                     this.isFirst = res.data.data.isFirst
+                    this.isFollow = (res.data.data.isFollow == 1)
+                    this.isSignIn = (res.data.data.isSignIn == 1)
                     if (this.isFirst) {
                         this.saveBooks(1)
                     }
@@ -216,7 +239,10 @@ export default {
             */
             let options = {
                 urls: '/user/getBook/1/1',
-                data: {},
+                data: {
+                    userId: this.userId,
+                    type
+                },
                 methods: 'post',
                 types: 1,
                 des: false,
@@ -225,10 +251,22 @@ export default {
                 if (res.data.code === 200) {
                     if (type === 1) {
                         this.dialogShow(1, true, {
+                            type,
                             bookId: res.data.data.bookId,
                             bookPicUrl: res.data.data.img,
                             bookName: res.data.data.name,
-                            bookWebUrl: res.data.data.bookWebUrl
+                            bookWebUrl: res.data.data.bookWebUrl,
+                            isSignIn: this.isSignIn
+                        });
+                    } else {
+                        this.dialogShow(1, true, {
+                            type,
+                            bookId: res.data.data.bookId,
+                            bookPicUrl: res.data.data.img,
+                            bookName: res.data.data.name,
+                            bookWebUrl: res.data.data.bookWebUrl,
+                            nums: this.nums,
+                            userTicketCount: this.userTicketCount
                         });
                     }
                 }
@@ -243,14 +281,23 @@ export default {
              */
             let options = {
                 urls: '/user/getTicket/1/1',
-                data: {},
+                data: {
+                    userId: this.userId,
+                    type
+                },
                 methods: 'post',
                 types: 1,
                 des: false
             }
             this.$http(options).then((res) => {
                 if (res.data.code === 200) {
-
+                    this.userTicketCountChange(1)
+                    if (type === 1) {
+                        this.isFollow = true
+                    }
+                    if (type === 2) {
+                        this.isSignIn = true
+                    }
                 }
             }).catch((err) => { })
 
@@ -266,7 +313,7 @@ export default {
             let options = {
                 urls: '/user/vote',
                 data: {
-                    userId: 1,
+                    userId: this.userId,
                     starId: this.starId,
                     nums: this.nums
                 },
@@ -276,35 +323,65 @@ export default {
                 responseType: 1
             }
             this.$http(options).then((res) => {
+                this.userTicketCountChange(0)
                 if (res.data.code === 200) {
-                    this.dialogShow(5, false);
+                    this.isShowDialog = false
+                    this.saveBooks()
+                } else {
+                    this.dialogShow(8, true, { nums: this.nums })
                 }
             }).catch((err) => { })
 
+        },
+        // this.myVoteData['userTicketCount']
+        userTicketCountChange(type) {
+            /**
+             * @name 当前用户拥有选票的数量变更
+             * @param type(1：票数自增，0：票数自减)
+            */
+            let num = this.myVoteData['userTicketCount'];
+            if (type) {
+                num + this.nums
+            } else {
+                num - this.nums
+            }
         },
         attentionHandler() {
             /**
              * @name 关注
             */
-            this.getTicket(1)
-            this.dialogShow(4, true)
-            // my.postMessage({
-
-            // })
+            // this.getTicket(1)
+            // this.dialogShow(4, true)
+            // isf = this.attentionHandler ? 'unfollow' : 'follow'
+            my.postMessage({
+                action: 'follow',
+                data: {}
+            })
         },
         obshareHandler() {
             /**
              * @name 分享
             */
-            this.getTicket(3)
             my.postMessage({
-
+                action: 'share',
+                data: {
+                    title: '示例',
+                    desc: '官方示例Demo',
+                    content: '官方示例Demo，展示已支持的接口能力及组件。',
+                    path: '/voting',
+                    query: {
+                        a: 1
+                    },
+                    imageUrl: 'https://img.dz19.net/forum/201901/04/132545icn959e8xnqxebjn.jpg'
+                }
             })
+            // this.getTicket(3)
         },
         sugnInHandler() {
             /**
              * @name 签到
             */
+            this.getTicket(2)
         },
         readHandler() {
             /**
@@ -334,13 +411,15 @@ export default {
                 this.readHandler()
             }
         },
-        dialogListenEvent(val) {
+        dialogListenEvent(obj) {
             /**
              * dialog关闭事件处理
              */
-            switch (val) {
+            switch (obj.type) {
                 case 1:
-                    this.dialogShow(val, false);
+                    if (obj.eventType == 'dialogComponentEvent') {
+                        this.isShowDialog = false
+                    }
                     break;
 
                 case 2:
@@ -352,11 +431,32 @@ export default {
                     break;
 
                 case 4:
-                    this.dialogShow(val, false);
+                    if (obj.eventType == 'dialogComponentEvent') {
+                        this.isShowDialog = false
+                    }
                     break;
-
                 case 5:
-                    this.setVote()
+                    if (obj.eventType == 'dialogComponentEvent') {
+                        //投票
+                        this.setVote()
+                    }
+                    if (obj.eventType == 'goRule') {
+                        //做任务
+                        this.isShowDialog = false
+                    }
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+                    if (obj.eventType == 'dialogComponentEvent') {
+                        this.isShowDialog = false
+                    }
+                    break;
+                case 8:
+                    if (obj.eventType == 'dialogComponentEvent') {
+                        this.isShowDialog = false
+                    }
                     break;
 
                 default:
@@ -403,9 +503,6 @@ export default {
             this.isShowDialog = isShow;
             this.dialogType = type;
         }
-    },
-    created() {
-        this.voteInit()
     }
 }
 </script>

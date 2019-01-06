@@ -1,4 +1,3 @@
-
 import './assets/js/flexible'
 import './assets/js/flexible_css'
 import App from './App'
@@ -18,10 +17,12 @@ import {
 //   $layout: 'VIEW_BOX'
 // })
 Vue.use(LoadingPlugin)
-
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
 FastClick.attach(document.body)
+router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0);
+});
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

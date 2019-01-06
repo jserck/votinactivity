@@ -1,11 +1,8 @@
 <template>
      <section>
           <section class="g-attention">
-               <p>感谢您关注天猫读书小程序</p>
-               <p class="u-text2">
-                    送您一张投票，可以投给喜欢的明星哦
-                    成功投票后可获取电子书一本！
-               </p>
+               <p>今日签到成功</p>
+               <p class="u-text2">恭喜您获得一次点赞权！</p>
                <section class="u-btn">
                     <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即投票</span>
                </section>
@@ -23,7 +20,7 @@ export default {
      methods: {
           hideHandler(eventType) {
                this.$emit('dialogComponentEvent', {
-                    type: 4,
+                    type: 7,
                     eventType
                })
           }

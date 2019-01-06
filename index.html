@@ -3,10 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="yes" name="apple-touch-fullscreen">
-    <meta content="telephone=no,email=no" name="format-detection" />
-    <meta content="maximum-dpr=2" name="flexible" />
+    <meta content="yes"
+          name="apple-mobile-web-app-capable">
+    <meta content="yes"
+          name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no"
+          name="format-detection" />
+    <meta content="maximum-dpr=1"
+          name="flexible" />
     <title>投票活动</title>
 
 </head>
@@ -16,8 +20,12 @@
 
     <script src="https://cdn.bootcss.com/vue/2.5.2/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+    <script>
+        if (/TB/.test(navigator.userAgent)) {
+            document.writeln('<script src="https://appx/web-view.min.js"' + '>' + '<' + '/' + 'script>');
+        }
+    </script>
     <!-- <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"></script> -->
-    <script src="https://appx/web-view.min.js" async></script>
 </body>
 
 </html>

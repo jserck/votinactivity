@@ -22,12 +22,20 @@
                               <DoVoting
                                    @dialogComponentEvent="dialogComponentEvent"
                                    @voteNumChange2="voteNumChange2"
-                                   @goRule1="goRule1"
                                    :RightToVote="dialogOpations.isCanVote"
                               ></DoVoting>
                          </li>
-                         <li v-else>
+                         <li v-else-if="dialogType===6">
                               <VideoPlay></VideoPlay>
+                         </li>
+                         <li v-else-if="dialogType===7">
+                              <SignIn @dialogComponentEvent="dialogComponentEvent"></SignIn>
+                         </li>
+                         <li v-else-if="dialogType===8">
+                              <noHaveBook
+                                   :dialogOpations="dialogOpations"
+                                   @dialogComponentEvent="dialogComponentEvent"
+                              ></noHaveBook>
                          </li>
                     </ul>
                </section>
@@ -45,7 +53,9 @@ export default {
           VoteHistory: () => import('../voting/votelist.vue'),
           Attention: () => import('../voting/attention.vue'),
           DoVoting: () => import('../voting/dovoting.vue'),
-          VideoPlay: () => import('../voting/video.vue')
+          VideoPlay: () => import('../voting/video.vue'),
+          SignIn: () => import('../voting/signin.vue'),
+          noHaveBook: () => import('../voting/nohavebook.vue')
      },
      data() {
           return {
@@ -56,15 +66,12 @@ export default {
           hideHandler() {
                this.$emit('isCloase')
           },
-          dialogComponentEvent(val) {
-               this.$emit('dialogListenEvent', val)
+          dialogComponentEvent(obj) {
+               this.$emit('dialogListenEvent', obj)
           },
           voteNumChange2(val) {
                this.$emit('voteNumChange3', val)
           },
-          goRule1() {
-               this.$emit('goRule2')
-          }
      },
      created() {
 

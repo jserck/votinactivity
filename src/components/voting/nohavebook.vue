@@ -1,13 +1,10 @@
 <template>
      <section>
           <section class="g-attention">
-               <p>感谢您关注天猫读书小程序</p>
-               <p class="u-text2">
-                    送您一张投票，可以投给喜欢的明星哦
-                    成功投票后可获取电子书一本！
-               </p>
+               <p>成功助力{{dialogOpations.nums}}票！</p>
+               <p class="u-text2">继续点赞有机会免费领取电子书哦~</p>
                <section class="u-btn">
-                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即投票</span>
+                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">继续投票</span>
                </section>
           </section>
      </section>
@@ -15,6 +12,7 @@
 <script>
 import scroll from '../../assets/js/href.js'
 export default {
+     props: ['dialogOpations'],
      data() {
           return {
 
@@ -23,7 +21,7 @@ export default {
      methods: {
           hideHandler(eventType) {
                this.$emit('dialogComponentEvent', {
-                    type: 4,
+                    type: 8,
                     eventType
                })
           }

@@ -7,10 +7,10 @@
                <scroller lock-y :scrollbar-x="false">
                     <section class="g-scroll-star-box displayFlex">
                          <section
-                              :class="indexNum == i ? 'u-box-item-active':'u-box-item-link'"
+                              :class="indexNum == `1000${i-1}` ? 'u-box-item-active':'u-box-item-link'"
                               v-for="i in 6"
                               :key="i"
-                              @click="starChange(i)"
+                              @click="starChange(i-1)"
                          >
                               <span class="u-box-item-img"></span>
                               <span class="u-box-item-name">名字</span>
@@ -46,7 +46,7 @@ export default {
                 * @param starId
                */
                let options = {
-                    urls: '/starBookInfo/10000',
+                    urls: `/starBookInfo/${index}`,
                     data: {},
                     methods: 'post',
                     types: 1,
@@ -65,11 +65,11 @@ export default {
                this.$emit('videoPlay', '1')
           },
           starChange(index) {
-               this.getStarBook(index)
+               this.getStarBook(`1000${index}`)
           }
      },
      created() {
-          this.getStarBook(1);
+          this.getStarBook('10000');
      }
 }
 </script>
