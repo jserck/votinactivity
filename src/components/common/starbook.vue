@@ -23,20 +23,6 @@
             <section class="g-star-recommend"></section>
             <book-list v-if="isBookList&&starBookData.length>0" :starBookData="starBookData"></book-list>
         </section>
-
-        <!-- <section class="g-scroll-book">
-                        <scroller lock-y :scrollbar-x="false">
-                            <section class="g-scroll-book-box displayFlex">
-                                <section
-                                    class="g-box-item"
-                                    v-for="(item,index) in starBookData"
-                                    :key="index"
-                                >
-                                    <BookItem :indexNum="indexNum" :obj="item"></BookItem>
-                                </section>
-                            </section>
-                        </scroller>
-        </section>-->
     </section>
 </template>
 <script>
