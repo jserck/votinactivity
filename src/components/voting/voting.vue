@@ -10,31 +10,37 @@
           ></Dialog>
           <header>
                <section class="g-video-container">
-                    <i class="u-rule" @click="ruleHandler">规则</i>
-                    <h3>活动标题</h3>
-                    <span>2019.01.18—2019.02.10</span>
+                    <section class="u-rule" @click="ruleHandler">
+                         <section class="u-text">活动规则</section>
+                         <img src="/static/images/right@2x.png" alt>
+                    </section>
                     <section class="g-video-banner" @click="videoPlay">
-                         <span class="u-video-icon"></span>
+                         <!-- <span class="u-video-icon"></span> -->
                     </section>
                </section>
           </header>
           <!-- 投票记录 -->
           <section class="g-myVoteCon" id="scroll">
+               <section class="g-vote-msg">
+                    <span>已有13465人次一起读书，领读官已送出2689本书</span>
+               </section>
                <section class="u-myVoteCon-link clearfix" @click="myVoteCon">
-                    <span class="u-myVoteCon-text">我的投票记录 ></span>
+                    <span class="u-myVoteCon-text"></span>
                </section>
                <section class="g-vote-list">
                     <ul class="displayFlex flexWrap flexJustifybetween">
                          <li v-for="(item,index) in starSoltData2" :key="index">
-                              <span
-                                   class="u-img"
-                                   :style="`background:url(${item.starPicUrl});
+                              <section class="g-vote-li">
+                                   <span
+                                        class="u-img"
+                                        :style="`background:url(${item.starPicUrl});
                                             backgroundRepeat:no-repeat;
                                             backgroundSize:cover`"
-                              ></span>
-                              <span class="u-vote-num">{{item.ticketCount}}票</span>
-                              <section class="g-btn">
-                                   <span class="u-btn" @click="doVotingHandler(item['starId'])">投票</span>
+                                   ></span>
+                                   <span class="u-vote-num">{{item.name}}</span>
+                              </section>
+                              <section class="g-btn" @click="doVotingHandler(item['starId'])">
+                                   <span class="u-nums">{{item.ticketCount}}点赞能量</span>
                               </section>
                          </li>
                     </ul>
@@ -42,50 +48,78 @@
           </section>
           <!-- 我的选票 -->
           <section class="g-myVote" id="rule">
-               <section class="u-myVote-tit">
-                    <span>我的选票</span>
+               <section class="u-myVote-tit diaplayFlex">
+                    <span></span>
                </section>
                <section class="g-vote-context">
-                    <p class="u-vote-count">当前拥有{{userTicketCount}}张选票</p>
-                    <span class="u-vote-btn" v-scroll="'scroll'">立即投票</span>
+                    <section class="u-vote-count">
+                         <p>当前</p>
+                         <p>能量值</p>
+                         <p>{{userTicketCount}}</p>
+                    </section>
+                    <!-- <span class="u-vote-btn" v-scroll="'scroll'">立即投票</span> -->
                     <section class="g-vote-list">
                          <ul>
                               <li
                                    v-if="!isFollow"
                                    class="displayFlex flexJustifybetween flexAlignItemsCenter"
                               >
-                                   <span>关注小程序可得 1 张选票</span>
-                                   <section class="u-myVote-btn">
-                                        <span
-                                             v-if="!isFollow"
-                                             class="g-btn"
-                                             @click="voteClick(1)"
-                                        >去关注</span>
-                                        <span v-else class="g-btn" style="background:#e7e7e7">已关注</span>
-                                   </section>
+                                   <span
+                                        class="displayFlex flexJustifybetween flexAlignItemsCenter"
+                                   >
+                                        <span class="u-icon1"></span>
+                                        <span class="u-text">关注小程序获得1能量</span>
+                                   </span>
+                                   <i class="u-line-link"></i>
+                                   <!-- <span class="u-myVote-btn"> -->
+                                   <span v-if="!isFollow" class="g-btn" @click="voteClick(1)">去关注</span>
+                                   <span
+                                        v-else
+                                        class="g-btn"
+                                        style="background:#C85657;color:#fff"
+                                   >已关注</span>
+                                   <!-- </span> -->
                               </li>
                               <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
-                                   <span>每日签到获得 1 张选票</span>
-                                   <section class="u-myVote-btn">
-                                        <span
-                                             v-if="!isSignIn"
-                                             class="g-btn"
-                                             @click="voteClick(2)"
-                                        >去签到</span>
-                                        <span v-else class="g-btn" style="background:#e7e7e7">已签到</span>
-                                   </section>
+                                   <span
+                                        class="displayFlex flexJustifybetween flexAlignItemsCenter"
+                                   >
+                                        <span class="u-icon2"></span>
+                                        <span class="u-text">每日签到获得1能量</span>
+                                   </span>
+                                   <i class="u-line-link"></i>
+                                   <!-- <span> -->
+                                   <span v-if="!isSignIn" class="g-btn" @click="voteClick(2)">去签到</span>
+                                   <span
+                                        v-else
+                                        class="g-btn"
+                                        style="background:#C85657;color:#fff"
+                                   >已签到</span>
+                                   <!-- </span> -->
                               </li>
                               <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
-                                   <span>分享获得选票 今日还有{{shareCount}}次机会</span>
-                                   <section class="u-myVote-btn">
-                                        <span class="g-btn" @click="voteClick(3)">去分享</span>
-                                   </section>
+                                   <span
+                                        class="displayFlex flexJustifybetween flexAlignItemsCenter"
+                                   >
+                                        <span class="u-icon4"></span>
+                                        <span class="u-text">每阅读1本书获得1能量</span>
+                                   </span>
+                                   <i class="u-line-link"></i>
+                                   <!-- <span class="u-myVote-btn"> -->
+                                   <span class="g-btn" @click="voteClick(4)">去阅读</span>
+                                   <!-- </span> -->
                               </li>
                               <li class="displayFlex flexJustifybetween flexAlignItemsCenter">
-                                   <span>阅读已购电子书得 1 张选票</span>
-                                   <section class="u-myVote-btn">
-                                        <span class="g-btn" @click="voteClick(4)">去阅读</span>
-                                   </section>
+                                   <span
+                                        class="displayFlex flexJustifybetween flexAlignItemsCenter"
+                                   >
+                                        <span class="u-icon3"></span>
+                                        <span class="u-text">分享获得能量 今日还有{{shareCount}}次机会</span>
+                                   </span>
+                                   <i class="u-line-link"></i>
+                                   <!-- <span class="u-myVote-btn"> -->
+                                   <span class="g-btn" @click="voteClick(3)">去分享</span>
+                                   <!-- </span> -->
                               </li>
                          </ul>
                     </section>
@@ -95,9 +129,6 @@
           <section class="g-star-bookList">
                <StarBook @videoPlay="videoPlay" @starBookClick="starBookClick"></StarBook>
           </section>
-          <footer>
-               <section class="u-look-book">查看详细的书单</section>
-          </footer>
      </section>
 </template>
 <script>
@@ -497,248 +528,270 @@ export default {
 </script>
 <style scoped lang="scss">
 .m-voting-template {
+     width: 7.5rem;
+     height: 32.51rem;
+     margin: auto;
+     @include background("/static/images/bg.jpg");
      header {
           .g-video-container {
                overflow: hidden;
                position: relative;
                text-align: center;
-               h3 {
-                    margin-top: 0.533333rem; /* 20/37.5 */
-                    @include setFontSize(16px);
-                    display: block;
-                    font-weight: normal;
-                    font-family: "PingFangSC-regular";
-                    color: #101010;
-               }
-               span {
-                    display: inline-block;
-                    margin-top: 0.266667rem; /* 10/37.5 */
-                    @include setFontSize(14px);
-                    font-weight: normal;
-                    font-family: "PingFangSC-regular";
-                    color: #101010;
-               }
                .u-rule {
                     position: absolute;
-                    padding: 0.08rem 0.48rem /* 18/37.5 */;
+                    padding: 0.16rem 0.17rem;
                     display: inline-block;
-                    top: 1.52rem /* 57/37.5 */;
-                    right: 0;
-                    background: #f6f6f6;
+                    top: 0.2rem;
+                    right: 0.15rem;
+                    background: #8200a1;
                     color: #1f2028;
-                    @include setFontSize(14px);
+                    font-size: 0.22rem;
                     text-align: center;
+                    z-index: 999;
+                    font-family: FZLTHK--GBK1-0;
+                    font-weight: 400;
+                    color: rgba(255, 255, 255, 1);
+                    border-radius: 0.1rem;
+                    .u-text {
+                         line-height: 0.288rem;
+                         display: inline-block;
+                         vertical-align: middle;
+                    }
+                    img {
+                         text-align: center;
+                         margin-left: 0.07rem;
+                         display: inline-block;
+                         vertical-align: middle;
+                         width: 0.11rem;
+                    }
                }
                .g-video-banner {
                     position: relative;
-                    margin: 0.8rem /* 30/37.5 */ auto;
-                    width: 8.48rem; /* 318/75 */
-                    height: 4.533333rem /* 170/37.5 */;
-                    background: #101010;
-                    border-radius: 0.186667rem /* 7/37.5 */;
+                    margin: 4.02rem auto 0;
+                    width: 3.18rem;
+                    height: 1.7rem;
+                    // background: #101010;
+                    border-radius: 0.07rem;
                     .u-video-icon {
                          position: absolute;
                          left: 50%;
-                         margin-left: -0.373333rem /* 14/37.5 */;
+                         margin-left: -0.14rem;
                          top: 50%;
-                         margin-top: -0.373333rem /* 14/37.5 */;
-                         width: 0.746667rem /* 28/37.5 */;
-                         height: 0.746667rem /* 28/37.5 */;
+                         margin-top: -0.14rem;
+                         width: 0.28rem;
+                         height: 0.28rem;
                          background: #fff;
-                         border-radius: 0.373333rem /* 14/37.5 */;
+                         border-radius: 0.14rem;
                     }
                }
           }
      }
      .g-myVoteCon {
+          .g-vote-msg {
+               padding: 0.24rem 0;
+               width: 6.6rem;
+               height: 0.76rem;
+               line-height: 0.76rem;
+               margin: 0.25rem auto 0;
+               text-align: center;
+               color: #ffd8a1;
+               font-size: 0.22rem;
+               font-family: FZLTHK--GBK1-0;
+               @include background("/static/images/tit@2x.png");
+          }
           .u-myVoteCon-link {
                position: relative;
+               margin: 0 auto 0.11rem;
                .u-myVoteCon-text {
-                    margin-right: 0.346667rem /* 13/37.5 */;
+                    width: 1.96rem;
+                    height: 0.36rem;
+                    margin-right: 0.13rem;
                     display: inline-block;
                     float: right;
-                    @include setFontSize(14px);
-                    font-family: "PingFangSC-regular";
-                    color: #101010;
+                    @include background("/static/images/myvotehistory@2x.png");
                }
           }
           .g-vote-list {
                ul {
-                    padding: 0 0.213333rem /* 8/37.5 */;
+                    padding: 0 0.47rem 0 0.69rem;
                     li {
-                         margin-top: 0.8rem /* 30/37.5 */;
+                         .g-vote-li {
+                              overflow: hidden;
+                              width: 1.86rem;
+                              height: 2.58rem;
+                              // background:#FFE5D4;
+                              @include background(
+                                   "/static/images/starvote@2x.png"
+                              );
+                         }
                          span {
                               display: block;
                          }
                          .u-img {
-                              width: 2.8rem /* 105/37.5 */;
-                              height: 2.96rem /* 111/37.5 */;
+                              margin: 0.3rem auto 0;
+                              width: 1.05rem;
+                              height: 1.11rem;
                               background: #101010;
-                              border-radius: 0.213333rem /* 8/37.5 */;
+                              border-radius: 0.08rem;
                          }
                          .u-vote-num {
-                              margin-top: 0.266667rem /* 10/37.5 */;
-                              @include setFontSize(14px);
+                              margin-top: 0.1rem;
+                              font-size: 0.14rem;
                               text-align: center;
                          }
                     }
                }
                .g-btn {
-                    margin: 0.373333rem /* 14/37.5 */ auto 0;
-                    @include setFontSize(14px);
-                    width: 2.4rem /* 90/37.5 */;
-                    height: 0.8rem /* 30/37.5 */;
+                    margin: 0.17rem auto 0.21rem;
+                    font-size: 0.14rem;
+                    width: 1.7rem;
+                    height: 0.69rem;
                     text-align: center;
                     font-family: PingFang SC;
-                    border-radius: 0.106667rem /* 4/37.5 */;
-                    line-height: 0.8rem /* 30/37.5 */;
-                    background: yellow;
+                    border-radius: 0.04rem;
+                    line-height: 0.3rem;
+                    @include background("/static/images/addvote@2x.png");
+                    .u-nums {
+                         padding-left: 0.25rem;
+                         color: #ffe2c3;
+                         font-size: 0.17rem;
+                         font-family: FZLTCHJW--GB1-0;
+                         font-style: italic;
+                         line-height: 0.23rem;
+                    }
                }
           }
      }
      .g-myVote {
-          margin: 0.586667rem /* 22/37.5 */ auto;
+          position: relative;
+          margin: 0.22rem auto;
           .u-myVote-tit {
-               padding-left: 0.453333rem /* 17/37.5 */;
-               color: rgba(16, 16, 16, 1);
-               @include setFontSize(18px);
-               font-family: PingFangSC-regular;
-               line-height: 0.666667rem /* 25/37.5 */;
+               margin-top: 1.13rem;
+               span {
+                    margin: auto;
+                    display: block;
+                    width: 4.15rem;
+                    height: 0.7rem;
+                    @include background("/static/images/myvotenum@2x.png");
+               }
           }
           .g-vote-context {
-               margin: 0.213333rem /* 8/37.5 */ auto 0;
+               margin: 0.08rem auto 0;
                overflow: hidden;
-               width: 9.333333rem /* 350/37.5 */;
+               width: 6.37rem;
                background: #f7f7f7;
-               border-radius: 0.266667rem /* 10/37.5 */;
+               border-radius: 0.1rem;
+               @include background("/static/images/votecontext@2x.png");
                .u-vote-count {
-                    margin-top: 0.986667rem /* 37/37.5 */;
-                    text-align: center;
-                    color: rgba(16, 16, 16, 1);
-                    @include setFontSize(14px);
-                    font-family: PingFangSC-regular;
+                    padding-top: 0.2rem;
+                    position: absolute;
+                    right: 0.31rem;
+                    top: -1.12rem;
+                    width: 1.09rem;
+                    height: 1.08rem;
+                    @include background("/static/images/havevote@2x.png");
+                    p {
+                         text-align: center;
+                         color: #fff;
+                         font-size: 0.19rem;
+                         font-family: FZLTZCHJW--GB1-0;
+                         line-height: 0.21rem;
+                    }
                }
                .u-vote-btn {
                     display: block;
-                    margin: 0.72rem /* 27/37.5 */ auto;
-                    width: 5.52rem /* 207/37.5 */;
-                    height: 0.8rem /* 30/37.5 */;
-                    border-radius: 0.106667rem /* 4/37.5 */;
+                    margin: 0.27rem auto;
+                    width: 2.07rem;
+                    height: 0.3rem;
+                    border-radius: 0.04rem;
                     color: rgba(16, 16, 16, 1);
-                    @include setFontSize(12px);
+                    font-size: 0.2rem;
                     text-align: center;
                     font-family: PingFang SC;
                     border: 1px solid rgba(187, 187, 187, 1);
-                    line-height: 0.8rem /* 30/37.5 */;
+                    line-height: 0.3rem;
                }
                .g-vote-list {
+                    padding: 0.46rem 0.46rem 0.66rem 0.46rem;
                     ul {
                          li {
-                              padding: 0.293333rem /* 11/37.5 */ 0.346667rem
-                                   /* 13/37.5 */;
-                              .u-myVote-btn {
-                                   .g-btn {
-                                        display: inline-block;
-                                        @include setFontSize(14px);
-                                        width: 2.4rem /* 90/37.5 */;
-                                        height: 0.8rem /* 30/37.5 */;
-                                        text-align: center;
-                                        font-family: PingFang SC;
-                                        border-radius: 0.106667rem /* 4/37.5 */;
-                                        line-height: 0.8rem /* 30/37.5 */;
-                                        background: yellow;
-                                   }
+                              padding-top: 0.26rem;
+                              .u-text {
+                                   margin-right: 0.36rem;
+                                   color: #ffffff;
+                                   font-family: FZLTTHJW--GB1-0;
+                                   font-size: 0.21rem;
+                              }
+                              .u-line-link {
+                                   max-width: 1rem;
+                                   padding: 0 0.1rem;
+                                   flex: 1;
+                                   height: 0;
+                                   border-top: 0.01rem dashed #fff;
+                              }
+                              .u-line-active {
+                                   width: 1rem;
+                                   height: 0;
+                                   border-top: 0.01rem dashed #fff;
+                              }
+                              .u-icon1 {
+                                   margin-right: 0.12rem;
+                                   display: inline-block;
+                                   width: 0.38rem;
+                                   height: 0.39rem;
+                                   @include background(
+                                        "/static/images/people@2x.png"
+                                   );
+                              }
+                              .u-icon2 {
+                                   margin-right: 0.12rem;
+                                   display: inline-block;
+                                   width: 0.38rem;
+                                   height: 0.39rem;
+                                   @include background(
+                                        "/static/images/duigou@2x.png"
+                                   );
+                              }
+                              .u-icon3 {
+                                   margin-right: 0.12rem;
+                                   display: inline-block;
+                                   width: 0.38rem;
+                                   height: 0.39rem;
+                                   @include background(
+                                        "/static/images/book@2x.png"
+                                   );
+                              }
+                              .u-icon4 {
+                                   margin-right: 0.12rem;
+                                   display: inline-block;
+                                   width: 0.38rem;
+                                   height: 0.39rem;
+                                   @include background(
+                                        "/static/images/fanhui@2x.png"
+                                   );
+                              }
+                              .g-btn {
+                                   margin-left: 0.36rem;
+                                   display: inline-block;
+                                   font-size: 0.21rem;
+                                   width: 1.06rem;
+                                   height: 0.43rem;
+                                   border-radius: 0.43rem;
+                                   text-align: center;
+                                   font-family: "FZLTZCHJW--GB1-0";
+                                   font-style: italic;
+                                   line-height: 0.43rem;
+                                   background: #ffe5d4;
+                                   color: #ad1226;
+                                   font-weight: 400;
                               }
                          }
                     }
                     .g-star-video {
-                         width: 7.2rem /* 270/37.5 */;
-                         height: 3.04rem /* 114/37.5 */;
+                         width: 2.7rem;
+                         height: 1.14rem;
                     }
                }
-          }
-     }
-     .g-star-bookList {
-          .u-star-tit {
-               padding-left: 0.453333rem /* 17/37.5 */;
-               color: rgba(16, 16, 16, 1);
-               @include setFontSize(18px);
-               font-family: PingFangSC-regular;
-               line-height: 0.666667rem /* 25/37.5 */;
-          }
-          .g-scroll-star {
-               margin-top: 0.266667rem /* 10/37.5 */;
-               .g-scroll-star-box {
-                    padding: 0.133333rem /* 5/37.5 */ 0.32rem /* 12/37.5 */;
-                    .u-box-item {
-                         margin-left: 0.48rem /* 18/37.5 */;
-                         width: 1.76rem /* 66/37.5 */;
-                         text-align: center;
-                         .u-box-item-img {
-                              display: block;
-                              width: 1.76rem /* 66/37.5 */;
-                              height: 1.76rem /* 66/37.5 */;
-                              border-radius: 0.88rem /* 33/37.5 */;
-                              background: #101010;
-                         }
-                         .u-box-item-name {
-                              color: rgba(31, 32, 40, 1);
-                              @include setFontSize(12px);
-                              font-family: PingFangSC-bold;
-                         }
-                    }
-               }
-          }
-          .g-scroll-book {
-               .g-scroll-book-box {
-                    padding: 0.133333rem /* 5/37.5 */ 0.32rem /* 12/37.5 */;
-                    width: 26.08rem /* 978/37.5 */;
-               }
-               .g-box-item {
-                    margin-right: 0.693333rem /* 26/37.5 */;
-               }
-          }
-          .g-star-video {
-               position: relative;
-               margin: 0.8rem /* 30/37.5 */ auto;
-               width: 7.2rem /* 270/37.5 */;
-               height: 3.04rem /* 114/37.5 */;
-               background: #101010;
-               border-radius: 0.186667rem /* 7/37.5 */;
-               .u-video-icon {
-                    position: absolute;
-                    left: 50%;
-                    margin-left: -0.373333rem /* 14/37.5 */;
-                    top: 50%;
-                    margin-top: -0.373333rem /* 14/37.5 */;
-                    width: 0.746667rem /* 28/37.5 */;
-                    height: 0.746667rem /* 28/37.5 */;
-                    background: #fff;
-                    border-radius: 0.373333rem /* 14/37.5 */;
-               }
-          }
-          .g-star-recommend {
-               position: relative;
-               margin: 0.8rem /* 30/37.5 */ auto;
-               width: 7.2rem /* 270/37.5 */;
-               height: 3.04rem /* 114/37.5 */;
-               background: #101010;
-               border-radius: 0.186667rem /* 7/37.5 */;
-          }
-     }
-     footer {
-          margin: 1.333333rem /* 50/37.5 */ 0 0.693333rem /* 26/37.5 */ 0;
-          .u-look-book {
-               margin: auto;
-               width: 5.973333rem /* 224/37.5 */;
-               height: 0.8rem /* 30/37.5 */;
-               border-radius: 0.106667rem /* 4/37.5 */;
-               color: rgba(16, 16, 16, 1);
-               @include setFontSize(14px);
-               text-align: center;
-               font-family: PingFang SC;
-               border: 1px solid rgba(187, 187, 187, 1);
-               line-height: 0.8rem /* 30/37.5 */;
           }
      }
 }

@@ -14,8 +14,7 @@ const webpackConfig = {
     },
     externals: {
         'vue': 'Vue',
-        'vue-router': 'VueRouter',
-        'swiper': 'Swiper'
+        'vue-router': 'VueRouter'
     },
     output: {
         path: config.build.assetsRoot,
