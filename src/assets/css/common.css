@@ -6,7 +6,10 @@
 	-webkit-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	font-family: Arial, "微软雅黑";
+    font-family: Arial, "微软雅黑";
+}
+body{
+        font-size: 16px;
 }
 img {
 	border: none;

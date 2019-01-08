@@ -7,22 +7,22 @@
             <section class="dialog-body">
                 <section>
                     <ul>
-                        <li v-if="dialogType ===1">
+                        <li v-if="dialogType ==1">
                             <FirstIn
                                 @dialogComponentEvent="dialogComponentEvent"
                                 :dialogOpations="dialogOpations"
                             ></FirstIn>
                         </li>
-                        <li v-else-if="dialogType===2">
+                        <li v-else-if="dialogType==2">
                             <Rule></Rule>
                         </li>
-                        <li v-else-if="dialogType===3">
+                        <li v-else-if="dialogType==3">
                             <VoteHistory></VoteHistory>
                         </li>
-                        <li v-else-if="dialogType===4">
+                        <li v-else-if="dialogType==4">
                             <Attention @dialogComponentEvent="dialogComponentEvent"></Attention>
                         </li>
-                        <li v-else-if="dialogType===5">
+                        <li v-else-if="dialogType==5">
                             <DoVoting
                                 @dialogComponentEvent="dialogComponentEvent"
                                 @voteNumChange2="voteNumChange2"
@@ -30,13 +30,13 @@
                                 :nums="dialogOpations.nums"
                             ></DoVoting>
                         </li>
-                        <li v-else-if="dialogType===6">
+                        <li v-else-if="dialogType==6">
                             <VideoPlay></VideoPlay>
                         </li>
-                        <li v-else-if="dialogType===7">
+                        <li v-else-if="dialogType==7">
                             <SignIn @dialogComponentEvent="dialogComponentEvent"></SignIn>
                         </li>
-                        <li v-else-if="dialogType===8">
+                        <li v-else-if="dialogType==8">
                             <noHaveBook
                                 :dialogOpations="dialogOpations"
                                 @dialogComponentEvent="dialogComponentEvent"
