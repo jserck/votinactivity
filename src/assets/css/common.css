@@ -213,7 +213,13 @@ html {
 	-moz-box-align: center;
 	-webkit-box-align: center;
 }
-
+.flexAlignJustifyStart {
+	-webkit-justify-content: start;
+	justify-content: start;
+	-moz-box-pack: start;
+	-webkit--moz-box-pack: start;
+	box-pack: start;
+}
 .flexNum {
 	box-flex: 1;
 	-webkit-box-flex: 1;

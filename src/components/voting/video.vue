@@ -121,12 +121,12 @@ export default {
      overflow: hidden;
      position: relative;
      width: 100%;
-     height: 13.066667rem /* 490/37.5 */;
+     height: 4.9rem /* 490/100 */;
      box-sizing: border-box;
      display: table;
      .g-as {
           width: 100%;
-          height: 5.333333rem /* 200/37.5 */;
+          height: 2rem /* 200/100 */;
           // background: red;
           position: absolute;
           top: 0;
@@ -136,40 +136,40 @@ export default {
      .u-icon {
           position: absolute;
           top: 50%;
-          margin-top: -0.4rem /* 15/37.5 */;
+          margin-top: -0.15rem /* -15/100 */;
           left: 50%;
-          margin-left: -0.4rem /* 15/37.5 */;
-          width: 0.8rem /* 30/37.5 */;
-          height: 0.8rem /* 30/37.5 */;
+          margin-left: -0.15rem /* -15/100 */;
+          width: 0.3rem /* 30/100 */;
+          height: 0.3rem /* 30/100 */;
           background: #000;
-          border-radius: 0.4rem /* 15/37.5 */;
+          border-radius: -0.15rem /* -15/100 */;
      }
      .u-noWifi {
-          margin-top: 5.066667rem /* 190/37.5 */;
+          margin-top: 1.9rem /* 190/100 */;
      }
      .g-noInter {
-          margin-top: 5.386667rem /* 202/37.5 */;
+          margin-top: 2.02rem /* 202/100 */;
           span {
                display: block;
-               margin: 0.986667rem /* 37/37.5 */ auto 0;
+               margin: 0.37rem /* 37/100 */ auto 0;
           }
      }
 }
 </style>
 <style lang="scss">
 .video-js {
-     font-size: 0.266667rem !important /* 10/37.5 */;
+     font-size: 0.1rem /* 10/100 */ !important;
 }
 .video-js .vjs-control-bar {
-     font-size: 0.373333rem !important /* 14/37.5 */;
+     font-size: 0.14rem /* 14/100 */ !important /* 14/37.5 */;
 }
 .video-js .vjs-big-play-button {
-     width: 1.333333rem !important/* 50/37.5 */;
-     height: 1.333333rem !important/* 50/37.5 */;
-     border-radius: 0.666667rem !important /* 25/37.5 */;
+     width: 0.5rem /* 50/100 */;
+     height: 0.5rem /* 50/100 */;
+     border-radius: 0.25rem /* 25/100 */ !important ;
      top: 50% !important;
      left: 50% !important;
-     margin-top: -0.666667rem !important /* -25/37.5 */;
-     margin-left: -0.666667rem !important /* -25/37.5 */;
+     margin-top: -0.25rem /* -25/100 */ !important ;
+     margin-left: -0.25rem /* -25/100 */ !important;
 }
 </style>

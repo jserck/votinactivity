@@ -3,7 +3,7 @@
           <section v-if="RightToVote" class="g-doDoting">
                <p>选择投票的数量</p>
                <section class="g-doDoting-number">
-                   <x-number @voteNumChange="voteNumChange"></x-number>
+                    <x-number @voteNumChange="voteNumChange" :nums="nums"></x-number>
                </section>
                <section class="g-doDoting-btn">
                     <span class="g-btn" @click="dialogComponentEvent('dialogComponentEvent')">投票</span>
@@ -19,15 +19,16 @@
 <script>
 import Scroll from '../../assets/js/href.js'
 export default {
-     props: ['RightToVote'],
+     props: ['RightToVote', 'nums'],
      components: {
-          XNumber:()=>import('../common/number.vue')
+          XNumber: () => import('../common/number.vue')
      },
      data() {
           return {
                voteNum: 1
           }
      },
+
      methods: {
           dialogComponentEvent(eventType) {
                this.$emit('dialogComponentEvent', {
@@ -50,55 +51,56 @@ export default {
 
 <style scoped lang="scss">
 .u-vote-btn {
-     // margin: 0.373333rem /* 14/37.5 */ auto 0;
-     // @include setFontSize(14px);
-     // // width: 2.4rem /* 90/37.5 */;
-     // // height: 0.8rem /* 30/37.5 */;
+     // margin: .14rem /* 14/100 */ auto 0;
+     // font-size: .14rem /* 14/100 */;
+     // // width: .9rem /* 90/100 */;
+     // // height: .3rem /* 30/100 */;
      // text-align: center;
      // font-family: PingFang SC;
-     // border-radius: 0.106667rem /* 4/37.5 */;
-     // line-height: 0.8rem /* 30/37.5 */;
+     // border-radius: .04rem /* 4/100 */;
+     // line-height: .3rem /* 30/100 */;
+     height: 3rem;
      .g-noRightToVote {
-          padding-top: 1.333333rem /* 50/37.5 */;
+          padding-top: 0.5rem /* 50/100 */;
           p {
                color: rgba(16, 16, 16, 1);
-               @include setFontSize(14px);
+               font-size: 0.14rem /* 14/100 */;
                text-align: center;
                font-family: PingFangSC-regular;
-               line-height: 0.8rem /* 30/37.5 */;
+               line-height: 0.3rem /* 30/100 */;
           }
           span {
                display: inline-block;
-               margin: 0.533333rem /* 20/37.5 */ auto;
-               height: 0.533333rem /* 20/37.5 */;
+               margin: 0.2rem /* 20/100 */ auto;
+               height: 0.2rem /* 20/100 */;
           }
      }
 }
 .g-doDoting {
      p {
-          margin-top: 1.6rem /* 60/37.5 */;
+          margin-top: 0.6rem /* 60/100 */;
           color: rgba(16, 16, 16, 1);
-          @include setFontSize(14px);
+          font-size: 0.14rem /* 14/100 */;
           text-align: center;
           font-family: PingFangSC-regular;
      }
      .g-doDoting-number {
-          margin-top: 1.253333rem /* 47/37.5 */;
+          margin-top: 0.47rem /* 47/100 */;
      }
      .g-doDoting-btn {
-          width: 2.4rem /* 90/37.5 */;
-          height: 0.8rem /* 30/37.5 */;
-          margin: 1.066667rem /* 40/37.5 */ auto;
+          width: 0.9rem /* 90/100 */;
+          height: 0.3rem /* 30/100 */;
+          margin: 0.1rem /* 40/100 */ auto;
           .g-btn {
                display: inline-block;
-               margin: 0.373333rem /* 14/37.5 */ auto 0;
-               @include setFontSize(14px);
-               width: 2.4rem /* 90/37.5 */;
-               height: 0.8rem /* 30/37.5 */;
+               // margin: 0.14rem /* 14/100 */ auto 0;
+               font-size: 0.14rem /* 14/100 */;
+               width: 0.9rem /* 90/100 */;
+               height: 0.3rem /* 30/100 */;
                text-align: center;
                font-family: PingFang SC;
-               border-radius: 0.106667rem /* 4/37.5 */;
-               line-height: 0.8rem /* 30/37.5 */;
+               border-radius: 0.04rem /* 4/100 */;
+               line-height: 0.3rem /* 30/100 */;
                background: yellow;
           }
      }

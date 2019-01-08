@@ -27,6 +27,7 @@
                                 @dialogComponentEvent="dialogComponentEvent"
                                 @voteNumChange2="voteNumChange2"
                                 :RightToVote="dialogOpations.isCanVote"
+                                :nums="dialogOpations.nums"
                             ></DoVoting>
                         </li>
                         <li v-else-if="dialogType===6">

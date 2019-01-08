@@ -21,10 +21,7 @@
                          v-if="dialogOpations.type==2&&dialogOpations.userTicketCount<=0"
                     >您已用完投票权，做任务即可获取更多投票权</p>
                </section>
-               <section
-                    class="u-btn displayFlex"
-                    v-if="dialogOpations.userTicketCount>0"
-               >
+               <section class="u-btn displayFlex" v-if="dialogOpations.userTicketCount>0">
                     <span style="border-right:none" @click="nextRead">继续阅读</span>
                     <span
                          v-scroll="'scroll'"
@@ -70,35 +67,35 @@ export default {
 <style lang="scss" scoped>
 .g-firstIn {
      p {
-          margin-top: 1.6rem /* 60/37.5 */;
+          margin-top: 0.6rem /* 60/100 */;
           text-align: center !important;
           color: rgba(16, 16, 16, 1);
-          @include setFontSize(14px);
+          font-size: 0.14rem /* 14/100 */;
           text-align: left;
           font-family: PingFangSC-regular;
      }
      .u-img {
-          margin: 1.333333rem /* 50/37.5 */ auto;
-          width: 2.4rem /* 90/37.5 */;
-          height: 3.2rem /* 120/37.5 */;
+          margin: 0.5rem /* 50/100 */ auto;
+          width: 0.9rem /* 90/100 */;
+          height: 1.2rem /* 120/100 */;
           text-align: center;
-          line-height: 3.2rem /* 120/37.5 */;
+          line-height: 1.2rem /* 120/100 */;
      }
 }
 .u-btn {
      span {
           display: inline-block;
           width: 100%;
-          height: 1.173333rem /* 44/37.5 */;
+          height: 0.44rem /* 44/100 */;
           text-align: center;
-          line-height: 1.173333rem /* 44/37.5 */;
+          line-height: 0.44rem /* 44/100 */;
           border: 1px solid rgba(187, 187, 187, 1);
      }
 }
 .u-btn2 {
      width: 100%;
-     height: 1.333333rem /* 50/37.5 */;
-     line-height: 1.333333rem /* 50/37.5 */;
+     height: 0.5rem /* 50/100 */;
+     line-height: 0.5rem /* 50/100 */;
      text-align: center;
      border-top: 1px solid rgba(187, 187, 187, 1);
 }

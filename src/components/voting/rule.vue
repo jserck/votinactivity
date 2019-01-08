@@ -1,6 +1,6 @@
 <template>
      <section class="g-rule">
-          <Scroller height="300px">
+          <Scroller height="5rem">
                <ul>
                     <li
                          v-for="i in 150"
@@ -32,3 +32,16 @@ export default {
      }
 }
 </script>
+<style lang="scss" scoped>
+.g-rule {
+     .g-scroll-container {
+          ul {
+               li {
+                    span {
+                         font-size: 0.293333rem /* 22/75 */;
+                    }
+               }
+          }
+     }
+}
+</style>
