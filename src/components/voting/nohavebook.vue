@@ -1,10 +1,10 @@
 <template>
      <section>
           <section class="g-attention">
-               <p>成功助力{{dialogOpations.nums}}票！</p>
+               <p>成功助力{{dialogOpations.nums}}赞！</p>
                <p class="u-text2">继续点赞有机会免费领取电子书哦~</p>
                <section class="u-btn">
-                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">继续投票</span>
+                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">继续点赞</span>
                </section>
           </section>
      </section>

@@ -120,6 +120,7 @@ export default function({
                 default:
             }
             console.log(err.message);
+            return err.message;
         }
     });
 

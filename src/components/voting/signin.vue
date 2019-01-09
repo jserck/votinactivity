@@ -1,10 +1,10 @@
 <template>
      <section>
           <section class="g-attention">
-               <p>今日签到成功</p>
-               <p class="u-text2">恭喜您获得一次点赞权！</p>
+               <p class="u-tit">今日签到成功</p>
+               <p class="u-text2">恭喜您获得一次点赞权</p>
                <section class="u-btn">
-                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即投票</span>
+                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即点赞</span>
                </section>
           </section>
      </section>
@@ -33,24 +33,37 @@ export default {
 
 <style lang="scss" scoped>
 .g-attention {
-     padding-top: .2rem /* 20/100 */;
-     p {
-          font-size: .14rem /* 14/100 */;
-          left: 106px;
-          color: rgba(16, 16, 16, 1);
-          text-align: center;
-          font-family: PingFangSC-regular;
+     margin: auto;
+     padding-top: 3.24rem /* 314/100 */;
+     width: 5.24rem /* 552/100 */;
+     height: 4.1rem /* 849/100 */;
+     @include background("/static/images/dialogbg/dialogsignin.png");
+     .u-tit {
+          font-size: 0.36rem /* 36/100 */;
+          font-family: SourceHanSansCN-Regular;
+          font-weight: 400;
+          color: rgba(255, 217, 165, 1);
+          line-height: 0.68rem /* 68/100 */;
      }
      .u-btn {
-          width: 100%;
-          height: .5rem /* 50/100 */;
-          line-height: .5rem /* 50/100 */;
+          margin: 1.34rem auto 0;
+          width: 2.52rem;
+          height: 0.68rem /* 50/100 */;
+          line-height: 0.68rem /* 50/100 */;
           text-align: center;
-          border-top: 1px solid rgba(187, 187, 187, 1);
+          @include background("/static/images/dialogbg/dialogattbtn.png");
+          font-size: 0.3rem;
+          font-family: FZLTHJW--GB1-0;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 1);
      }
      .u-text2 {
-          margin: .5rem /* 50/100 */ auto;
-          width: 2.38rem /* 238/100 */;
+          margin-top: 0.31rem;
+          font-size: 0.3rem;
+          font-family: SourceHanSansCN-Regular;
+          font-weight: 400;
+          color: rgba(255, 217, 165, 1);
+          line-height: 0.55rem;
      }
 }
 </style>

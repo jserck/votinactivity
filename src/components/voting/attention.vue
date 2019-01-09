@@ -1,13 +1,14 @@
 <template>
      <section>
           <section class="g-attention">
-               <p>感谢您关注天猫读书小程序</p>
-               <p class="u-text2">
-                    送您一张投票，可以投给喜欢的明星哦
-                    成功投票后可获取电子书一本！
-               </p>
+               <p class="u-tit">感谢您关注</p>
+               <p class="u-tit">天猫读书小程序</p>
+               <section class="u-text">
+                    <p class="u-text2">已获得10点能量，为喜欢的领读官充能</p>
+                    <p class="u-text2">有机会获得免费电子书</p>
+               </section>
                <section class="u-btn">
-                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即投票</span>
+                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即充能</span>
                </section>
           </section>
      </section>
@@ -36,24 +37,39 @@ export default {
 
 <style lang="scss" scoped>
 .g-attention {
-     padding-top: .2rem /* 20/100 */;
-     p {
-          font-size: .14rem /* 14/100 */;
-          left: 1.06rem /* 106/100 */;
-          color: rgba(16, 16, 16, 1);
-          text-align: center;
-          font-family: PingFangSC-regular;
+     margin: auto;
+     padding-top: 3.14rem /* 314/100 */;
+     width: 5.52rem /* 552/100 */;
+     height: 5.35rem /* 849/100 */;
+     @include background("/static/images/dialogbg/dialogatt.png");
+     .u-tit {
+          font-size: 0.48rem /* 48/100 */;
+          font-family: FZLTHJW--GB1-0;
+          font-weight: 400;
+          color: rgba(255, 218, 166, 1);
+          line-height: 0.68rem /* 68/100 */;
      }
      .u-btn {
-          width: 100%;
-          height: .5rem /* 50/100 */;
-          line-height: .5rem /* 50/100 */;
+          margin: 1.08rem auto 0;
+          width: 2.48rem /* 248/100 */;
+          height: 0.67rem /* 50/100 */;
+          line-height: 0.67rem /* 50/100 */;
           text-align: center;
-          border-top: 1px solid rgba(187, 187, 187, 1);
+          font-size: 0.32rem /* 32/100 */;
+          font-family: FZLTHJW--GB1-0;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 1);
+          @include background("/static/images/dialogbg/dialogattbtn.png");
+     }
+     .u-text {
+          margin-top: 0.62rem;
      }
      .u-text2 {
-          margin: .5rem /* 50/100 */ auto;
-          width: 2.8rem /* 280/100 */;
+          font-size: 0.24rem /* 24/100 */;
+          font-family: SourceHanSansCN-Regular;
+          font-weight: 400;
+          color: rgba(255, 218, 166, 1);
+          line-height: 0.38rem /* 38/100 */;
      }
 }
 </style>

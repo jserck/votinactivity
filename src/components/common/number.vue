@@ -1,7 +1,7 @@
 <template>
-     <section>
+     <section class="g-number">
           <span class="u-remove" @click="remove">-</span>
-          <span class="u-inpit">{{voteNum}}</span>
+          <span class="u-input">{{voteNum}}</span>
           <span class="u-add" @click="add">+</span>
      </section>
 </template>
@@ -36,7 +36,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.g-number {
+     line-height: 0.56rem;
+     font-size: 0.36rem;
+     font-family: SourceHanSansCN-Regular;
+     font-weight: 400;
+     color: rgba(255, 217, 165, 1);
+}
 span {
-     font-size: 0.16rem /* 16/100 */;
+     display: inline-block;
+}
+.u-remove {
+     padding: 0 0.2rem;
+}
+.u-add {
+     padding: 0 0.2rem;
+}
+.u-input {
+     text-align: left;
+     padding-left: 0.29rem;
+     width: 2.14rem;
+     height: 0.56rem;
+     border: 1px solid #ffd9a5;
 }
 </style>
