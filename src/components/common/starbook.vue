@@ -171,31 +171,7 @@ export default {
           }
      }
 }
-.g-scroll-book {
-     .g-scroll-book-box {
-          padding: 0.05rem /* 5/100 */ 0.12rem /* 12/100 */;
-          width: 9.78rem /* 978/100 */;
-          .u-box-item-link {
-               // margin-right: 0.693333rem /* 26/37.5 */;
-               width: 1.37rem /* 137/100 */;
-               .u-book-img {
-                    width: 1.37rem /* 137/100 */;
-                    height: 3.76rem /* 141/37.5 */;
-                    background: #101010;
-               }
-               p {
-                    color: rgba(16, 16, 16, 1);
-                    font-size: 0.14rem /* 14/100 */;
-                    font-family: PingFangSC-regular;
-               }
-               .u-author-name {
-                    color: rgba(16, 16, 16, 1);
-                    font-size: 0.12rem /* 12/100 */;
-                    font-family: PingFangSC-regular;
-               }
-          }
-     }
-}
+
 .g-star-book-conatiner {
      position: relative;
      overflow: hidden;

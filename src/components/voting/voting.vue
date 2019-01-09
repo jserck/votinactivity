@@ -655,6 +655,8 @@ export default {
                               width: 1.65rem /* 165/100 */;
                               height: 1.91rem /* 191/100 */;
                               border-radius: 0.08rem;
+                              background-size: cover!important;
+                              background-repeat: no-repeat!important;
                          }
                          .u-vote-num {
                               display: block;

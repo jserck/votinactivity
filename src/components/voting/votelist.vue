@@ -101,7 +101,6 @@ export default {
                     width: 0.66rem /* 66/100 */;
                     height: 0.66rem /* 66/100 */;
                     border-radius: 0.33rem /* 33/100 */;
-                    background: #101010;
                }
                .u-name,
                .u-count {

@@ -42,8 +42,9 @@ export default {
      .u-book-img {
           width: 100%;
           height: 2.2rem /* 187/100 */;
-          background: #101010;
           border-radius: 0.25rem /* 25/100 */;
+          background-size: cover !important;
+          background-repeat: no-repeat !important;
      }
      font-size: 0.19rem /* 19/100 */;
      font-family: FZLTHJW--GB1-0;
