@@ -59,7 +59,7 @@ export default {
                     if (res.data.code === 200) {
                          this.starList = res.data.data.starList
                     }
-               }).catch((err) => { this.$toast('网络异常') })
+               }).catch((err) => { })
           },
           hideHandler() {
 
