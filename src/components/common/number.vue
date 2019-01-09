@@ -14,7 +14,8 @@ export default {
           }
      },
      created() {
-          this.voteNum = this.nums;
+          this.voteNum = this.nums
+          this.voteNumChange()
      },
      methods: {
           remove() {
