@@ -15,9 +15,12 @@
                          <p>能量值</p>
                          <p>{{userTicketCount}}</p>
                     </section>
-                    <section class="u-rule" @click="ruleHandler"></section>
+                    <section class="u-rule" @click="ruleHandler">
+                         <!-- <img src="@/assets/img/rule@2x.png" alt=""> -->
+                    </section>
                     <section class="u-myVoteCon-link" @click="myVoteCon"></section>
                     <section class="g-video-banner" @click="videoPlay">
+                         <img src="@/assets/img/toutu.png" alt>
                          <!-- <span class="u-video-icon"></span> -->
                     </section>
                </section>
@@ -37,6 +40,7 @@
                          <li v-for="(item,index) in starSoltData2" :key="index">
                               <section class="g-vote-li" v-scroll="'star'">
                                    <span
+                                        v-preload="item.starPicUrl"
                                         class="u-img"
                                         :style="`background:url(${item.starPicUrl});
                                             backgroundRepeat:no-repeat;
@@ -45,7 +49,7 @@
                                    <span class="u-vote-num">领读官 {{item.starName}}</span>
                               </section>
                               <section class="g-btn" @click="doVotingHandler(item['starId'])">
-                                   <span class="u-nums">{{item.ticketCount}}点赞能量</span>
+                                   <span class="u-nums">{{item.ticketCount}}阅读能量</span>
                               </section>
                          </li>
                     </ul>
@@ -105,13 +109,14 @@
           </section>
           <!-- 明星书单 -->
           <section class="g-star-bookList" id="star">
-               <StarBook @videoPlay="videoPlay" @starBookClick="starBookClick"></StarBook>
+               <StarBook @videoPlay="videoPlay"></StarBook>
           </section>
      </section>
 </template>
 <script>
 import StarBook from '../common/starbook.vue'
-import scroll from '../../assets/js/href.js'
+import '../../assets/js/href.js'
+import '../../assets/js/ImgPrvLoad.js'
 import { setTimeout } from 'timers'
 
 export default {
@@ -140,6 +145,7 @@ export default {
                personCount: 0,
                bookCount: 0,
                isHttp: true,
+               timer: null,
                myvotelist: [
                     {
                          name: '关注小程序可得 1 张选票',
@@ -159,18 +165,11 @@ export default {
           }
      },
      created() {
-          this.dialogShow(1, true, {
-               type: 2,
-               bookId: 1,
-               bookPicUrl: 'res.data.data.img',
-               bookName: 'res.data.data.name',
-               bookWebUrl: 'res.data.data.bookWebUrl',
-               isSignIn: 1,
-               isCanVote: false,
-               nums: 45,
-               userTicketCount: 0
-          });
           this.voteInit()
+          this.timerHandler()
+     },
+     beforeDestroy() {
+          clearInterval(this.timer);
      },
      computed: {
           userTicketCount() {
@@ -184,6 +183,10 @@ export default {
           }
      },
      methods: {
+          timerHandler() {
+               clearInterval(this.timer);
+               this.timer = setInterval(this.getStarSolt, 5000);
+          },
           voteInit() {
                this.getStarSolt()//明星排序
                this.getMyVote()//我的选票
@@ -358,10 +361,12 @@ export default {
                }
                this.$http(options).then((res) => {
                     if (res.data.code == 200) {
-                         if (res.data.data.id) {
+                         this.userTicketCountChange(0);
+                         try {
+                              console.log(res.data.data.id);
                               this.isShowDialog = false
                               this.saveBooks()
-                         } else {
+                         } catch (error) {
                               this.dialogShow(8, true, { nums: this.nums })
                          }
                          this.getStarSolt()
@@ -380,7 +385,7 @@ export default {
                if (type) {
                     this.myVoteData['userTicketCount'] += 10
                } else {
-                    this.myVoteData['userTicketCount'] -= this.nums
+                    this.myVoteData['userTicketCount'] -= this.nums;
                }
           },
           attentionHandler() {
@@ -505,6 +510,7 @@ export default {
                /**
                * 投票
                */
+               this.isCanVote = this.userTicketCount > 0;
                this.starId = starId;
                this.dialogShow(5, true, {
                     isCanVote: this.isCanVote,
@@ -528,7 +534,7 @@ export default {
                /**
                 * 视频播放
                */
-               this.dialogShow(6, true);
+               this.dialogShow(6, true, { src });
           },
           dialogShow(type, isShow, obj = {}) {
                /**
@@ -547,7 +553,7 @@ export default {
      width: 7.5rem;
      height: 32.68rem;
      margin: auto;
-     @include background("/static/images/bg.jpg");
+     @include background("~@/assets/img/bg.jpg");
      header {
           .g-video-container {
                overflow: hidden;
@@ -561,7 +567,7 @@ export default {
                     top: 2.43rem;
                     left: 0rem;
                     z-index: 999;
-                    @include background("/static/images/rule@2x.png");
+                    @include background("~@/assets/img/rule@2x.png");
                }
                .u-myVoteCon-link {
                     position: absolute;
@@ -571,29 +577,33 @@ export default {
                     top: 3.38rem;
                     left: 0rem;
                     z-index: 999;
-                    @include background("/static/images/history@2x.png");
+                    @include background("~@/assets/img/history@2x.png");
                }
                .u-vote-count {
+                    z-index: 999;
                     padding-top: 0.25rem;
                     position: absolute;
                     right: 0.24rem;
                     top: 2.97rem;
                     width: 1.37rem;
                     height: 1.35rem;
-                    @include background("/static/images/havevote@2x.png");
+                    @include background("~@/assets/img/havevote@2x.png");
                     p {
-                         text-align: center;
-                         color: #fff;
-                         font-size: 0.23rem;
-                         font-family: FZLTZCHJW--GB1-0;
-                         line-height: 0.25rem;
+                         @include setFont(
+                              0.23rem,
+                              "FZLTZCHJW--GB1-0",
+                              normal,
+                              0.25rem,
+                              #fff,
+                              center
+                         );
                     }
                }
                .g-video-banner {
                     position: relative;
-                    margin: 4.62rem auto 0;
-                    width: 3.18rem;
-                    height: 1.7rem;
+                    margin: 1.38rem auto 0;
+                    width: 6.58rem;
+                    height: 4.93rem;
                     // background: #101010;
                     border-radius: 0.07rem;
                     .u-video-icon {
@@ -612,15 +622,18 @@ export default {
      }
      .g-myVoteCon {
           .g-vote-msg {
+               margin: 0.29rem auto 0.43rem;
                width: 6.6rem;
                height: 0.76rem;
-               line-height: 0.76rem;
-               margin: 0.29rem auto 0.43rem;
-               text-align: center;
-               color: #ffd8a1;
-               font-size: 0.22rem;
-               font-family: FZLTHK--GBK1-0;
-               @include background("/static/images/tit@2x.png");
+               @include setFont(
+                    0.22rem,
+                    "FZLTZCHJW--GB1-0",
+                    normal,
+                    0.76rem,
+                    #ffd8a1,
+                    center
+               );
+               @include background("~@/assets/img/tit@2x.png");
           }
           .g-vote-list {
                ul {
@@ -630,9 +643,8 @@ export default {
                               overflow: hidden;
                               width: 1.86rem;
                               height: 2.58rem;
-                              // background:#FFE5D4;
                               @include background(
-                                   "/static/images/starvote@2x.png"
+                                   "~@/assets/img/starvote@2x.png"
                               );
                          }
                          span {
@@ -647,32 +659,42 @@ export default {
                          .u-vote-num {
                               display: block;
                               margin-top: 0.04rem /* 4/100 */;
-                              text-align: center;
-                              font-size: 0.18rem /* 18/100 */;
-                              font-family: FZLTCHJW--GB1-0;
-                              font-weight: 400;
                               font-style: italic;
-                              color: rgba(194, 65, 67, 1);
+                              @include setFont(
+                                   0.18rem,
+                                   "FZLTZCHJW--GB1-0",
+                                   400,
+                                   auto,
+                                   rgba(194, 65, 67, 1),
+                                   center
+                              );
                          }
                     }
                }
                .g-btn {
                     margin: 0.17rem auto 0.21rem;
-                    font-size: 0.14rem;
                     width: 1.7rem;
                     height: 0.69rem;
-                    text-align: center;
-                    font-family: PingFang SC;
                     border-radius: 0.04rem;
-                    line-height: 0.3rem;
-                    @include background("/static/images/addvote@2x.png");
+                    @include setFont(
+                         0.14rem,
+                         "PingFang SC",
+                         normal,
+                         0.3rem,
+                         #000,
+                         center
+                    );
+                    @include background("~@/assets/img/addvote@2x.png");
                     .u-nums {
                          padding-left: 0.25rem;
-                         color: #ffe2c3;
-                         font-size: 0.17rem;
-                         font-family: FZLTCHJW--GB1-0;
-                         font-style: italic;
-                         line-height: 0.23rem;
+                         @include setFont(
+                              0.17rem,
+                              "FZLTCHJW--GB1-0",
+                              normal,
+                              0.23rem,
+                              #ffe2c3,
+                              normal
+                         );
                     }
                }
           }
@@ -687,7 +709,7 @@ export default {
                     display: block;
                     width: 4.15rem;
                     height: 0.7rem;
-                    @include background("/static/images/myvotenum@2x.png");
+                    @include background("~@/assets/img/myvotenum@2x.png");
                }
           }
           .g-vote-context {
@@ -703,7 +725,7 @@ export default {
                               width: 3.22rem;
                               height: 0.62rem /* 62/100 */;
                               @include background(
-                                   "/static/images/nengliangbtn.png"
+                                   "~@/assets/img/nengliangbtn.png"
                               );
                               .u-moman {
                                    position: absolute;
@@ -717,9 +739,14 @@ export default {
                               // flex: 0 0 auto;
                               .u-text {
                                    // margin-right: 0.36rem;
-                                   color: #ffffff;
-                                   font-family: FZLTTHJW--GB1-0;
-                                   font-size: 0.21rem;
+                                   @include setFont(
+                                        0.21rem,
+                                        "FZLTCHJW--GB1-0",
+                                        normal,
+                                        auto,
+                                        #ffffff,
+                                        normal
+                                   );
                               }
                               .u-ticketbtn {
                                    margin: auto;
@@ -730,7 +757,7 @@ export default {
                                    width: 0.38rem;
                                    height: 0.39rem;
                                    @include background(
-                                        "/static/images/people@2x.png"
+                                        "~@/assets/img/people@2x.png"
                                    );
                               }
                               .u-icon2 {
@@ -739,7 +766,7 @@ export default {
                                    width: 0.38rem;
                                    height: 0.39rem;
                                    @include background(
-                                        "/static/images/duigou@2x.png"
+                                        "~@/assets/img/duigou@2x.png"
                                    );
                               }
                               .u-icon3 {
@@ -748,7 +775,7 @@ export default {
                                    width: 0.38rem;
                                    height: 0.39rem;
                                    @include background(
-                                        "/static/images/book@2x.png"
+                                        "~@/assets/img/book@2x.png"
                                    );
                               }
                               .u-icon4 {
@@ -757,7 +784,7 @@ export default {
                                    width: 0.38rem;
                                    height: 0.39rem;
                                    @include background(
-                                        "/static/images/fanhui@2x.png"
+                                        "~@/assets/img/fanhui@2x.png"
                                    );
                               }
                          }

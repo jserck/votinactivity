@@ -31,9 +31,7 @@ import 'video.js/dist/video-js.css'
 // import 'vue-video-player/src/custom-theme.css'
 import { videoPlayer } from 'vue-video-player'
 export default {
-     props: {
-
-     },
+     props: ['dialogOpations'],
      components: {
           videoPlayer
      },
@@ -59,7 +57,8 @@ export default {
                     fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
                     sources: [{
                          type: "",
-                         src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'//url地址
+                         // src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',//url地址
+                         src: this.dialogOpations.src
                     }],
                     poster: "", //你的封面地址
                     width: document.documentElement.clientWidth,
@@ -93,8 +92,7 @@ export default {
 
           },
           fullScreenHandle() {
-               console.log(this.player);
-
+               // console.log(this.player);
                // if (!this.player.isFullscreen()) {
                //      this.player.requestFullscreen();
                //      this.player.isFullscreen(true);

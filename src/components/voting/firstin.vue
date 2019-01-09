@@ -79,16 +79,19 @@ export default {
      margin: auto;
      width: 5.24rem /* 552/100 */;
      // height: 5.29rem /* 849/100 */;
-     @include background("/static/images/dialogbg/dialogatt.png");
+     @include background("~@/assets/img/dialogbg/dialogatt.png");
 }
 .g-firstIn {
      .helpvote {
           margin-top: 2.85rem /* 285/100 */;
-          font-size: 0.36rem;
-          font-family: SourceHanSansCN-Regular;
-          font-weight: 400;
-          color: rgba(255, 217, 165, 1);
-          line-height: 0.68rem;
+          @include setFont(
+               0.36rem,
+               "SourceHanSansCN-Regular",
+               400,
+               0.68rem,
+               rgba(255, 217, 165, 1),
+               auto
+          );
      }
      .u-img {
           margin: 0.41rem /* 50/100 */ auto 0;
@@ -97,11 +100,14 @@ export default {
           background: #fff;
      }
      .u-first-getbook {
-          font-size: 0.36rem /* 36/100 */;
-          font-family: SourceHanSansCN-Regular;
-          font-weight: 400;
-          color: rgba(255, 217, 165, 1);
-          line-height: 0.48rem /* 48/100 */;
+          @include setFont(
+               0.36rem,
+               "SourceHanSansCN-Regular",
+               400,
+               0.48rem,
+               rgba(255, 217, 165, 1),
+               auto
+          );
      }
      .u-first-getbook1 {
           margin-top: 2.85rem;
@@ -110,22 +116,28 @@ export default {
           font-size: 0.3rem /* 36/100 */;
      }
      .nocanvote {
-          font-size: 0.22rem /* 36/100 */;
-          font-family: SourceHanSansCN-Regular;
-          font-weight: 400;
-          color: #fff;
-          line-height: 0.48rem /* 48/100 */;
+          @include setFont(
+               0.22rem,
+               "SourceHanSansCN-Regular",
+               400,
+               0.48rem,
+               #fff,
+               auto
+          );
      }
      .isSignInText {
           margin-top: 2.85rem /* 285/100 */;
-          font-size: 0.36rem /* 36/100 */;
-          font-family: SourceHanSansCN-Regular;
-          font-weight: 400;
-          color: rgba(255, 217, 165, 1);
-          line-height: 0.48rem /* 48/100 */;
           & p:nth-child(2) {
                font-size: 0.3rem /* 36/100 */;
           }
+          @include setFont(
+               0.36rem,
+               "SourceHanSansCN-Regular",
+               400,
+               0.48rem,
+               rgba(255, 217, 165, 1),
+               auto
+          );
      }
 }
 .u-btn {
@@ -135,13 +147,15 @@ export default {
           display: inline-block;
           width: 2rem;
           height: 0.59rem /* 44/100 */;
-          text-align: center;
-          line-height: 0.59rem /* 44/100 */;
-          font-size: 0.24rem;
-          font-family: FZLTHJW--GB1-0;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 1);
-          @include background("/static/images/dialogbg/dialogattbtn.png");
+          @include background("~@/assets/img/dialogbg/dialogattbtn.png");
+          @include setFont(
+               0.24rem,
+               "FZLTHJW--GB1-0",
+               400,
+               0.59rem,
+               rgba(255, 255, 255, 1),
+               center
+          );
      }
      & span:nth-child(2) {
           margin-left: 0.14rem;
@@ -153,12 +167,14 @@ export default {
      display: inline-block;
      width: 2rem;
      height: 0.59rem /* 44/100 */;
-     text-align: center;
-     line-height: 0.59rem /* 44/100 */;
-     font-size: 0.24rem;
-     font-family: FZLTHJW--GB1-0;
-     font-weight: 400;
-     color: rgba(255, 255, 255, 1);
-     @include background("/static/images/dialogbg/dialogattbtn.png");
+     @include background("~@/assets/img/dialogbg/dialogattbtn.png");
+     @include setFont(
+          0.24rem,
+          "FZLTHJW--GB1-0",
+          400,
+          0.59rem,
+          rgba(255, 255, 255, 1),
+          center
+     );
 }
 </style>

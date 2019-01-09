@@ -2,6 +2,7 @@
      <section class="u-box-item">
           <section
                class="u-book-img"
+               v-preload="obj.bookPicUrl"
                :style="`background:url(${obj.bookPicUrl});
                         backgroundRepeat:no-repeat;
                         backgroundSize:cover
@@ -15,6 +16,7 @@
      </section>
 </template>
 <script>
+import '../../assets/js/ImgPrvLoad.js'
 export default {
      props: {
           indexNum: {

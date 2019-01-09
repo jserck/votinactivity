@@ -37,7 +37,7 @@ export default {
      padding-top: 3.24rem /* 314/100 */;
      width: 5.24rem /* 552/100 */;
      height: 4.1rem /* 849/100 */;
-     @include background("/static/images/dialogbg/dialogsignin.png");
+     @include background("~@/assets/img/dialogbg/dialogsignin.png");
      .u-tit {
           font-size: 0.36rem /* 36/100 */;
           font-family: SourceHanSansCN-Regular;
@@ -51,7 +51,7 @@ export default {
           height: 0.68rem /* 50/100 */;
           line-height: 0.68rem /* 50/100 */;
           text-align: center;
-          @include background("/static/images/dialogbg/dialogattbtn.png");
+          @include background("~@/assets/img/dialogbg/dialogattbtn.png");
           font-size: 0.3rem;
           font-family: FZLTHJW--GB1-0;
           font-weight: 400;

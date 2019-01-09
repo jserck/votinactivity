@@ -1,4 +1,4 @@
-import Vue from 'vue'
+
 export default Vue.directive('scroll', {
     inserted: function(el, binding) {
         el.addEventListener('click', function(event) {

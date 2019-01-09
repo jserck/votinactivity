@@ -1,7 +1,7 @@
 <template>
      <section>
           <section class="g-attention">
-               <p>成功助力{{dialogOpations.nums}}赞！</p>
+               <p class="successVote">成功助力{{dialogOpations.nums}}赞！</p>
                <p class="u-text2">继续点赞有机会免费领取电子书哦~</p>
                <section class="u-btn">
                     <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">继续点赞</span>
@@ -33,25 +33,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$dialogsignin: "~@/assets/img/dialogbg/dialogsignin.png";
+$dialogattbtn: "~@/assets/img/dialogbg/dialogattbtn.png";
 .g-attention {
-     padding-top: .2rem /* 20/100 */;
+     margin: auto;
+     padding-top: 3.11rem /* 314/100 */;
+     width: 5.24rem /* 552/100 */;
+     height: 4.23rem /* 849/100 */;
+     @include background($dialogsignin);
      p {
-          font-size: .14rem /* 14/100 */;
-          left: 1.06rem /* 106/100 */;
-          color: rgba(16, 16, 16, 1);
-          text-align: center;
-          font-family: PingFangSC-regular;
+          @include setFont(
+               0.36rem,
+               "SourceHanSansCN-Regula",
+               400,
+               0.68rem,
+               rgba(255, 217, 165, 1),
+               auto
+          );
      }
+
      .u-btn {
-          width: 100%;
-          height: .5rem /* 50/100 */;
-          line-height: .5rem /* 50/100 */;
-          text-align: center;
-          border-top: 1px solid rgba(187, 187, 187, 1);
+          margin: 1.08rem auto 0;
+          width: 2.48rem /* 248/100 */;
+          height: 0.67rem /* 50/100 */;
+          @include setFont(
+               0.32rem,
+               "FZLTZCHJW--GB1-0",
+               400,
+               0.67rem,
+               rgba(255, 255, 255, 1),
+               center
+          );
+          @include background($dialogattbtn);
      }
      .u-text2 {
-          margin: .5rem /* 50/100 */ auto;
-          width: 2.38rem /* 238/100 */;
+          font-size: 0.3rem;
      }
 }
 </style>

@@ -57,26 +57,31 @@ export default {
           padding-top: 3.11rem /* 314/100 */;
           width: 5.24rem /* 552/100 */;
           height: 4.23rem /* 849/100 */;
-          @include background("/static/images/dialogbg/dialogsignin.png");
+          @include background("~@/assets/img/dialogbg/dialogsignin.png");
           p {
-               font-size: 0.3rem;
-               font-family: SourceHanSansCN-Regular;
-               font-weight: 400;
-               color: rgba(255, 217, 165, 1);
-               line-height: 0.55rem;
+               @include setFont(
+                    0.3rem,
+                    "SourceHanSansCN-Regular",
+                    400,
+                    0.55rem,
+                    rgba(255, 217, 165, 1),
+                    auto
+               );
           }
           span {
                display: inline-block;
                margin: 1.22rem auto 0;
                width: 2.52rem;
                height: 0.68rem /* 50/100 */;
-               line-height: 0.68rem /* 50/100 */;
-               text-align: center;
-               @include background("/static/images/dialogbg/dialogattbtn.png");
-               font-size: 0.3rem;
-               font-family: FZLTHJW--GB1-0;
-               font-weight: 400;
-               color: rgba(255, 255, 255, 1);
+               @include background("~@/assets/img/dialogbg/dialogattbtn.png");
+               @include setFont(
+                    0.3rem,
+                    "FZLTHJW--GB1-0",
+                    400,
+                    0.68rem,
+                    rgba(255, 255, 255, 1),
+                    center
+               );
           }
      }
 }
@@ -85,13 +90,16 @@ export default {
      padding-top: 3.11rem /* 314/100 */;
      width: 5.24rem /* 552/100 */;
      height: 4.23rem /* 849/100 */;
-     @include background("/static/images/dialogbg/dialogsignin.png");
+     @include background("~@/assets/img/dialogbg/dialogsignin.png");
      p {
-          font-size: 0.36rem;
-          font-family: SourceHanSansCN-Regular;
-          font-weight: 400;
-          color: rgba(255, 217, 165, 1);
-          line-height: 0.68rem;
+          @include setFont(
+               0.36rem,
+               "SourceHanSansCN-Regular",
+               400,
+               0.68rem,
+               rgba(255, 217, 165, 1),
+               auto
+          );
      }
      .g-doDoting-btn {
           .g-btn {
@@ -99,13 +107,15 @@ export default {
                margin: 1.22rem auto 0;
                width: 2.52rem;
                height: 0.68rem /* 50/100 */;
-               line-height: 0.68rem /* 50/100 */;
-               text-align: center;
-               @include background("/static/images/dialogbg/dialogattbtn.png");
-               font-size: 0.3rem;
-               font-family: FZLTHJW--GB1-0;
-               font-weight: 400;
-               color: rgba(255, 255, 255, 1);
+               @include background("~@/assets/img/dialogbg/dialogattbtn.png");
+               @include setFont(
+                    0.3rem,
+                    "FZLTHJW--GB1-0",
+                    400,
+                    0.68rem,
+                    rgba(255, 255, 255, 1),
+                    center
+               );
           }
      }
      .g-doDoting-number {

@@ -29,7 +29,7 @@
                                    ></DoVoting>
                               </li>
                               <li v-else-if="dialogType==6">
-                                   <VideoPlay></VideoPlay>
+                                   <VideoPlay :dialogOpations="dialogOpations"></VideoPlay>
                               </li>
                               <li v-else-if="dialogType==7">
                                    <SignIn @dialogComponentEvent="dialogComponentEvent"></SignIn>
@@ -98,7 +98,7 @@ export default {
           margin: 0.46rem /* 46/100 */ auto 0;
           width: 1.13rem /* 113/100 */;
           height: 1.13rem /* 113/100 */;
-          @include background("/static/images/dialogbg/dialogclose.png");
+          @include background("~@/assets/img/dialogbg/dialogclose.png");
      }
      .dialog-body {
           width: 80%;

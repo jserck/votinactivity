@@ -76,7 +76,7 @@ export default {
      padding-top: 3.1rem /* 314/100 */;
      width: 5.24rem /* 552/100 */;
      height: 7.5rem /* 849/100 */;
-     @include background("/static/images/dialogbg/dialoghistory.png");
+     @include background("~@/assets/img/dialogbg/dialoghistory.png");
      .g-ViteList-tit {
           text-align: center;
           font-size: 0.36rem;

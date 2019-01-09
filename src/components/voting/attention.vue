@@ -36,40 +36,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$dialogatt: "~@/assets/img/dialogbg/dialogatt.png";
+$dialogattbtn: "~@/assets/img/dialogbg/dialogattbtn.png";
 .g-attention {
      margin: auto;
      padding-top: 3.14rem /* 314/100 */;
      width: 5.52rem /* 552/100 */;
      height: 5.35rem /* 849/100 */;
-     @include background("/static/images/dialogbg/dialogatt.png");
+     @include background($dialogatt);
      .u-tit {
-          font-size: 0.48rem /* 48/100 */;
-          font-family: FZLTHJW--GB1-0;
-          font-weight: 400;
-          color: rgba(255, 218, 166, 1);
-          line-height: 0.68rem /* 68/100 */;
+          @include setFont(
+               0.48rem,
+               "FZLTZCHJW--GB1-0",
+               400,
+               0.68rem,
+               rgba(255, 218, 166, 1),
+               auto
+          );
      }
      .u-btn {
           margin: 1.08rem auto 0;
           width: 2.48rem /* 248/100 */;
           height: 0.67rem /* 50/100 */;
-          line-height: 0.67rem /* 50/100 */;
-          text-align: center;
-          font-size: 0.32rem /* 32/100 */;
-          font-family: FZLTHJW--GB1-0;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 1);
-          @include background("/static/images/dialogbg/dialogattbtn.png");
+          @include setFont(
+               0.32rem,
+               "FZLTZCHJW--GB1-0",
+               400,
+               0.67rem,
+               rgba(255, 255, 255, 1),
+               center
+          );
+          @include background($dialogattbtn);
      }
      .u-text {
           margin-top: 0.62rem;
      }
      .u-text2 {
-          font-size: 0.24rem /* 24/100 */;
-          font-family: SourceHanSansCN-Regular;
-          font-weight: 400;
-          color: rgba(255, 218, 166, 1);
-          line-height: 0.38rem /* 38/100 */;
+          @include setFont(
+               0.24rem,
+               "SourceHanSansCN-Regular",
+               400,
+               0.38rem,
+               rgba(255, 218, 166, 1),
+               auto
+          );
      }
 }
 </style>

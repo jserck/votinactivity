@@ -1,14 +1,16 @@
 <template>
-     <div class="vjx swiper-container displayFlex">
-          <ul class="displayFlex flexJustifybetween">
-               <li
-                    :style="(index ==0)?'padding-left:0.34rem':''"
-                    v-for="(item,index) in starBookDatas"
-                    :key="index"
-               >
-                    <book-item :indexNum="index" :obj="item"></book-item>
-               </li>
-          </ul>
+     <div class="m-swiper">
+          <div class="vjx swiper-container displayFlex">
+               <ul class="displayFlex flexJustifybetween">
+                    <li
+                         :style="(index ==0)?'padding-left:0.34rem':''"
+                         v-for="(item,index) in starBookDatas"
+                         :key="index"
+                    >
+                         <book-item :indexNum="index" :obj="item"></book-item>
+                    </li>
+               </ul>
+          </div>
      </div>
 </template>
 <script>
@@ -32,13 +34,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.m-swiper {
+     position: relative;
+}
 .swiper-container {
      margin: 0.25rem /* 25/100 */ auto 0;
      width: 6.52rem /* 566/100 */;
      height: 3.52rem;
+     overflow: hidden;
      overflow-x: scroll;
      -webkit-overflow-scrolling: touch;
-     @include background("/static/images/boolist@2x.png");
+     @include background("~@/assets/img/boolist@2x.png");
      ul {
           margin: auto;
           li {
