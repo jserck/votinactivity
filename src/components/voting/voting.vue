@@ -134,11 +134,12 @@ export default {
             dialogOpations: {},//传递给dialog的数据
             dialogType: 0,//dialog内容类型
             isShowDialog: false,//dialog显示隐藏
-            isFollow: this.$route.query.isFollow || 2,//是否关注
+            isFollow: this.$route.query.followed || '2',//是否关注
             isclosefollow: false,
-            isSignIn: this.$route.query.isSignIn || 2,//是否签到
+            isSignIn: this.$route.query.isSignIn || '2',//是否签到
             isCanVote: false,//是否可以投票
             isAutoSignIn: false,//是否自动签到
+            invitorId: this.$route.query.invitorId || '',//邀请人id
             starId: 0,//记录当前投票明星ID
             nums: 1,//监听投票数
             isFirst: false,//当天是否首次进入
@@ -146,25 +147,10 @@ export default {
             bookCount: 0,
             isHttp: true,
             timer: null,
-            myvotelist: [
-                {
-                    name: '关注小程序可得 1 张选票',
-                    btn: '去关注'
-                },
-                {
-                    name: '每日签到获得 1 张选票',
-                    btn: '去签到'
-                }, {
-                    name: '分享获得选票 今日还有10 次机会',
-                    btn: '去分享'
-                }, {
-                    name: '阅读已购电子书得 1 张选票',
-                    btn: '去阅读'
-                }
-            ]
         }
     },
     created() {
+        this.postTitle()
         this.voteInit()
         this.timerHandler()
     },
@@ -183,6 +169,24 @@ export default {
         }
     },
     methods: {
+        postTitle() {
+            /**
+            * @name 传递title到客户端
+            * @method post
+            * @param userId
+            */
+            try {
+                my.postMessage({
+                    action: 'setNavigationBar',
+                    data: {
+                        title: '投票活动页',
+                        backgroundColor: ''
+                    }
+                })
+            } catch (error) {
+                this.$toast('title获取失败!')
+            }
+        },
         timerHandler() {
             clearInterval(this.timer);
             this.timer = setInterval(this.getStarSolt, 5000);
@@ -248,8 +252,8 @@ export default {
                     this.myVoteData = res.data.data
                     this.isCanVote = res.data.data.userTicketCount > 0
                     this.isFirst = res.data.data.isFirst
-                    this.isFollow = (res.data.data.isFollow == 1)
-                    this.isSignIn = (res.data.data.isSignIn == 1)
+                    // this.isFollow = (res.data.data.isFollow == 1)
+                    this.isSignIn = res.data.data.isSignIn
                     this.isAutoSignIn = (res.data.data.isAutoSignIn == 1)
                     if (this.isFirst == 1) {
                         this.saveBooks(1)
@@ -394,7 +398,7 @@ export default {
             */
             try {
                 my.postMessage({
-                    action: 'follow',
+                    event: 'followApp',
                     data: {}
                 })
             } catch (error) {
@@ -409,16 +413,13 @@ export default {
             */
             try {
                 my.postMessage({
-                    action: 'share',
+                    event: 'shareApp',
                     data: {
                         title: '投票活动',
                         desc: '投票活动',
                         content: '投票活动',
-                        path: '/voting',
-                        query: {
-                            a: 1
-                        },
-                        imageUrl: 'https://img.dz19.net/forum/201901/04/132545icn959e8xnqxebjn.jpg'
+                        imageUrl: 'https://img.dz19.net/forum/201901/04/132545icn959e8xnqxebjn.jpg',
+                        bgImgUrl: ''
                     }
                 })
             } catch (error) {
@@ -437,16 +438,14 @@ export default {
             /**
              * @name 阅读
             */
-            window.location.href = 'https://lanhuapp.com/web/#/item/board/detail?pid=b91a1034-6b12-4148-bb7f-4cb55a726715&project_id=b91a1034-6b12-4148-bb7f-4cb55a726715&image_id=6722a10d-4b94-4487-aed7-85a94999aad2'
-            // my.navigateTo({
-            //      url: '',
-            //      //跳转成功
-            //      success() { },
-            //      //跳转失败
-            //      fail() { },
-            //      //调用完成（无论成功失败）
-            //      complete() { }
-            // })
+            try {
+                my.postMessage({
+                    event: 'navigatorTo',
+                    data: { path: '/booklist', query: {} }
+                });
+            } catch (error) {
+                this.$toast('没有书籍!')
+            }
         },
         voteClick(type) {
             if (type === 1) {

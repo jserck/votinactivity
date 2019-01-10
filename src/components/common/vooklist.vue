@@ -36,14 +36,14 @@ export default {
             // 跳转至封面页
             let bid = item.bookId;
             // const bid = 10110 + index + 1;
-            // try {
+            try {
             my.postMessage({
                 event: 'navigatorTo',
                 data: { path: `/cover/${bid}`, query: {} }
             });
-            // } catch (error) {
-            //     this.$toast('跳转失败!')
-            // }
+            } catch (error) {
+                this.$toast('跳转失败!')
+            }
         }
     }
 }

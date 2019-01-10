@@ -57,7 +57,16 @@ export default {
      },
      methods: {
           nextRead() {
-               window.location.href = this.dialogOpations.bookWebUrl
+               try {
+                   my.postmessage({
+                       event:'',
+                       data:{
+
+                       }
+                   })
+               } catch (error) {
+                   this.$toast('跳转书籍页失败')
+               }
           },
           dialogComponentEvent(eventType) {
                this.$emit('dialogComponentEvent', {
