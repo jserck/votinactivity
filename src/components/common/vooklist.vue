@@ -35,14 +35,13 @@ export default {
         nativeto(item, index) {
             // 跳转至封面页
             let bid = item.bookId;
-            // const bid = 10110 + index + 1;
             try {
             my.postMessage({
                 event: 'navigatorTo',
                 data: { path: `/cover/${bid}`, query: {} }
             });
             } catch (error) {
-                this.$toast('跳转失败!')
+                // this.$toast('跳转失败!')
             }
         }
     }

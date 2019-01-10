@@ -8,13 +8,13 @@
             @dialogListenEvent="dialogListenEvent"
             @voteNumChange3="voteNumChange3"
         ></Dialog>
+        <section class="u-vote-count">
+            <p>当前</p>
+            <p>能量值</p>
+            <p>{{userTicketCount}}</p>
+        </section>
         <header>
             <section class="g-video-container">
-                <section class="u-vote-count">
-                    <p>当前</p>
-                    <p>能量值</p>
-                    <p>{{userTicketCount}}</p>
-                </section>
                 <section class="u-rule" @click="ruleHandler">
                     <!-- <img src="@/assets/img/rule@2x.png" alt=""> -->
                 </section>
@@ -136,7 +136,7 @@ export default {
             isShowDialog: false,//dialog显示隐藏
             isFollow: this.$route.query.followed || '2',//是否关注
             isclosefollow: false,
-            isSignIn: this.$route.query.isSignIn || '2',//是否签到
+            // isSignIn: this.$route.query.isSignIn || '2',//是否签到
             isCanVote: false,//是否可以投票
             isAutoSignIn: false,//是否自动签到
             invitorId: this.$route.query.invitorId || '',//邀请人id
@@ -184,7 +184,7 @@ export default {
                     }
                 })
             } catch (error) {
-                this.$toast('title获取失败!')
+                // this.$toast('title获取失败!')
             }
         },
         timerHandler() {
@@ -205,7 +205,6 @@ export default {
             */
             this.nums = val
         },
-
         getStarSolt() {
             /**
              * @name 获取明星排名列表接口
@@ -236,11 +235,11 @@ export default {
              */
             if (!this.isHttp) return
             let options = {
-                urls: '/user/myInfo/' + this.userId + '/' + this.isFollow + '/' + this.isSignIn,
+                urls: '/user/myInfo/' + this.userId + '/' + this.isFollow,
                 data: {
                     userId: this.userId,
                     isFollow: this.isFollow,
-                    isSignIn: this.isSignIn
+                    // isSignIn: this.isSignIn
                 },
                 methods: 'post',
                 types: 1,
@@ -254,7 +253,7 @@ export default {
                     this.isFirst = res.data.data.isFirst
                     // this.isFollow = (res.data.data.isFollow == 1)
                     this.isSignIn = res.data.data.isSignIn
-                    this.isAutoSignIn = (res.data.data.isAutoSignIn == 1)
+                    this.isAutoSignIn = res.data.data.isAutoSignIn
                     if (this.isFirst == 1) {
                         this.saveBooks(1)
                     }
@@ -333,11 +332,11 @@ export default {
                         this.isSignIn = true
                         this.dialogShow(7, true)
                     }
-                } else if (res.data.msg == 17) {
+                } else if (res.data.code == 17) {
                     this.$toast('已关注')
-                } else if (res.data.msg == 18) {
+                } else if (res.data.code == 18) {
                     this.$toast('今日已签到')
-                } else if (res.data.msg == 19) {
+                } else if (res.data.code == 19) {
                     this.$toast('今日已达上限')
                 }
             }).catch((err) => { })
@@ -366,13 +365,9 @@ export default {
             this.$http(options).then((res) => {
                 if (res.data.code == 200) {
                     this.userTicketCountChange(0);
-                    try {
-                        console.log(res.data.data.id);
-                        this.isShowDialog = false
-                        this.saveBooks()
-                    } catch (error) {
-                        this.dialogShow(8, true, { nums: this.nums })
-                    }
+                    this.isShowDialog = false
+                    this.saveBooks(2)
+                    this.dialogShow(8, true, { nums: this.nums })
                     this.getStarSolt()
                 } else if (res.data.code == 1003) {
                     this.$toast('当前投票人数过多!')
@@ -402,7 +397,7 @@ export default {
                     data: {}
                 })
             } catch (error) {
-                this.$toast('关注未成功!')
+                // this.$toast('关注未成功!')
                 return;
             }
             this.getTicket(1)
@@ -423,7 +418,7 @@ export default {
                     }
                 })
             } catch (error) {
-                this.$toast('分享未成功!')
+                // this.$toast('分享未成功!')
                 return;
             }
             this.getTicket(3)
@@ -439,12 +434,13 @@ export default {
              * @name 阅读
             */
             try {
+                // 跳转至书单列表
                 my.postMessage({
                     event: 'navigatorTo',
                     data: { path: '/booklist', query: {} }
                 });
             } catch (error) {
-                this.$toast('没有书籍!')
+                // this.$toast('没有书单!')
             }
         },
         voteClick(type) {
@@ -561,6 +557,26 @@ export default {
     height: 32.68rem;
     margin: auto;
     @include background("~@/assets/img/bg.jpg");
+    .u-vote-count {
+        z-index: 1999;
+        padding-top: 0.25rem;
+        position: fixed;
+        right: 0.14rem;
+        top: 2.97rem;
+        width: 1.37rem;
+        height: 1.35rem;
+        @include background("~@/assets/img/havevote@2x.png");
+        p {
+            @include setFont(
+                0.23rem,
+                "FZLTZCHJW--GB1-0",
+                normal,
+                0.25rem,
+                #fff,
+                center
+            );
+        }
+    }
     header {
         .g-video-container {
             overflow: hidden;
@@ -585,26 +601,6 @@ export default {
                 left: 0rem;
                 z-index: 999;
                 @include background("~@/assets/img/history@2x.png");
-            }
-            .u-vote-count {
-                z-index: 999;
-                padding-top: 0.25rem;
-                position: absolute;
-                right: 0.24rem;
-                top: 2.97rem;
-                width: 1.37rem;
-                height: 1.35rem;
-                @include background("~@/assets/img/havevote@2x.png");
-                p {
-                    @include setFont(
-                        0.23rem,
-                        "FZLTZCHJW--GB1-0",
-                        normal,
-                        0.25rem,
-                        #fff,
-                        center
-                    );
-                }
             }
             .g-video-banner {
                 position: relative;

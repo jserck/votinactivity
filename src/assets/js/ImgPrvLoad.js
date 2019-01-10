@@ -1,6 +1,6 @@
 export default Vue.directive('preload', {
     inserted: function(el, binding) {
-        el.style.background = 'red';
+        el.style.background = '#ffd8a1';
         let img = document.createElement('img');
         img.style.display = 'none';
         img.onload = function() {

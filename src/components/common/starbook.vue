@@ -36,7 +36,7 @@
                 </section>
             </section>
             <!-- <section class="g-book-num"></section> -->
-            <book-list v-if="isClick" :starBookData="starBookData"></book-list>
+            <book-list v-if="isClick && this.starBookData[0]!=null" :starBookData="starBookData"></book-list>
         </section>
     </section>
 </template>
@@ -52,32 +52,39 @@ export default {
                 {                    src: '/static/images/meinv@2x.png',
                     video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                     text: '“这里是我推荐书单这里是我推荐书单”',
-                    count: 9999
+                    count: 9999,
+                    bid: '10001'
                 },
                 {                    src: '/static/images/meinv@2x.png',
                     video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                     text: '“这里是我推荐书单这里是我推荐书单”',
-                    count: 8888
+                    count: 8888,
+                    bid: '10002'
                 },
                 {                    src: '/static/images/meinv@2x.png',
                     video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                     text: '“这里是我推荐书单这里是我推荐书单”',
-                    count: 7777
+                    count: 7777,
+                    bid: '10003'
                 },
                 {                    src: '/static/images/meinv@2x.png',
                     video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                     text: '“这里是我推荐书单这里是我推荐书单”',
-                    count: 6666
+                    count: 6666,
+                    bid: '10004'
                 },
                 {                    src: '/static/images/meinv@2x.png',
                     video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                     text: '“这里是我推荐书单这里是我推荐书单”',
-                    count: 5555
+                    count: 5555,
+                    bid: '10005'
                 },
                 {                    src: '/static/images/meinv@2x.png',
                     video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                     text: '“这里是我推荐书单这里是我推荐书单”',
-                    count: 4444                }
+                    count: 4444,
+                    bid: '10006'
+                }
             ]
         }
     },
@@ -104,18 +111,20 @@ export default {
                     this.starBookData = res.data.data.starList
                     this.isClick = true;
                 }
-
             }).catch((err) => { })
         },
         booklist() {
+            // changeList
             try {
-                // 跳转至书单列表
+                //书单详情
+                let index = this.indexNum - 10000;
+                const did = this.changeList[index].bid;
                 my.postMessage({
                     event: 'navigatorTo',
-                    data: { path: '/booklist', query: {} }
+                    data: { path: `/booklistdetail/${did}`, query: {} }
                 });
             } catch (error) {
-                this.$toast('跳转失败!')
+                // this.$toast('跳转失败!')
             }
         },
         videoPlay() {
