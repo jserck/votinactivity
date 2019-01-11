@@ -2,12 +2,10 @@
      <section class="g-rule">
           <p class="u-tit">活动规则</p>
           <Scroller height="5.83rem">
-               <ul>
-                    <li v-for="i in 150" :key="i">
-                         <p class="u-header">一. 活动说明：</p>
-                         <p class="u-text">用户通过完成关注天猫小程序、签到、分享、阅读已购电子书等任务，赢取为喜欢的领读官点赞的权利，同时获得免费电子</p>
-                    </li>
-               </ul>
+               <p class="u-header">一. 活动说明：</p>
+               <p class="u-text">用户通过完成关注天猫小程序、签到、分享、阅读已购电子书等任务，赢取为喜欢的领读官点赞的权利，同时获得免费电子</p>
+               <p class="u-header">一. 活动说明：</p>
+               <p class="u-header">一. 活动说明：</p>
           </Scroller>
      </section>
 </template>
