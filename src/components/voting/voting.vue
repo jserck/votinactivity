@@ -9,9 +9,8 @@
                @voteNumChange3="voteNumChange3"
           ></Dialog>
           <section class="u-vote-count">
-               <p>当前</p>
-               <p>能量值</p>
-               <p>{{userTicketCount}}</p>
+               <span>{{userTicketCount}}</span>
+               <p>点击去充能</p>
           </section>
           <header>
                <section class="g-video-container">
@@ -50,11 +49,14 @@
                                             backgroundRepeat:no-repeat;
                                             backgroundSize:cover`"
                                    ></span>
-                                   <span class="u-vote-num">领读官 {{item.starName}}</span>
+                                   <section>
+                                        <span class="u-vote-num">领读官 {{item.starName}}</span>
+                                        <span class="u-nums">
+                                             <i>{{item.ticketCount}}</i>阅读能量
+                                        </span>
+                                   </section>
                               </section>
-                              <section class="g-btn" @click="doVotingHandler(item['starId'])">
-                                   <span class="u-nums">{{item.ticketCount}}阅读能量</span>
-                              </section>
+                              <section class="g-btn" @click="doVotingHandler(item['starId'])"></section>
                          </li>
                     </ul>
                </section>
@@ -67,8 +69,8 @@
                <section class="g-vote-context">
                     <section class="g-vote-list">
                          <ul class="displayFlex flexJustifybetween flexAlignItemsCenter flexWrap">
-                              <li class="displayFlex flexAlignJustifyCenter flexAlignItemsCenter">
-                                   <span v-if="isFollow==1" class="u-moman"></span>
+                              <li :class="isFollow!=1?'link-li':'active-li'">
+                                   <!-- <span v-if="isFollow==1" class="u-moman"></span> -->
                                    <span
                                         @click="voteClick(1)"
                                         class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
@@ -78,8 +80,8 @@
                                    </span>
                               </li>
                               <!-- v-if="isAutoSignIn==1" -->
-                              <li class="displayFlex flexAlignJustifyCenter flexAlignItemsCenter">
-                                   <span v-if="isSignIn==1" class="u-moman"></span>
+                              <li :class="isSignIn!=1?'link-li':'active-li'">
+                                   <!-- <span v-if="isSignIn==1" class="u-moman"></span> -->
                                    <span
                                         @click="voteClick(2)"
                                         class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
@@ -88,21 +90,21 @@
                                         <span class="u-text">每日签到能量+10</span>
                                    </span>
                               </li>
-                              <li class="displayFlex flexAlignJustifyCenter flexAlignItemsCenter">
+                              <li class="link-li">
                                    <span
                                         class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
                                         @click="voteClick(4)"
                                    >
-                                        <span class="u-icon4"></span>
+                                        <span class="u-icon3"></span>
                                         <span class="u-text">阅读1本书能量+10</span>
                                    </span>
                               </li>
-                              <li class="displayFlex flexAlignJustifyCenter flexAlignItemsCenter">
+                              <li class="link-li">
                                    <span
                                         class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
                                         @click="voteClick(3)"
                                    >
-                                        <span class="u-icon3"></span>
+                                        <span class="u-icon4"></span>
                                         <span class="u-text">分享活动能量+10</span>
                                         <!-- {{shareCount}}分享次数剩余 -->
                                    </span>
@@ -605,19 +607,31 @@ export default {
      @include background("~@/assets/img/bg.jpg");
      .u-vote-count {
           z-index: 1999;
-          padding-top: 0.25rem;
+          padding-top: 0.82rem;
           position: fixed;
-          right: 0.14rem;
-          top: 2.97rem;
-          width: 1.37rem;
-          height: 1.35rem;
+          left: 0.24rem;
+          top: 1.3rem;
+          width: 0.82rem;
+          height: 0.89rem;
           @include background("~@/assets/img/havevote@2x.png");
-          p {
+          span {
+               display: block;
+               text-align: center;
                @include setFont(
                     0.23rem,
                     "FZLTZCHJW--GB1-0",
-                    normal,
-                    0.25rem,
+                    900,
+                    0.34rem,
+                    #fff,
+                    center
+               );
+          }
+          p {
+               @include setFont(
+                    0.12rem,
+                    "FZLTZCHJW--GB1-0",
+                    400,
+                    0.12rem,
                     #fff,
                     center
                );
@@ -630,21 +644,21 @@ export default {
                text-align: center;
                .u-rule {
                     position: absolute;
-                    width: 0.76rem /* 76/100 */;
-                    height: 0.75rem /* 75/100 */;
+                    width: 0.81rem /* 76/100 */;
+                    height: 0.54rem /* 75/100 */;
                     display: inline-block;
-                    top: 2.43rem;
-                    left: 0rem;
+                    top: 1.29rem;
+                    right: 0rem;
                     z-index: 999;
                     @include background("~@/assets/img/rule@2x.png");
                }
                .u-myVoteCon-link {
                     position: absolute;
-                    width: 0.76rem /* 76/100 */;
-                    height: 0.75rem /* 75/100 */;
+                    width: 0.81rem /* 76/100 */;
+                    height: 0.54rem /* 75/100 */;
                     display: inline-block;
-                    top: 3.38rem;
-                    left: 0rem;
+                    top: 2.01rem;
+                    right: 0rem;
                     z-index: 999;
                     @include background("~@/assets/img/history@2x.png");
                }
@@ -690,8 +704,8 @@ export default {
                     li {
                          .g-vote-li {
                               overflow: hidden;
-                              width: 1.86rem;
-                              height: 2.58rem;
+                              width: 2.02rem;
+                              height: 4.45rem;
                               @include background(
                                    "~@/assets/img/starvote@2x.png"
                               );
@@ -701,8 +715,8 @@ export default {
                          }
                          .u-img {
                               margin: 0.2rem auto 0;
-                              width: 1.65rem /* 165/100 */;
-                              height: 1.91rem /* 191/100 */;
+                              width: 1.73rem /* 165/100 */;
+                              height: 2.68rem /* 191/100 */;
                               border-radius: 0.08rem;
                               background-size: cover !important;
                               background-repeat: no-repeat !important;
@@ -712,21 +726,42 @@ export default {
                               margin-top: 0.04rem /* 4/100 */;
                               font-style: italic;
                               @include setFont(
-                                   0.18rem,
-                                   "FZLTZCHJW--GB1-0",
-                                   400,
+                                   0.19rem,
+                                   "NotoSerifCJKsc-Black",
+                                   900,
                                    auto,
-                                   rgba(194, 65, 67, 1),
+                                   #935022,
                                    center
+                              );
+                         }
+                         .u-nums {
+                              text-align: center;
+                              i {
+                                   font-style: italic;
+                                   @include setFont(
+                                        0.24rem,
+                                        "SourceHanSansCN-Heavy",
+                                        800,
+                                        0.23rem,
+                                        #6b2f05,
+                                        center
+                                   );
+                              }
+                              @include setFont(
+                                   0.15rem,
+                                   "SourceHanSansCN-Medium",
+                                   500,
+                                   0.23rem,
+                                   #6b2f05,
+                                   normal
                               );
                          }
                     }
                }
                .g-btn {
                     margin: 0.17rem auto 0.21rem;
-                    width: 1.7rem;
-                    height: 0.69rem;
-                    border-radius: 0.04rem;
+                    width: 2.02rem;
+                    height: 0.75rem;
                     @include setFont(
                          0.14rem,
                          "PingFang SC",
@@ -736,17 +771,6 @@ export default {
                          center
                     );
                     @include background("~@/assets/img/addvote@2x.png");
-                    .u-nums {
-                         padding-left: 0.25rem;
-                         @include setFont(
-                              0.17rem,
-                              "FZLTCHJW--GB1-0",
-                              normal,
-                              0.23rem,
-                              #ffe2c3,
-                              normal
-                         );
-                    }
                }
           }
      }
@@ -770,43 +794,35 @@ export default {
                .g-vote-list {
                     padding: 0 0.37rem /* 37/100 */;
                     ul {
-                         height: 1.51rem /* 151/100 */;
-                         li {
+                         // height: 1.51rem /* 151/100 */;
+
+                         .link-li,.active-li {
                               position: relative;
-                              width: 3.22rem;
-                              height: 0.62rem /* 62/100 */;
+                              margin-top: 0.33rem;
+                              width: 3.15rem;
+                              height: 0.75rem /* 62/100 */;
                               @include background(
                                    "~@/assets/img/nengliangbtn.png"
                               );
-                              .u-moman {
-                                   position: absolute;
-                                   top: 0;
-                                   display: block;
-                                   width: 100%;
-                                   height: 100%;
-                                   border-radius: 0.62rem;
-                                   background: rgba(0, 0, 0, 0.4);
-                              }
-                              // flex: 0 0 auto;
                               .u-text {
                                    // margin-right: 0.36rem;
                                    @include setFont(
-                                        0.21rem,
+                                        0.23rem,
                                         "FZLTCHJW--GB1-0",
-                                        normal,
+                                        400,
                                         auto,
-                                        #ffffff,
+                                        #8c5b35,
                                         normal
                                    );
                               }
                               .u-ticketbtn {
-                                   margin: auto;
+                                   margin: 0.17rem auto 0;
                               }
                               .u-icon1 {
                                    margin-right: 0.12rem;
                                    display: inline-block;
-                                   width: 0.38rem;
-                                   height: 0.39rem;
+                                   width: 0.25rem;
+                                   height: 0.25rem;
                                    @include background(
                                         "~@/assets/img/people@2x.png"
                                    );
@@ -814,8 +830,8 @@ export default {
                               .u-icon2 {
                                    margin-right: 0.12rem;
                                    display: inline-block;
-                                   width: 0.38rem;
-                                   height: 0.39rem;
+                                   width: 0.25rem;
+                                   height: 0.25rem;
                                    @include background(
                                         "~@/assets/img/duigou@2x.png"
                                    );
@@ -823,8 +839,8 @@ export default {
                               .u-icon3 {
                                    margin-right: 0.12rem;
                                    display: inline-block;
-                                   width: 0.38rem;
-                                   height: 0.39rem;
+                                   width: 0.25rem;
+                                   height: 0.25rem;
                                    @include background(
                                         "~@/assets/img/book@2x.png"
                                    );
@@ -832,11 +848,23 @@ export default {
                               .u-icon4 {
                                    margin-right: 0.12rem;
                                    display: inline-block;
-                                   width: 0.38rem;
-                                   height: 0.39rem;
+                                   width: 0.25rem;
+                                   height: 0.25rem;
                                    @include background(
                                         "~@/assets/img/fanhui@2x.png"
                                    );
+                              }
+                         }
+                         .active-li {
+                              position: relative;
+                              margin-top: 0.33rem;
+                              width: 3.05rem;
+                              height: 0.6rem /* 62/100 */;
+                              @include background(
+                                   "~@/assets/img/activebtn.png"
+                              );
+                              .u-text{
+                                   color: #fff;
                               }
                          }
                     }
