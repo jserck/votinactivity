@@ -5,7 +5,7 @@
           </section>
           <section class="g-star-book-conatiner">
                <section style="width:100%;position:relative">
-                    <section
+                    <!-- <section
                          class="g-star-book-header"
                          :style="`background:url(${changeList[indexNum-10000].src});
                          background-repeat:no-repeat;
@@ -14,13 +14,15 @@
                          <span class="u-l" @click="leftHandler"></span>
                          <span class="u-play" @click="videoPlay"></span>
                          <span class="u-r" @click="rightHandler"></span>
-                    </section>
+                    </section>-->
                     <section class="g-star-book-lists">
-                         <section class="u-tit">
+                         <!-- <section class="u-tit">
                               <span>{{changeList[indexNum-10000].text}}</span>
-                         </section>
+                         </section>-->
                          <section class="g-scroll-star">
-                              <section class="g-scroll-star-box displayFlex flexAlignItemsCenter">
+                              <section
+                                   class="g-scroll-star-box displayFlex flexJustifybetween flexAlignItemsCenter"
+                              >
                                    <section
                                         :class="indexNum == `1000${i-1}` ? 'u-box-item-active':'u-box-item-link'"
                                         v-for="i in 6"
@@ -29,14 +31,15 @@
                                    ></section>
                               </section>
                          </section>
-                         <section class="u-foot" @click="booklist">
-                              <span>书籍总数{{changeList[indexNum-10000].count}}</span>
-                              <span>查看详细书单</span>
-                         </section>
                     </section>
                </section>
-               <!-- <section class="g-book-num"></section> -->
-               <book-list v-if="isClick && this.starBookData[0]!=null" :starBookData="starBookData"></book-list>
+               <book-list
+                    v-if="isClick && this.starBookData[0]!=null"
+                    :starBookData="starBookData"
+                    :myRecommend="changeList[indexNum-10000]"
+                    @lookBooks="lookBooks"
+                    @videoPlay="videoPlay"
+               ></book-list>
           </section>
      </section>
 </template>
@@ -53,37 +56,50 @@ export default {
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                          text: '“这里是我推荐书单这里是我推荐书单”',
                          count: 9999,
-                         bid: '10001'
+                         bid: '10001',
+                         src: '/static/images/gxs.png',
+                         name: '高晓松'
                     },
                     {                         src: '/static/images/meinv@2x.png',
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                          text: '“这里是我推荐书单这里是我推荐书单”',
                          count: 8888,
-                         bid: '10002'
+                         bid: '10002',
+                         src: '/static/images/sy.png',
+                         name: '沈月'
+
                     },
                     {                         src: '/static/images/meinv@2x.png',
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                          text: '“这里是我推荐书单这里是我推荐书单”',
                          count: 7777,
-                         bid: '10003'
+                         bid: '10003',
+                         src: '/static/images/wff.png',
+                         name: '王霏霏'
                     },
                     {                         src: '/static/images/meinv@2x.png',
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                          text: '“这里是我推荐书单这里是我推荐书单”',
                          count: 6666,
-                         bid: '10004'
+                         bid: '10004',
+                         src: '/static/images/wl.png',
+                         name: '吴磊'
                     },
                     {                         src: '/static/images/meinv@2x.png',
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                          text: '“这里是我推荐书单这里是我推荐书单”',
                          count: 5555,
-                         bid: '10005'
+                         bid: '10005',
+                         src: '/static/images/yyw.png',
+                         name: '袁娅维'
                     },
                     {                         src: '/static/images/meinv@2x.png',
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
                          text: '“这里是我推荐书单这里是我推荐书单”',
-                         count: 4444,
-                         bid: '10006'
+                         myRecommend: 4444,
+                         bid: '10006',
+                         src: '/static/images/zxx.png',
+                         name: '张小娴'
                     }
                ]
           }
@@ -113,12 +129,11 @@ export default {
                     }
                }).catch((err) => { })
           },
-          booklist() {
+          lookBooks(val) {
                // changeList
                try {
                     //书单详情
-                    let index = this.indexNum - 10000;
-                    const did = this.changeList[index].bid;
+                    const did = val;
                     console.log(`did=${did}`);
                     console.log(`path:/booklistdetail/${did}`);
                     my.postMessage({
@@ -129,23 +144,13 @@ export default {
                     // this.$toast('跳转失败!')
                }
           },
-          videoPlay() {
-               this.$emit('videoPlay', this.changeList[this.indexNum - 10000].video)
+          videoPlay(val) {
+               this.$emit('videoPlay', val)
           },
           starChange(index) {
                if (!this.isClick) return
                this.indexNum = 10000 + index;
                this.getStarBook(`1000${index}`)
-          },
-          leftHandler() {
-               if (this.indexNum == 10000 || !this.isClick) return
-               this.indexNum--;
-               this.getStarBook(this.indexNum)
-          },
-          rightHandler() {
-               if (this.indexNum == 10005 || !this.isClick) return
-               this.indexNum++;
-               this.getStarBook(this.indexNum)
           }
      },
      created() {
@@ -168,28 +173,21 @@ export default {
      margin-bottom: 0.1rem /* 10/100 */;
      .g-scroll-star-box {
           margin: auto;
-          width: 6.35rem /* 635/100 */;
+          width: 6.48rem /* 635/100 */;
           height: 1.49rem /* 149/100 */;
-          @include background("~@/assets/img/starlist2x.png");
-          .u-box-item-link {
-               margin-left: 0.18rem /* 18/100 */;
-               width: 0.78rem /* 78/100 */;
-               height: 0.78rem /* 78/100 */;
+          // @include background("~@/assets/img/starlist2x.png");
+          .u-box-item-link,
+          .u-box-item-active {
+               width: 0.96rem /* 96/100 */;
+               height: 0.96rem /* 96/100 */;
                background: #fff;
-               border-radius: 0.39rem /* 39/100 */;
+               border-radius: 0.48rem /* 39/100 */;
                text-align: center;
-               border: 0.05rem /* 2/100 */ solid #ffd8a1;
                box-sizing: border-box;
+               @include background("~@/assets/img/l_starimg@2x.png");
           }
           .u-box-item-active {
-               margin-left: 0.18rem /* 18/100 */;
-               width: 1.11rem /* 111/100 */;
-               height: 1.11rem /* 111/100 */;
-               border-radius: 0.555rem /* 55.5/100 */;
-               background: #fff;
-               text-align: center;
-               border: 0.05rem /* 2/100 */ solid #ffd8a1;
-               box-sizing: border-box;
+               @include background("~@/assets/img/a_starimg@2x.png");
           }
      }
 }
@@ -198,7 +196,7 @@ export default {
      position: relative;
      overflow: hidden;
      margin: 0.1rem /* 90/100 */ auto 0;
-     width: 6.9rem /* 690/100 */;
+     // width: 6.9rem /* 690/100 */;
      // height: 6.32rem /* 632/100 */;
      .g-star-book-header {
           position: relative;
@@ -243,9 +241,8 @@ export default {
           }
      }
      .g-star-book-lists {
-          position: absolute;
+          position: relative;
           width: 100%;
-          bottom: 0;
           .u-tit {
                margin: auto;
                width: 4.75rem /* 475/100 */;

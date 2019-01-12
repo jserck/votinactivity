@@ -41,15 +41,15 @@ export default {
      width: 100%;
      .u-book-img {
           width: 100%;
-          height: 2.2rem /* 187/100 */;
+          height: 1.72rem /* 187/100 */;
           border-radius: 0.25rem /* 25/100 */;
           background-size: cover !important;
           background-repeat: no-repeat !important;
      }
-     font-size: 0.19rem /* 19/100 */;
+     font-size: 0.16rem /* 19/100 */;
      font-family: FZLTHJW--GB1-0;
-     font-weight: 400;
-     color: rgba(177, 34, 41, 1);
+     font-weight: 900;
+     color: rgba(255, 255, 255, 1);
      text-align: center;
      p {
           text-align: center;
