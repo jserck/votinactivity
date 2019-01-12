@@ -14,7 +14,6 @@
           </section>
           <section class="u-rule" @click="ruleHandler"></section>
           <section class="u-myVoteCon-link" @click="myVoteCon"></section>
-
           <header class="clearfix">
                <section class="g-video-container">
                     <section class="g-titleImg">
@@ -675,8 +674,9 @@ export default {
 </script>
 <style scoped lang="scss">
 .m-voting-template {
+     position: relative;
      // padding-bottom: 1.62rem /* 162/100 */;
-     width: 7.5rem;
+     // width: 7.5rem;
      height: 29.65rem;
      margin: auto;
      @include background("~@/assets/img/bg.jpg");
