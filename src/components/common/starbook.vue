@@ -33,8 +33,8 @@
                          </section>
                     </section>
                </section>
+                                   <!-- v-if="isClick && this.starBookData[0]!=null" -->
                <book-list
-                    v-if="isClick && this.starBookData[0]!=null"
                     :starBookData="starBookData"
                     :myRecommend="changeList[indexNum-10000]"
                     @lookBooks="lookBooks"

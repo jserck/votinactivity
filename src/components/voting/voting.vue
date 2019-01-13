@@ -435,7 +435,7 @@ export default {
                               this.dialogShow(7, true)
                          }
                     } else if (res.data.code == 17) {
-                         this.$toast('已关注')
+                        //  this.$toast('已关注')
                     } else if (res.data.code == 18) {
                          this.$toast('今日已签到')
                     } else if (res.data.code == 19) {
