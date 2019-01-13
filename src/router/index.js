@@ -5,7 +5,7 @@ const Voting = () => import('@/components/voting/voting')
 const Voted = () => import('@/components/voted/voted')
 const Lx = () => import('@/components/lx')
 
-export default new myRouter({
+export default new VueRouter({
     routes: [{
             path: '/voting',
             name: 'voting',
