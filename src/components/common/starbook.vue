@@ -37,13 +37,17 @@
                          </section>
                     </section>
                </section>
+               <section class="footStarText">
+
+               </section>
+               <section class="footStarBookList"></section>
                <!-- v-if="isClick && this.starBookData[0]!=null" -->
-               <book-list
+               <!-- <book-list
                     :starBookData="starBookData"
                     :myRecommend="changeList[indexNum-10000]"
                     @lookBooks="lookBooks"
                     @videoPlay="videoPlay"
-               ></book-list>
+               ></book-list> -->
           </section>
      </section>
 </template>
@@ -290,5 +294,15 @@ export default {
           width: 4.42rem /* 442/100 */;
           height: 0.42rem /* 42/100 */;
      }
+}
+.footStarText{
+    width: 100%;
+    height: 4.39rem;
+    @include background("~@/assets/img/footStarText.png");
+}
+.footStarBookList{
+    width: 100%;
+    height: 4.18rem;
+    @include background("~@/assets/img/footStarBookList.png");
 }
 </style>

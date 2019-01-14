@@ -1,6 +1,6 @@
 export default Vue.directive('scroll', {
-    inserted: function(el, binding) {
-        el.addEventListener('click', function(event) {
+    update: function (el, binding) {
+        el.addEventListener('click', function (event) {
             event.stopPropagation();
             document.documentElement.scrollTop = 1
             //   var sTop = document.getElementById("touchFixed");
@@ -13,5 +13,6 @@ export default Vue.directive('scroll', {
                 document.body.scrollTop = elOffsetTop
             }
         }, true);
-    }
+    },
+
 })
