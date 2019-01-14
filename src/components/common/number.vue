@@ -19,13 +19,13 @@ export default {
      },
      methods: {
           remove() {
-               if (this.voteNum <= 1) return
-               this.voteNum--
+               if (this.voteNum <= 10) return
+               this.voteNum -= 10
                this.voteNumChange()
           },
           add() {
                if (this.voteNum >= this.nums) return
-               this.voteNum++
+               this.voteNum += 10
                this.voteNumChange()
           },
           voteNumChange() {

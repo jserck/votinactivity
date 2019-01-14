@@ -1,7 +1,9 @@
 <template>
      <div class="m-swiper">
           <section class="myRecommend">
-               <span>{{myRecommend.text}}</span>
+               <section class="u-myRecommend displayFlex">
+                    <span>{{myRecommend.text}}</span>
+               </section>
           </section>
           <div class="vjx swiper-container displayFlex">
                <span class="lookBook" @click="lookBook">点击查看{{myRecommend.name}}私房书单</span>
@@ -58,7 +60,7 @@ export default {
           lookBook() {
                this.$emit('lookBooks', this.myRecommend.bid)
           },
-          videoPlay(){
+          videoPlay() {
                this.$emit('videoPlay', this.myRecommend.video)
           }
      }
@@ -67,20 +69,36 @@ export default {
 
 <style lang="scss" scoped>
 .m-swiper {
-     margin-top: 0.58rem;
+     margin-top: 0.7rem;
      position: relative;
 }
 .myRecommend {
+     padding: 0 0.1rem;
      position: absolute;
      right: 1.31rem;
-     top: -0.44rem;
+     top: -0.64rem;
      z-index: 999;
-     width: 3.41rem;
-     height: 0.73rem;
-     line-height: 0.47rem;
-     @include background("~@/assets/img/myRecommend.png");
-     @include setFont(0.18rem, "FZLTZCHJW--GB1-0", 400, auto, #fff, center);
-     font-style: italic;
+     width: 3.39rem;
+     height: 0.92rem;
+     // line-height: 0.31rem;
+     @include background("~@/assets/img/myRecommend2.png");
+     .u-myRecommend {
+          width: 100%;
+          height: 0.65rem;
+          span {
+               display: inline-block;
+               margin: auto;
+               @include setFont(
+                    0.18rem,
+                    "FZLTZCHJW--GB1-0",
+                    400,
+                    auto,
+                    #fff,
+                    left
+               );
+               font-style: italic;
+          }
+     }
 }
 .swiper-container {
      position: relative;

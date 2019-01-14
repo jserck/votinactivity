@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 FastClick.attach(document.body)
 setFontsize()
 router.afterEach((to, from, next) => {
-    window.scrollTo(0, 0);
+    window.scrollTo(1, 1);
 });
 Vue.use(toastRegistry)
 /* eslint-disable no-new */

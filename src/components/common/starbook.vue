@@ -24,16 +24,20 @@
                                    class="g-scroll-star-box displayFlex flexJustifybetween flexAlignItemsCenter"
                               >
                                    <section
-                                        :class="indexNum == `1000${i-1}` ? 'u-box-item-active':'u-box-item-link'"
-                                        v-for="i in 6"
+                                        :class="indexNum == `1000${i}` ? 'u-box-item-active':'u-box-item-link'"
+                                        v-for="(item,i) in changeList"
                                         :key="i"
-                                        @click="starChange(i-1)"
-                                   ></section>
+                                        @click="starChange(i,item.bid)"
+                                   >
+                                        <section class="g-u-box-item-img">
+                                             <img :src="item.src" alt>
+                                        </section>
+                                   </section>
                               </section>
                          </section>
                     </section>
                </section>
-                                   <!-- v-if="isClick && this.starBookData[0]!=null" -->
+               <!-- v-if="isClick && this.starBookData[0]!=null" -->
                <book-list
                     :starBookData="starBookData"
                     :myRecommend="changeList[indexNum-10000]"
@@ -52,53 +56,47 @@ export default {
                isBookList: false,
                isClick: false,
                changeList: [
-                    {                         src: '/static/images/meinv@2x.png',
+                    {
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-                         text: '“这里是我推荐书单这里是我推荐书单”',
-                         count: 9999,
-                         bid: '10001',
-                         src: '/static/images/gxs.png',
-                         name: '高晓松'
-                    },
-                    {                         src: '/static/images/meinv@2x.png',
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-                         text: '“这里是我推荐书单这里是我推荐书单”',
-                         count: 8888,
+                         text: '“青春进行时，阅读正当时。青春、梦想、勇气，不止于现在”',
                          bid: '10002',
-                         src: '/static/images/sy.png',
-                         name: '沈月'
-
-                    },
-                    {                         src: '/static/images/meinv@2x.png',
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-                         text: '“这里是我推荐书单这里是我推荐书单”',
-                         count: 7777,
-                         bid: '10003',
-                         src: '/static/images/wff.png',
-                         name: '王霏霏'
-                    },
-                    {                         src: '/static/images/meinv@2x.png',
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-                         text: '“这里是我推荐书单这里是我推荐书单”',
-                         count: 6666,
-                         bid: '10004',
-                         src: '/static/images/wl.png',
+                         src: require('@/assets/img/star/wl.png'),
                          name: '吴磊'
                     },
-                    {                         src: '/static/images/meinv@2x.png',
+                    {
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-                         text: '“这里是我推荐书单这里是我推荐书单”',
-                         count: 5555,
+                         text: '“行万里路回到内心深处，读万卷书看清皓月繁星”',
+                         bid: '10000',
+                         src: require('@/assets/img/star/gxs.png'),
+                         name: '高晓松'
+                    },
+                    {
+                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         text: '“享受生命中的小美好，等着风来，也等着你”',
                          bid: '10005',
-                         src: '/static/images/yyw.png',
+                         src: require('@/assets/img/star/sy.png'),
+                         name: '沈月'
+                    },
+                    {
+                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         text: '“与孩子一起在书中的世界，感受天马行空的幻想”',
+                         bid: '10003',
+                         src: require('@/assets/img/star/wff.png'),
+                         name: '王霏霏'
+                    },
+
+                    {
+                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         text: '“没有谁是一座孤岛，每本书都是一个世界”',
+                         bid: '10004',
+                         src: require('@/assets/img/star/yyw.png'),
                          name: '袁娅维'
                     },
-                    {                         src: '/static/images/meinv@2x.png',
+                    {
                          video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-                         text: '“这里是我推荐书单这里是我推荐书单”',
-                         myRecommend: 4444,
-                         bid: '10006',
-                         src: '/static/images/zxx.png',
+                         text: '“曾经以为，拥有是不容易的；后来才知道，舍弃更难。”',
+                         bid: '10001',
+                         src: require('@/assets/img/star/zxx.png'),
                          name: '张小娴'
                     }
                ]
@@ -147,10 +145,10 @@ export default {
           videoPlay(val) {
                this.$emit('videoPlay', val)
           },
-          starChange(index) {
-               if (!this.isClick) return
+          starChange(index, bid) {
+               if (!this.isClick || this.indexNum == (10000 + index)) return
                this.indexNum = 10000 + index;
-               this.getStarBook(`1000${index}`)
+               this.getStarBook(`${bid}`)
           }
      },
      created() {
@@ -184,7 +182,26 @@ export default {
                border-radius: 0.48rem /* 39/100 */;
                text-align: center;
                box-sizing: border-box;
+               line-height: 0.96rem;
                @include background("~@/assets/img/l_starimg@2x.png");
+               .g-u-box-item-img {
+                    position: relative;
+                    display: inline-block;
+                    vertical-align: middle;
+                    overflow: hidden;
+                    margin: auto;
+                    width: 82px;
+                    height: 82px;
+                    border-radius: 50%;
+                    img {
+                         position: absolute;
+                         top: 0.27rem;
+                         left: 50%;
+                         margin-left: -50%;
+                         -webkit-transform: scale(1.4);
+                         transform: scale(1.4);
+                    }
+               }
           }
           .u-box-item-active {
                @include background("~@/assets/img/a_starimg@2x.png");
