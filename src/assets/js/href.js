@@ -1,5 +1,5 @@
 export default Vue.directive('scroll', {
-    update: function (el, binding) {
+    "inserted": function (el, binding) {
         el.addEventListener('click', function (event) {
             event.stopPropagation();
             document.documentElement.scrollTop = 1

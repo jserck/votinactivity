@@ -8,21 +8,21 @@
             @dialogListenEvent="dialogListenEvent"
             @voteNumChange3="voteNumChange3"
         ></Dialog>
-        <section class="u-vote-count" v-scroll="'scroll'" v-if="userTicketCount>0">
-            <section class="u-vote-count-box">
+        <section class="u-vote-count" v-if="userTicketCount>0">
+            <section class="u-vote-count-box" v-scroll="'scroll'">
                 <span>{{userTicketCount}}</span>
                 <p>点击去充能</p>
-            </section>
-        </section>
-        <section class="u-vote-count" v-scroll="'rule'" v-else>
-            <section class="u-vote-count-box">
-                <span>{{userTicketCount}}</span>
-                <p>点击去做任务</p>
             </section>
         </section>
         <section class="u-rule" @click="ruleHandler"></section>
         <section class="u-myVoteCon-link" @click="myVoteCon"></section>
         <header class="clearfix">
+            <section class="u-vote-counts" v-if="userTicketCount<=0">
+                <section class="u-vote-count-box" v-scroll="'rule'">
+                    <span>{{userTicketCount}}</span>
+                    <p>点击去做任务</p>
+                </section>
+            </section>
             <section class="g-video-container">
                 <section class="g-titleImg">
                     <img src="@/assets/img/title.png" alt>
@@ -139,7 +139,7 @@
         </section>
         <!-- 明星书单 -->
         <section class="g-star-bookList" id="star">
-            <StarBook @videoPlay="videoPlay"></StarBook>
+            <StarBook ref="star_book" @votingStarChange="votingStarChange" @videoPlay="videoPlay"></StarBook>
         </section>
         <footer>
             <section class="g-footer"></section>
@@ -183,26 +183,32 @@ export default {
             bannerlist: [
                 {
                     src: require('@/assets/img/star/wl.png'),
+                    bid: '10002',
                     name: '吴磊'
                 },
                 {
                     src: require('@/assets/img/star/gxs.png'),
-                    name: '高晓松'
+                    name: '高晓松',
+                    bid: '10000'
                 },
                 {
                     src: require('@/assets/img/star/sy.png'),
+                    bid: '10005',
                     name: '沈月'
                 },
                 {
                     src: require('@/assets/img/star/wff.png'),
+                    bid: '10003',
                     name: '王霏霏'
                 },
                 {
                     src: require('@/assets/img/star/yyw.png'),
+                    bid: '10004',
                     name: '袁娅维'
                 },
                 {
                     src: require('@/assets/img/star/zxx.png'),
+                    bid: '10001',
                     name: '张小娴'
                 },
             ],
@@ -253,6 +259,9 @@ export default {
                 return `${count}万`
             }
         },
+        votingStarChange(index) {
+            this.bannerNum = index;
+        },
         bannerChange(type) {
             /**
              * @name 头部明星切换
@@ -271,7 +280,7 @@ export default {
                 }
                 this.bannerNum++
             }
-
+            this.$refs.star_book.starChange(this.bannerNum, this.bannerlist[this.bannerNum].bid)
         },
         shareInfoChange() {
             // 适配小程序分享的兼容方法
@@ -719,7 +728,8 @@ export default {
     height: 32.97rem;
     margin: auto;
     @include background("~@/assets/img/bg.jpeg");
-    .u-vote-count {
+    .u-vote-count,
+    .u-vote-counts {
         z-index: 1999;
         //   padding-top: 0.82rem;
         position: fixed;
