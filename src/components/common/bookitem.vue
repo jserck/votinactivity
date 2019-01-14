@@ -2,7 +2,6 @@
      <section class="u-box-item">
           <section
                class="u-book-img"
-               v-preload="obj.bookPicUrl"
                :style="`background:url(${obj.bookPicUrl});
                         backgroundRepeat:no-repeat;
                         backgroundSize:cover

@@ -30,7 +30,7 @@
                                         @click="starChange(i,item.bid)"
                                    >
                                         <section class="g-u-box-item-img">
-                                             <img :src="item.src" alt>
+                                             <img :src="item.atherImg" alt>
                                         </section>
                                    </section>
                               </section>
@@ -61,6 +61,7 @@ export default {
                          text: '“青春进行时，阅读正当时。青春、梦想、勇气，不止于现在”',
                          bid: '10002',
                          src: require('@/assets/img/star/wl.png'),
+                         atherImg: require('@/assets/img/ather/wl_x.png'),
                          name: '吴磊'
                     },
                     {
@@ -68,6 +69,7 @@ export default {
                          text: '“行万里路回到内心深处，读万卷书看清皓月繁星”',
                          bid: '10000',
                          src: require('@/assets/img/star/gxs.png'),
+                         atherImg: require('@/assets/img/ather/gxs_x.png'),
                          name: '高晓松'
                     },
                     {
@@ -75,6 +77,7 @@ export default {
                          text: '“享受生命中的小美好，等着风来，也等着你”',
                          bid: '10005',
                          src: require('@/assets/img/star/sy.png'),
+                         atherImg: require('@/assets/img/ather/sy_x.png'),
                          name: '沈月'
                     },
                     {
@@ -82,6 +85,7 @@ export default {
                          text: '“与孩子一起在书中的世界，感受天马行空的幻想”',
                          bid: '10003',
                          src: require('@/assets/img/star/wff.png'),
+                         atherImg: require('@/assets/img/ather/wff_x.png'),
                          name: '王霏霏'
                     },
 
@@ -90,6 +94,7 @@ export default {
                          text: '“没有谁是一座孤岛，每本书都是一个世界”',
                          bid: '10004',
                          src: require('@/assets/img/star/yyw.png'),
+                         atherImg: require('@/assets/img/ather/yyw_x.png'),
                          name: '袁娅维'
                     },
                     {
@@ -97,6 +102,7 @@ export default {
                          text: '“曾经以为，拥有是不容易的；后来才知道，舍弃更难。”',
                          bid: '10001',
                          src: require('@/assets/img/star/zxx.png'),
+                         atherImg: require('@/assets/img/ather/zxx_x.png'),
                          name: '张小娴'
                     }
                ]
@@ -182,7 +188,7 @@ export default {
                border-radius: 0.48rem /* 39/100 */;
                text-align: center;
                box-sizing: border-box;
-               line-height: 0.96rem;
+               line-height: 0.92rem;
                @include background("~@/assets/img/l_starimg@2x.png");
                .g-u-box-item-img {
                     position: relative;
@@ -190,17 +196,9 @@ export default {
                     vertical-align: middle;
                     overflow: hidden;
                     margin: auto;
-                    width: 82px;
-                    height: 82px;
+                    width: 0.82rem;
+                    height: 0.82rem;
                     border-radius: 50%;
-                    img {
-                         position: absolute;
-                         top: 0.27rem;
-                         left: 50%;
-                         margin-left: -50%;
-                         -webkit-transform: scale(1.4);
-                         transform: scale(1.4);
-                    }
                }
           }
           .u-box-item-active {
