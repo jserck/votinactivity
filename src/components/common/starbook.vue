@@ -37,17 +37,17 @@
                          </section>
                     </section>
                </section>
-               <section class="footStarText">
+               <!-- <section class="footStarText">
 
                </section>
-               <section class="footStarBookList"></section>
+               <section class="footStarBookList"></section> -->
                <!-- v-if="isClick && this.starBookData[0]!=null" -->
-               <!-- <book-list
+               <book-list
                     :starBookData="starBookData"
                     :myRecommend="changeList[indexNum-10000]"
                     @lookBooks="lookBooks"
                     @videoPlay="videoPlay"
-               ></book-list> -->
+               ></book-list>
           </section>
      </section>
 </template>
