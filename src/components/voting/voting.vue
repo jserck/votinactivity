@@ -53,7 +53,7 @@
             <section class="g-vote-list">
                 <ul class="displayFlex flexWrap flexJustifybetween">
                     <li v-for="(item,index) in starSoltData2" :key="index">
-                        <section class="g-vote-li" @click="addstar(item.starId)">
+                        <section class="g-vote-li">
                             <span
                                 class="u-img"
                                 :style="`background:url(${item.starPicUrl});
@@ -202,6 +202,7 @@ export default {
             touch4: 'link-li',
             touch2: 'link-li',
             touch1: 'link-li',
+            readVal: 0,
             myVoteData: {
                 userTicketCount: null
             },//我的投票纪录
@@ -377,8 +378,26 @@ export default {
 
             }
         },
-        addstar(starId) {
-            console.log(starId);
+        census() {
+            /**
+            * @name 获取明星排名列表接口
+            * @method post
+            * @param null
+            */
+            // let options = {
+            //     urls: '/starRankingInfo',
+            //     data: {},
+            //     methods: 'post',
+            //     types: 1,
+            //     des: false
+            // }
+            // this.$http(options).then((res) => {
+            //     if (res.data.code === 200) {
+            //         this.starSoltData = res.data.data.starList
+            //         this.personCount = res.data.data.personCount
+            //         this.bookCount = res.data.data.bookCount
+            //     }
+            // }).catch((err) => { })
         },
         postTitle() {
             /**
@@ -402,7 +421,7 @@ export default {
             */
             clearInterval(this.timer);
             this.timer = setInterval(() => {
-                this.getStarSolt()
+                this.getStarSolt(2)
             }, 5000);
         },
         voteInit() {
@@ -410,7 +429,7 @@ export default {
              * 数据初始化
             */
             this.getMyVote()//我的选票
-            this.getStarSolt()//明星排序
+            this.getStarSolt(1)//明星排序
         },
         dialogClose() {
             /**
@@ -425,14 +444,14 @@ export default {
             */
             this.nums = val
         },
-        getStarSolt() {
+        getStarSolt(type) {
             /**
              * @name 获取明星排名列表接口
              * @method post
              * @param null
              */
             let options = {
-                urls: '/starRankingInfo',
+                urls: '/starRankingInfo/' + this.userId + '/' + type,
                 data: {},
                 methods: 'post',
                 types: 1,
@@ -472,6 +491,7 @@ export default {
                     this.myVoteData = res.data.data
                     this.isCanVote = res.data.data.userTicketCount > 0
                     this.isFirst = res.data.data.isFirst
+                    this.readVal = res.data.data.readVal
                     // this.isFollow = (res.data.data.isFollow == 1)
                     this.isSignIn = res.data.data.isSignIn
                     this.isAutoSignIn = res.data.data.isAutoSignIn
@@ -597,7 +617,7 @@ export default {
                     this.isShowDialog = false
                     this.saveBooks(2)
                     this.dialogShow(8, true, { nums: this.nums })
-                    this.getStarSolt()
+                    this.getStarSolt(1)
                 } else if (res.data.code == 1003) {
                     this.$toast('当前投票人数过多!')
                 }
@@ -615,7 +635,7 @@ export default {
                 this.myVoteData['userTicketCount'] += 10
             } else {
                 this.myVoteData['userTicketCount'] -= this.nums;
-                console.log(this.myVoteData['userTicketCount'],this.nums);
+                console.log(this.myVoteData['userTicketCount'], this.nums);
 
             }
         },
@@ -719,6 +739,7 @@ export default {
                         this.isShowDialog = false
                         this.attentionHandler(obj.bid)
                     }
+
                     break;
 
                 case 2:
