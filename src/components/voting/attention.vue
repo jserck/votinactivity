@@ -4,11 +4,11 @@
                <p class="u-tit">感谢您关注</p>
                <p class="u-tit">天猫读书小程序</p>
                <section class="u-text">
-                    <p class="u-text2">已获得10点能量，为喜欢的领读官充能</p>
-                    <p class="u-text2">有机会获得免费电子书</p>
+                    <p class="u-text2">已获得10点能量，为喜欢的领读官集能</p>
+                    <p class="u-text2">有机会获得免费电子书！</p>
                </section>
                <section class="u-btn">
-                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即充能</span>
+                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即集能</span>
                </section>
           </section>
      </section>
@@ -40,30 +40,30 @@ $dialogatt: "~@/assets/img/dialogbg/dialogatt.png";
 $dialogattbtn: "~@/assets/img/dialogbg/dialogattbtn.png";
 .g-attention {
      margin: auto;
-     padding-top: 3.14rem /* 314/100 */;
-     width: 5.52rem /* 552/100 */;
-     height: 5.35rem /* 849/100 */;
+     padding-top: 3.66rem /* 314/100 */;
+     width: 5.33rem /* 552/100 */;
+     height: 4.8rem /* 849/100 */;
      @include background($dialogatt);
      .u-tit {
           @include setFont(
-               0.48rem,
+               0.36rem,
                "FZLTZCHJW--GB1-0",
                400,
-               0.68rem,
+               0.6rem,
                rgba(255, 218, 166, 1),
                auto
           );
      }
      .u-btn {
-          margin: 1.08rem auto 0;
-          width: 2.48rem /* 248/100 */;
-          height: 0.67rem /* 50/100 */;
+          margin: 0.82rem auto 0;
+          width: 2.53rem /* 248/100 */;
+          height: 0.6rem /* 50/100 */;
           @include setFont(
-               0.32rem,
+               0.3rem,
                "FZLTZCHJW--GB1-0",
                400,
-               0.67rem,
-               rgba(255, 255, 255, 1),
+               0.5rem,
+               #8B5B35,
                center
           );
           @include background($dialogattbtn);

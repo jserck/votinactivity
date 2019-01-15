@@ -40,6 +40,12 @@
                                 @dialogComponentEvent="dialogComponentEvent"
                             ></noHaveBook>
                         </li>
+                        <li v-else-if="dialogType==9">
+                            <ReadBook
+                                :dialogOpations="dialogOpations"
+                                @dialogComponentEvent="dialogComponentEvent"
+                            ></ReadBook>
+                        </li>
                     </ul>
                     <section class="closeBtn" @click="hideHandler"></section>
                 </section>
@@ -58,7 +64,8 @@ export default {
         DoVoting: () => import('../voting/dovoting.vue'),
         VideoPlay: () => import('../voting/video.vue'),
         SignIn: () => import('../voting/signin.vue'),
-        noHaveBook: () => import('../voting/nohavebook.vue')
+        noHaveBook: () => import('../voting/nohavebook.vue'),
+        ReadBook: () => import('../voting/readBook.vue')
     },
     data() {
         return {
@@ -101,7 +108,7 @@ export default {
         @include background("~@/assets/img/dialogbg/dialogclose.png");
     }
     .dialog-body {
-        width: 100%!important;
+        width: 100% !important;
         // background: #fff;
         position: fixed;
         display: table;

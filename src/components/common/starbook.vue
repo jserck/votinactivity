@@ -62,7 +62,7 @@ export default {
                isClick: false,
                changeList: [
                     {
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         video: 'http://v.youku.com/v_show/id_XNDAxNDY0NDU1Mg==.html?spm=a2h3j.8428770.3416059.1',
                          text: '“青春进行时，阅读正当时。青春、梦想、勇气，不止于现在”',
                          bid: '10002',
                          src: require('@/assets/img/star/wl.png'),
@@ -71,7 +71,7 @@ export default {
                          did: 487
                     },
                     {
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         video: 'http://v.youku.com/v_show/id_XNDAxNDY0NDU1Mg==.html?spm=a2h3j.8428770.3416059.1',
                          text: '“行万里路回到内心深处，读万卷书看清皓月繁星”',
                          bid: '10000',
                          src: require('@/assets/img/star/gxs.png'),
@@ -80,7 +80,7 @@ export default {
                          did: 483
                     },
                     {
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         video: 'http://v.youku.com/v_show/id_XNDAxNDY0NDU1Mg==.html?spm=a2h3j.8428770.3416059.1',
                          text: '“享受生命中的小美好，等着风来，也等着你”',
                          bid: '10005',
                          src: require('@/assets/img/star/sy.png'),
@@ -89,7 +89,7 @@ export default {
                          did: 489
                     },
                     {
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         video: 'http://v.youku.com/v_show/id_XNDAxNDY0NDU1Mg==.html?spm=a2h3j.8428770.3416059.1',
                          text: '“与孩子一起在书中的世界，感受天马行空的幻想”',
                          bid: '10003',
                          src: require('@/assets/img/star/wff.png'),
@@ -99,7 +99,7 @@ export default {
                     },
 
                     {
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         video: 'http://v.youku.com/v_show/id_XNDAxNDY0NDU1Mg==.html?spm=a2h3j.8428770.3416059.1',
                          text: '“没有谁是一座孤岛，每本书都是一个世界”',
                          bid: '10004',
                          src: require('@/assets/img/star/yyw.png'),
@@ -108,7 +108,7 @@ export default {
                          did: 491
                     },
                     {
-                         video: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                         video: 'http://v.youku.com/v_show/id_XNDAxNDY0NDU1Mg==.html?spm=a2h3j.8428770.3416059.1',
                          text: '“曾经以为，拥有是不容易的；后来才知道，舍弃更难。”',
                          bid: '10001',
                          src: require('@/assets/img/star/zxx.png'),
