@@ -1,5 +1,5 @@
 <template>
-     <section class="u-box-item">
+     <section class="u-box-item" @click="census(5,obj.bookId)">
           <section class="u-book-bg">
                <section
                     class="u-book-img"
@@ -27,12 +27,29 @@ export default {
                default: {}
           }
      },
-     data() {
-          return {
-
+     methods: {
+          census(type, starId = 0) {
+               /**
+               * @name 打点
+               * @method post
+               * @param userId 用户ID
+               * @param type 类型
+               * @param starId 明星id
+               */
+               let options = {
+                    urls: 'user/point/' + this.userId + '/' + type + '/' + starId,
+                    data: {
+                         userId: this.userId,
+                         type,
+                         starId
+                    },
+                    methods: 'post',
+                    types: 1,
+                    des: false
+               }
+               this.$http(options).then((res) => {
+               }).catch((err) => { })
           }
-     },
-     created() {
      }
 }
 </script>
@@ -54,7 +71,7 @@ export default {
           @include background("~@/assets/img/bookborder.png");
      }
      @include setFont(
-          0.16rem,
+          0.18rem,
           "NotoSerifCJKsc-Black",
           900,
           0.34rem,

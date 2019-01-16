@@ -62,10 +62,33 @@ export default {
                     // this.$toast('跳转失败!')
                }
           },
+          census(type, starId = 0) {
+               /**
+               * @name 打点
+               * @method post
+               * @param userId 用户ID
+               * @param type 类型
+               * @param starId 明星id
+               */
+               let options = {
+                    urls: 'user/point/' + this.userId + '/' + type + '/' + starId,
+                    data: {
+                         userId: this.userId,
+                         type,
+                         starId
+                    },
+                    methods: 'post',
+                    types: 1,
+                    des: false
+               }
+               this.$http(options).then((res) => {
+               }).catch((err) => { })
+          },
           lazyHandler() {
                this.isLazy = true;
           },
           lookBook() {
+               this.census(6, this.myRecommend.did);
                this.$emit('lookBooks', this.myRecommend.did)
           },
           videoPlay() {
