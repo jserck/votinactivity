@@ -32,7 +32,7 @@
                     <span class="u-right" @click="bannerChange(1)"></span>
                     <div class="u-name">
                         <i>领读官</i>
-                        <i>{{starName}}</i>
+                        <i>{{starName_header}}</i>
                     </div>
                     <section class="g-video-banner" v-scroll="'star'">
                         <section class="g-video-box">
@@ -216,7 +216,9 @@ export default {
             },//我的投票纪录
             bg_min_src: require('@/assets/img/bg.jpeg'),
             userId: this.$route.query.userId || 1,
-            starSoltData: [],//明星排序数据
+            starSoltData: [
+                {}, {}, {}, {}, {}, {}
+            ],//明星排序数据
             dialogOpations: {},//传递给dialog的数据
             dialogType: 0,//dialog内容类型
             isShowDialog: false,//dialog显示隐藏
@@ -303,7 +305,7 @@ export default {
         bannerSrc() {
             return this.bannerlist[this.bannerNum].src
         },
-        starName() {
+        starName_header() {
             return this.bannerlist[this.bannerNum].name
         }
     },
@@ -1049,7 +1051,7 @@ export default {
                     width: 3.75rem;
                     height: 4.03rem;
                     border-radius: 0.07rem;
-                    .g-video-box{
+                    .g-video-box {
                         position: absolute;
                         top: 0;
                         bottom: 0;
