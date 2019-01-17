@@ -34,8 +34,7 @@ export default {
     data() {
         return {
             scrollTop: 0,
-            //    userId: this.$route.query.userId || 0,
-            userId: 5419956,
+            userId: this.$route.query.userId || null,
             starList: []
         }
     },

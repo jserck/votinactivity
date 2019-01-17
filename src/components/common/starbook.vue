@@ -149,8 +149,7 @@ export default {
              * @param starId
             */
             let options = {
-                // urls: `/starBookInfo/${index}/${this.$route.query.userId || 0}`,
-                urls: `/starBookInfo/${index}/5419956`,
+                urls: `/starBookInfo/${index}/${this.$route.query.userId || null}`,
                 data: {},
                 methods: 'post',
                 types: 1,

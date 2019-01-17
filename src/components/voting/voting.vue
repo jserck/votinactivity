@@ -228,8 +228,7 @@ export default {
                 userTicketCount: null
             },//我的投票纪录
             bg_min_src: require('@/assets/img/bg.jpeg'),
-            // userId: this.$route.query.userId || 1,
-            userId: '5419956',
+            userId: this.$route.query.userId || null,
             starSoltData: [
                 {}, {}, {}, {}, {}, {}
             ],//明星排序数据
@@ -237,8 +236,7 @@ export default {
             dialogType: 0,//dialog内容类型
             isShowDialog: false,//dialog显示隐藏
             isFollow: this.$route.query.followed || '2',//是否关注
-            // tsid: this.$route.query.tsid,
-            tsid: "mi5D4S6XJUOK8bZH3TEDCTIR7EmY7Tv0RaeDC7EJeuRDRcPIW73GJ4s7HRGOxBAAzdVU7ri_aNgImKotyowzQyw_c_c",
+            tsid: this.$route.query.tsid || '',
             isclosefollow: false,
             isSignIn: this.$route.query.isSignIn || '2',//是否签到
             isCanVote: false,//是否可以投票
@@ -379,7 +377,7 @@ export default {
                     event: 'shareInfoChange',
                     data: {
                         title: '投票活动',
-                        desc: '投票活动',
+                        desc: '【为爱豆集能量，百万好书免费读】',
                         content: '投票活动',
                         imageUrl: 'https://img.dz19.net/forum/201901/04/132545icn959e8xnqxebjn.jpg',
                         bgImgUrl: ''
@@ -445,7 +443,7 @@ export default {
             this.getMyVote()//我的选票
             this.getStarSolt(1)//明星排序
             this.shareInfoChange()
-            // this.timerHandler()
+            this.timerHandler()
         },
         dialogClose(val) {
             /**
@@ -676,15 +674,15 @@ export default {
             /**
              * @name 关注
             */
-            try {
-                my.postMessage({
-                    event: 'followApp',
-                    data: {}
-                })
-            } catch (error) {
-                // this.$toast('关注未成功!')
-                return;
-            }
+            // try {
+            //     my.postMessage({
+            //         event: 'followApp',
+            //         data: {}
+            //     })
+            // } catch (error) {
+            //     // this.$toast('关注未成功!')
+            //     return;
+            // }
             this.getTicket(1, bid)
         },
         obshareHandler() {

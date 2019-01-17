@@ -84,7 +84,7 @@ export default {
             let options = {
                 urls: 'user/point/' + this.$route.query.userId + '/' + type + '/' + starId,
                 data: {
-                    userId: this.userId,
+                    userId: this.$route.query.userId,
                     type,
                     starId
                 },
