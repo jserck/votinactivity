@@ -1,3 +1,4 @@
+import Vue from 'vue'
 export default Vue.directive('timeoutLazy', {
     inserted: function(el, binding) {
         let img = document.createElement('img');

@@ -43,12 +43,12 @@
                 v-if="dialogOpations.type!=2"
                 v-scroll="'scroll'"
                 @click="dialogComponentEvent('dialogComponentEvent')"
-            >我要集能量</span>
+            >我要加能量</span>
             <span
                 v-if="dialogOpations.type==2&&dialogOpations.userTicketCount>0"
                 v-scroll="'scroll'"
                 @click="dialogComponentEvent('dialogComponentEvent',11)"
-            >继续集能量</span>
+            >继续加能量</span>
             <span
                 v-if="dialogOpations.type==2&&dialogOpations.userTicketCount<=0"
                 @click="dialogComponentEvent('dialogComponentEvent',9)"

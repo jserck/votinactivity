@@ -4,11 +4,11 @@
                <p class="u-tit">感谢您关注</p>
                <p class="u-tit">天猫读书小程序</p>
                <section class="u-text">
-                    <p class="u-text2">已获得10点能量，为喜欢的领读官集能</p>
+                    <p class="u-text2">已获得10点能量，为喜欢的领读官加能</p>
                     <p class="u-text2">有机会获得免费电子书！</p>
                </section>
                <section class="u-btn">
-                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即集能</span>
+                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即加能</span>
                </section>
           </section>
      </section>
@@ -63,7 +63,7 @@ $dialogattbtn: "~@/assets/img/dialogbg/dialogattbtn.png";
                "FZLTZCHJW--GB1-0",
                400,
                0.5rem,
-               #8B5B35,
+               #8b5b35,
                center
           );
           @include background($dialogattbtn);

@@ -2,9 +2,9 @@
     <section>
         <section class="g-attention">
             <p class="successVote">成功为{{dialogOpations.starName}}加{{dialogOpations.nums}}个能量</p>
-            <p class="u-text2">继续集能量有机会免费领取电子书哦!~</p>
+            <p class="u-text2">继续加能量有机会免费领取电子书哦!~</p>
             <section class="u-btn">
-                <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">继续集能量</span>
+                <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">继续加能量</span>
             </section>
         </section>
     </section>

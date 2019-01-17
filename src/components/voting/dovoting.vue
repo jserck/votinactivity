@@ -1,19 +1,19 @@
 <template>
     <section class="u-vote-btn">
         <section v-if="RightToVote" class="g-doDoting">
-            <p>选择要集的能量数</p>
+            <p>选择要加的能量数</p>
             <section class="g-doDoting-number">
                 <x-number @voteNumChange="voteNumChange" :nums="nums"></x-number>
             </section>
             <section class="g-doDoting-btn">
-                <span class="g-btn" @click="dialogComponentEvent('dialogComponentEvent')">集能量</span>
+                <span class="g-btn" @click="dialogComponentEvent('dialogComponentEvent')">加能量</span>
             </section>
         </section>
         <section v-else class="g-noRightToVote">
             <p class="u-tit">您还没有能量值</p>
-            <p class="u-tit">快去集能量领取吧~</p>
-            <p class="u-text">为爱豆集能量有机会获得免费电子书哦！</p>
-            <span v-scroll="`rule`" @click="dialogComponentEvent('goRule')">去集能量</span>
+            <p class="u-tit">快去做任务领取吧~</p>
+            <p class="u-text">为爱豆加能量有机会获得免费电子书哦！</p>
+            <span v-scroll="`rule`" @click="dialogComponentEvent('goRule')">去做任务</span>
         </section>
     </section>
 </template>
@@ -46,7 +46,7 @@ export default {
             */
             this.$emit('voteNumChange2', val)
         }
-    }
+    },
 }
 </script>
 

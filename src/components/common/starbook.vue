@@ -122,7 +122,26 @@ export default {
      components: {
           BookList: () => import('./vooklist.vue'),
      },
+     mounted() {
+          this.preLoad();
+     },
      methods: {
+          preLoad() {
+               let count = 0;
+               let len = this.changeList.length;
+
+               for (let i = 0; i < len; i++) {
+                    let img = document.createElement('img');
+                    img.onload = function () {
+                         if (count == len - 1) {
+                              console.log('明星加载完成');
+                              return;
+                         };
+                         count++;
+                    }
+                    img.src = this.changeList[i].src;
+               }
+          },
           getStarBook(index) {
                /**
                 * @name 获取明星书单

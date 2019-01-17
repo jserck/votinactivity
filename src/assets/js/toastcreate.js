@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import toastComponent from '../../components/common/toast.vue'
 
 //使用vue的extend，以vue文件为基础组件，返回一个可以创建vue组件的特殊构造函数

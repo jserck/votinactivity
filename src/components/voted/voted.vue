@@ -12,7 +12,7 @@
                <section class="g-tit"></section>
                <section class="g-number displayFlex flexJustifybetween flexAlignItemsCenter">
                     <section class="g-peopleNum">
-                         <p class="u-p1">集能量总人数</p>
+                         <p class="u-p1">加能量总人数</p>
                          <p class="u-p2">{{votedData.personCount}}</p>
                     </section>
                     <section class="g-bookNum">
@@ -26,7 +26,7 @@
                               <section :class="changeClass(item.starId)">
                                    <p class="u-name">领读官 {{item.starName}}</p>
                                    <section class="u-num">
-                                        <span>已为他集</span>
+                                        <span>已为他加</span>
                                         <span class="u-height">{{item.ticketCount}}</span>
                                         <span>能量</span>
                                    </section>
@@ -38,12 +38,7 @@
           <section class="g-foot" @click="myVoteCon"></section>
           <!-- 明星书单 -->
           <section class="g-star-bookList" id="star">
-               <StarBook
-                    ref="star_book"
-                    :isShowTit="`voted`"
-                    @votingStarChange="votingStarChange"
-                    @videoPlay="videoPlay"
-               ></StarBook>
+               <StarBook ref="star_book" :isShowTit="`voted`" @videoPlay="videoPlay"></StarBook>
           </section>
           <footer>
                <section class="g-footer"></section>

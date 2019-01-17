@@ -70,15 +70,9 @@ export default {
           background-repeat: no-repeat !important;
           @include background("~@/assets/img/bookborder.png");
      }
-     @include setFont(
-          0.18rem,
-          "NotoSerifCJKsc-Black",
-          900,
-          0.34rem,
-          #fff,
-          center
-     );
+     @include setFont(0.18rem, "NotoSerifCJKsc-Black", 900, auto, #fff, center);
      p {
+          height: 0.35rem;
           text-align: center;
           line-height: 0.35rem /* 35/100 */;
           @include overFlowEllipsis(1);

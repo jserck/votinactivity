@@ -4,7 +4,7 @@
                <p class="u-tit">今日签到成功</p>
                <p class="u-tit">获得10个能量</p>
                <section class="u-btn">
-                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即集能量</span>
+                    <span @click="hideHandler('dialogComponentEvent')" v-scroll="'scroll'">立即加能量</span>
                </section>
           </section>
      </section>
