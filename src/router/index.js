@@ -6,20 +6,21 @@ const Voted = () => import('@/components/voted/voted')
 const Lx = () => import('@/components/lx')
 
 export default new Router({
+    mode: 'history',
     routes: [{
-            path: '/voting',
-            name: 'voting',
-            component: Voting
-        },
-        {
-            path: '/voted',
-            name: 'voted',
-            component: Voted
-        },
-        {
-            path: '/lx',
-            name: 'lx',
-            component: Lx
-        }
+        path: '/voting',
+        name: 'voting',
+        component: Voting
+    },
+    {
+        path: '/voted',
+        name: 'voted',
+        component: Voted
+    },
+    {
+        path: '/lx',
+        name: 'lx',
+        component: Lx
+    }
     ]
 })

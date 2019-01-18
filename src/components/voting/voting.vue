@@ -288,6 +288,7 @@ export default {
         }
     },
     created() {
+        alert(window.location.href);
         this.voteInit()
     },
     beforeDestroy() {
@@ -674,15 +675,15 @@ export default {
             /**
              * @name 关注
             */
-            // try {
-            //     my.postMessage({
-            //         event: 'followApp',
-            //         data: {}
-            //     })
-            // } catch (error) {
-            //     // this.$toast('关注未成功!')
-            //     return;
-            // }
+            try {
+                my.postMessage({
+                    event: 'followApp',
+                    data: {}
+                })
+            } catch (error) {
+                // this.$toast('关注未成功!')
+                return;
+            }
             this.getTicket(1, bid)
         },
         obshareHandler() {
@@ -1001,7 +1002,7 @@ export default {
                     @include setFont(
                         0.32rem,
                         "FZLTZCHJW--GB1-0",
-                        normal,
+                        bold,
                         0.67rem,
                         #ffd8a1,
                         center
@@ -1116,7 +1117,7 @@ export default {
                             @include setFont(
                                 0.24rem,
                                 "SourceHanSansCN-Heavy",
-                                800,
+                                bold,
                                 0.23rem,
                                 #6b2f05,
                                 center
@@ -1147,6 +1148,13 @@ export default {
                     center
                 );
                 @include background("~@/assets/img/addvote@2x.png");
+                i{
+                    display:inline-block;
+                    width:0.12rem;
+                    img{
+                        width: 100%;
+                    }
+                }
             }
             .g-btn2 {
                 @include background("~@/assets/img/addvote_2.png");
@@ -1197,7 +1205,9 @@ export default {
                             }
                         }
                         .u-ticketbtn {
-                            margin: 0.12rem auto 0;
+                            height: 0.4rem;
+                            line-height: 0.4rem;
+                            margin: 0.14rem auto 0;
                         }
                         .u-icon1 {
                             margin-right: 0.12rem;
@@ -1241,7 +1251,7 @@ export default {
                             }
                         }
                         .u-ticketbtn {
-                            margin: 0.13rem auto 0;
+                            margin: 0.14rem auto 0;
                         }
                         .u-icon1 {
                             @include background(
