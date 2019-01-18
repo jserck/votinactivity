@@ -288,7 +288,6 @@ export default {
         }
     },
     created() {
-        alert(window.location.href);
         this.voteInit()
     },
     beforeDestroy() {
