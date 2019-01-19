@@ -61,15 +61,16 @@ export default function({
     });
 
     let resq = axios.interceptors.response.use(res => {
-        try {
-            if (typeof res.data.data == 'string' && des) {
-                // return JSON.parse(getDAesString(res, keys));
-            } else {
-                return res;
-            }
-        } catch (error) {
-            console.log(error);
-        }
+        return res;
+        //    try {
+        //        if (typeof res.data.data == 'string' && des) {
+        //            // return JSON.parse(getDAesString(res, keys));
+        //        } else {
+        //            return res;
+        //        }
+        //    } catch (error) {
+        //        //   console.log(error.message);
+        //    }
     }, err => {
         if (err && err.response) {
             switch (err.response.status) {
@@ -119,9 +120,10 @@ export default function({
 
                 default:
             }
-            console.log(err.message);
-            return err.message;
+        } else {
+            err.message = '网络错误'
         }
+        return Promise.resolve(err);
     });
 
     //移除拦截器

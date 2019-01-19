@@ -3,7 +3,7 @@
           <section class="g-video-container">
                <section class="u-video-book"></section>
                <section class="u-video-text"></section>
-               <section class="video-play">
+               <section class="video-play" v-if="isInter">
                     <video-player
                          class="video-player vjs-custom-skin"
                          ref="videoPlayer"
@@ -11,7 +11,13 @@
                          :options="playerOptions"
                          @play="onPlayerPlay($event)"
                          @pause="onPlayerPause($event)"
+                         @ended="onPlayerEnded($event)"
+                         @error="errorHandler"
                     ></video-player>
+               </section>
+               <section class="g-inter displayFlex flexColumn flexAlignJustifyCenter" v-else>
+                    <p>最糟糕的是没网了!</p>
+                    <span class="refale" @click="refale">刷新</span>
                </section>
           </section>
 
@@ -37,6 +43,7 @@ export default {
           return {
                isVideo: true,
                inter: 1,
+               isInter: true,
                dialogStyle: {
                     // width: '1rem',
                     // height: '13.066667rem'
@@ -86,6 +93,20 @@ export default {
           onPlayerPause() {
 
           },
+          onPlayerEnded() {
+               this.$refs.videoPlayer.player.src(this.dialogOpations.src);
+          },
+          errorHandler() {
+               this.isInter = false;
+          },
+          refale() {
+               this.isInter = true;
+               setTimeout(() => {
+                    this.$nextTick(() => {
+                         this.onPlayerEnded()
+                    })
+               }, 0)
+          },
           fullScreenHandle() {
                // console.log(this.player);
                // if (!this.player.isFullscreen()) {
@@ -117,6 +138,12 @@ export default {
      box-sizing: border-box;
      background: #000;
      .g-video-container {
+          .g-inter {
+               width: 100%;
+               line-height: 0.4rem;
+               color: #fff;
+               font-size: 0.2rem;
+          }
           // position: relative;
           margin: auto;
           width: 7.03rem;
@@ -148,6 +175,34 @@ export default {
           }
      }
 }
+/* 全景（横屏）模式 */
+@media screen and (orientation: landscape) {
+     .g-video {
+          // overflow: hidden;
+          width: 40%;
+          position: relative;
+          margin: auto;
+          box-sizing: border-box;
+          background: #000;
+          .g-video-container {
+               // position: relative;
+               margin: auto;
+               width: 100%;
+               @include background("");
+               .video-play {
+                    overflow: hidden;
+                    margin: auto;
+                    width: 6.5rem;
+               }
+               .u-video-book {
+                    display: none;
+               }
+               .u-video-text {
+                    display: none;
+               }
+          }
+     }
+}
 </style>
 <style lang="scss">
 .video-js {
@@ -164,5 +219,8 @@ export default {
      left: 50% !important;
      margin-top: -0.25rem /* -25/100 */ !important ;
      margin-left: -0.25rem /* -25/100 */ !important;
+}
+button {
+     outline: none !important;
 }
 </style>

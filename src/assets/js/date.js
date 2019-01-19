@@ -6,19 +6,22 @@ function dateParse(dateString) {
     var SEPARATOR_DOT = ".";
     var dateArray;
     if (dateString.indexOf(SEPARATOR_BAR) > -1) {
+        dateString = dateString.replace(/[\s\:]+/g, SEPARATOR_BAR)
         dateArray = dateString.split(SEPARATOR_BAR);
     } else if (dateString.indexOf(SEPARATOR_SLASH) > -1) {
+        dateString = dateString.replace(/[\s\:]+/g, SEPARATOR_SLASH)
         dateArray = dateString.split(SEPARATOR_SLASH);
     } else {
+        dateString = dateString.replace(/[\s\:]+/g, SEPARATOR_DOT)
         dateArray = dateString.split(SEPARATOR_DOT);
     }
-    return new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
+
+    return new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4]);
 };
 
 function dateCompare(dateString, compareDateString) {
     var dateTime = dateParse(dateString).getTime();
     var compareDateTime = dateParse(compareDateString).getTime();
-
     if (compareDateTime > dateTime) {
         return 1;
     } else if (compareDateTime == dateTime) {
@@ -28,15 +31,14 @@ function dateCompare(dateString, compareDateString) {
     }
 };
 
-
 function isDateBetween(startDateString, endDateString) {
-
     var flag = false;
     var startFlag = (dateCompare(myDate(), startDateString) < 1);
     var endFlag = (dateCompare(myDate(), endDateString) > -1);
     if (startFlag && endFlag) {
         flag = true;
     }
+    console.log(flag);
     return flag;
 };
 
@@ -66,6 +68,6 @@ function myDate() {
         return fmt;
     }
 
-    var nowDate = new Date().Format("yyyy-MM-dd");
+    var nowDate = new Date().Format("yyyy-MM-dd hh:mm");
     return nowDate;
 };

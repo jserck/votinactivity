@@ -2,7 +2,7 @@
     <section class="g-number">
         <span class="u-add" @click="add">+</span>
         <span class="u-input">{{voteNum}}</span>
-        <span class="u-remove" @click="remove">—</span>
+        <span class="u-remove" @click="remove">-</span>
     </section>
 </template>
 <script>
