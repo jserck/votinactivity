@@ -526,7 +526,7 @@ export default {
                     this.isFirst = res.data.data.isFirst
                     this.isSignIn = res.data.data.isSignIn
                     this.isAutoSignIn = res.data.data.isAutoSignIn
-                    if (this.isFirst != 1) {
+                    if (this.isFirst == 1) {
                         this.saveBooks(1)
                     }
                 }
@@ -790,14 +790,14 @@ export default {
         },
         isReadBook() {
             let itmer = setTimeout(() => {
-                if (this.readVal != 0) {
+                if (this.readVal != 0 && this.isShowDialog == false) {
                     this.dialogShow(9, true, {
                         //阅读
                         bookNum: this.readVal
                     });
+                    this.readVal = 0;
                 }
                 clearTimeout(itmer);
-                this.readVal = 0;
             }, 300)
         },
         followedRead(bid) {
