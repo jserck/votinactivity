@@ -4,6 +4,7 @@
             v-if="isShowDialog"
             :dialogType="dialogType"
             :dialogOpations="dialogOpations"
+            :userId="userId"
             @isCloase="dialogClose"
             @dialogListenEvent="dialogListenEvent"
         ></Dialog>

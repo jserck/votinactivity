@@ -15,7 +15,7 @@ setFontsize()
 router.afterEach((to, from, next) => {
     window.scrollTo(1, 1);
 });
-let isVoted = IsDateBetween('2019/01/02 10:50', '2019/02/6 24:00');
+let isVoted = IsDateBetween('2019/01/02 10:50', '2019/02/06 24:00');
 router.beforeEach((to, from, next) => {
     if (!isVoted && (to.name != 'voted')) {// 判断是否结束
         next({
