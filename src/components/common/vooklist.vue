@@ -8,7 +8,7 @@
                          <span>{{myRecommend.text}}</span>
                     </section>
                </section>
-               <section class="starimg" @click="videoPlay">
+               <section class="starimg">
                     <img :src="myRecommend.src" alt>
                </section>
           </div>
@@ -18,6 +18,7 @@
                          v-for="(item,index) in starBookDatas"
                          :key="index"
                          @click="nativeto(item,index)"
+                         :style="index==0?'padding-left:0.45rem':''"
                     >
                          <book-item :indexNum="index" :obj="item"></book-item>
                     </li>
@@ -28,7 +29,7 @@
 <script>
 import '../../assets/js/lazyLoad.js'
 export default {
-     props: ['starBookData', 'myRecommend'],
+     props: ['starBookData', 'myRecommend','userId'],
      data() {
           return {
                mySwiper: null,
@@ -80,9 +81,9 @@ export default {
                * @param starId 明星id
                */
                let options = {
-                    urls: 'user/point/' + this.$route.query.userId + '/' + type + '/' + starId,
+                    urls: 'user/point/' + this.userId + '/' + type + '/' + starId,
                     data: {
-                         userId: this.$route.query.userId,
+                         userId: this.userId,
                          type,
                          starId
                     },

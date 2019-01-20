@@ -1,75 +1,117 @@
-<template>
-     <div class="a">
-          <div class="swiper-container" id="investproSwiper">
-               <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="i in 6" :key="i">
-                         <div class="investpro newhand_slide">{{i}}</div>
-                    </div>
-               </div>
-               <div class="swiper-pagination"></div>
-          </div>
-     </div>
+<template lang="html">
+  <div class="content" :class="{noScroll: isShowPopup}">
+    <div :class="{noScroll: isShowPopup}" ref="itemContent">
+      <div class="item" v-for="num in 50" @click="itemClick(num)">
+        <div style="width:100%">点击item{{num}}</div>
+      </div>
+    </div>
+    <div v-if="isShowPopup" class="popup" @click="popUpEmptyClick()" @scroll.prevent>
+      <div class="message">
+        <p class="message-title" v-for="num in 30" @click.stop="messageTitleClick(num)">
+          消息提示 {{num}}
+        </p>
+      </div>
+    </div>
+  </div>
 </template>
+
 <script>
 export default {
-     data() {
-          return {
-
-          }
-     },
-     mounted() {
-          this.$nextTick(() => {
-               var mySwiper = new Swiper('.swiper-container', {
-                    slidesPerView: 3,   //设置slider容器能够同时显示的slides数量
-                    centeredSlides: true,    //设定为true时，活动块会居中，而不是默认状态下的居左。
-                    loop: true,
-                    speed: 500,
-                    spaceBetween: 8,
-                    noSwiping: false,        //设置为true时禁止切换
-                    paginationClickable: false,
-                    // autoplay: {
-                    //      delay: 3000
-                    // },
-               })
-          })
-     }
+    name: 'Three',
+    data() {
+        return {
+            isShowPopup: false,
+            pageScrollYoffset: 0 // 保存滚动条位置
+        }
+    },
+    components: {
+    },
+    methods: {
+        getScrollTop() { // 获取滚动条位置
+            var scrollTop = 0;
+            if (document.documentElement && document.documentElement.scrollTop) {
+                scrollTop = document.documentElement.scrollTop;
+            } else if (document.body) {
+                scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+        },
+        itemClick(num) { // 点击底部item
+            console.log("itemClick" + num);
+            this.pageScrollYoffset = this.getScrollTop();
+            this.isShowPopup = true;
+        },
+        popUpEmptyClick() { // 点击弹窗空白处
+            this.isShowPopup = false;
+        },
+        messageTitleClick(num) { // 点击了具体某条消息
+            console.log("点击了消息", num);
+        }
+    },
+    watch: {
+        isShowPopup(newVal, oldVal) {
+            if (newVal == true) {
+                let cssStr = "overflow-y: hidden; height: 100%;";
+                document.getElementsByTagName('html')[0].style.cssText = cssStr;
+                document.body.style.cssText = cssStr;
+            } else {
+                let cssStr = "overflow-y: auto; height: auto;";
+                document.getElementsByTagName('html')[0].style.cssText = cssStr;
+                document.body.style.cssText = cssStr;
+            }
+            // 下面需要这两行代码，兼容不同浏览器
+            document.body.scrollTop = this.pageScrollYoffset;
+            window.scroll(0, this.pageScrollYoffset);
+        }
+    }
 }
 </script>
 
-<style lang="scss" scoped>
-.a {
-     width: 100%;
-     .swiper-container {
-          height: 4.2rem;
-     }
-     #investproSwiper {
-          margin-top: 0.52rem;
-     }
-     #investproSwiper .swiper-slide {
-          display: flex;
-          position: relative;
-     }
-     #investproSwiper .swiper-slide .investpro {
-          width: 2.61rem;
-          height: 3rem;
-          margin: auto;
-          background: #f00;
-          -webkit-transform: translate3d(-1px, -1px, -1px);
-     }
-     #investproSwiper .swiper-slide-active .investpro {
-          background: #000;
-          position: relative;
-          margin: auto;
-          transform: none;
-          -webkit-transform: scale(2, 1.5);
-          z-index: 99999;
-          transition: 1s all;
-     }
+<style lang="css" scoped="123">
+.content .item {
+    background-color: white;
+    padding-left: 12px;
+    margin-bottom: 5px;
+    height: 40px;
+    width: auto;
+    line-height: 40px;
+    border: 1px solid orange !important;
 }
-</style>
-<style lang="scss">
-.swiper-container-android .swiper-slide,
-.swiper-wrapper {
-     -webkit-transform: none;
+/* 当前蒙层显示时生效 */
+.noScroll {
+    overflow-y: hidden;
+}
+.content .pop-item {
+    padding-left: 12px;
+    margin-bottom: 5px;
+    height: 40px;
+    line-height: 40px;
+}
+.content .popup {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.content .message {
+    background-color: blue;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 60%;
+    height: 40%;
+    overflow-y: scroll;
+    /* ios需要下面这个属性 */
+    -webkit-overflow-scrolling: touch;
+}
+.content .message-title {
+    width: 100%;
 }
 </style>

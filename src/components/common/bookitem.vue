@@ -25,6 +25,9 @@ export default {
         },
         obj: {
             default: {}
+        },
+        userId:{
+            default:null
         }
     },
     methods: {
@@ -37,9 +40,9 @@ export default {
             * @param starId 明星id
             */
             let options = {
-                urls: 'user/point/' + this.$route.query.userId + '/' + type + '/' + starId,
+                urls: 'user/point/' + this.userId + '/' + type + '/' + starId,
                 data: {
-                    userId: this.$route.query.userId,
+                    userId: this.userId,
                     type,
                     starId
                 },

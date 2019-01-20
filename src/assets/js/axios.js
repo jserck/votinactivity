@@ -28,6 +28,7 @@ export default function({
     };
     // axios.defaults.baseURL = url.httpRequestse;
     axios.defaults.headers['Content-Type'] = !responseType ? 'application/x-www-form-urlencoded;charset=UTF-8' : 'application/json;charset=UTF-8'; //此处是增加的代码，设置请求头的类型
+    axios.defaults.timeout =  6000;
     // data.user_token = token || '';
     // params.user_token = token || '';
     // data.requestTime = new Date().getTime();
@@ -56,7 +57,7 @@ export default function({
             break;
     }
     let myInterceptor = axios.interceptors.request.use(config => {
-        config.timeout = 5 * 1000;
+        config.timeout = 6 * 1000;
         return config;
     });
 

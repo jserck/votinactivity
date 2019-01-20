@@ -34,6 +34,7 @@
 import 'video.js/dist/video-js.css'
 // import 'vue-video-player/src/custom-theme.css'
 import { videoPlayer } from 'vue-video-player'
+
 export default {
      props: ['dialogOpations'],
      components: {
@@ -123,9 +124,6 @@ export default {
           player() {
                return this.$refs.videoPlayer.player
           }
-     },
-     created() {
-
      }
 }
 </script>
@@ -168,9 +166,9 @@ export default {
           .u-video-text {
                position: absolute;
                right: 0.68rem;
-               top: -1.61rem;
-               width: 4.38rem;
-               height: 1.74rem;
+               top: -1.46rem;
+               width: 3.98rem;
+               height: 1.56rem;
                @include background("~@/assets/img/videotit.png");
           }
      }

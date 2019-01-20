@@ -11,9 +11,9 @@
         </section>
         <section v-else class="g-noRightToVote">
             <p class="u-tit">您还没有能量值</p>
-            <p class="u-tit">快去做任务领取吧~</p>
+            <p class="u-tit">快去加能量领取吧~</p>
             <p class="u-text">为爱豆加能量有机会获得免费电子书哦！</p>
-            <span v-scroll="`rule`" @click="dialogComponentEvent('goRule')">去做任务</span>
+            <span v-scroll="`rule`" @click="dialogComponentEvent('goRule')">去加能量</span>
         </section>
     </section>
 </template>

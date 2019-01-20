@@ -18,7 +18,7 @@
                             ></span>
                             <span class="u-name">{{item.starName}}</span>
                         </section>
-                        <span class="u-count">已为他加{{item.ticketCount}}能量</span>
+                        <span class="u-count">已为ta加{{item.ticketCount}}能量</span>
                     </li>
                 </ul>
             </scroller>
@@ -31,14 +31,16 @@ export default {
     components: {
         Scroller
     },
+    props: ['userId'],
     data() {
         return {
             scrollTop: 0,
-            userId: this.$route.query.userId || null,
-            starList: []
+            starList: [],
+            userId: ''
         }
     },
     created() {
+        console.log(this.userId);
         this.getData()
     },
     methods: {
@@ -77,7 +79,7 @@ export default {
     margin: auto;
     padding-top: 2.54rem /* 314/100 */;
     width: 5.33rem /* 552/100 */;
-//     height: 8.14rem /* 849/100 */;
+    //     height: 8.14rem /* 849/100 */;
     @include background("~@/assets/img/dialogbg/dialoghistory.png");
     .g-ViteList-tit {
         text-align: center;

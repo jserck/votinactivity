@@ -27,7 +27,7 @@
             <p
                 class="nocanvote"
                 v-if="dialogOpations.type==2&&dialogOpations.userTicketCount<=0"
-            >(您已用完点赞权，做任务即可获取更多点赞权)</p>
+            >(您已用完能量值，继续集能量获取更多能量哦！)</p>
             <section class="u-img">
                 <section
                     class="u-imgs"
