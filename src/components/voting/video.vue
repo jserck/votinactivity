@@ -108,7 +108,7 @@ export default {
             this.isInter = false;
         },
         onPlayerWaiting() {
-            this.isInter = false;
+            // this.isInter = false;
         },
         onPlayerCanplaythrough() {
             this.isInter = true;
