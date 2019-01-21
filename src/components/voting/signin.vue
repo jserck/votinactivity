@@ -27,7 +27,10 @@ export default {
      },
      created() {
 
-     }
+     },
+    mounted(){
+      this.$emit("btn_show",7);
+    }
 }
 </script>
 

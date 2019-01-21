@@ -5,22 +5,22 @@
                     <section>
                          <ul>
                               <li v-if="dialogType ==1">
-                                   <FirstIn
+                                   <FirstIn  @btn_show="isshow"
                                         @dialogComponentEvent="dialogComponentEvent"
                                         :dialogOpations="dialogOpations"
                                    ></FirstIn>
                               </li>
                               <li v-else-if="dialogType==2">
-                                   <Rule></Rule>
+                                   <Rule @btn_show="isshow"></Rule>
                               </li>
                               <li v-else-if="dialogType==3">
-                                   <VoteHistory :userId="userId"></VoteHistory>
+                                   <VoteHistory :userId="userId" @btn_show="isshow"></VoteHistory>
                               </li>
                               <li v-else-if="dialogType==4">
-                                   <Attention @dialogComponentEvent="dialogComponentEvent"></Attention>
+                                   <Attention @dialogComponentEvent="dialogComponentEvent" @btn_show="isshow"></Attention>
                               </li>
                               <li v-else-if="dialogType==5">
-                                   <DoVoting
+                                   <DoVoting @btn_show="isshow"
                                         @dialogComponentEvent="dialogComponentEvent"
                                         @voteNumChange2="voteNumChange2"
                                         :RightToVote="dialogOpations.isCanVote"
@@ -28,25 +28,25 @@
                                    ></DoVoting>
                               </li>
                               <li v-else-if="dialogType==6">
-                                   <VideoPlay :dialogOpations="dialogOpations"></VideoPlay>
+                                   <VideoPlay :dialogOpations="dialogOpations" @btn_show="isshow"></VideoPlay>
                               </li>
                               <li v-else-if="dialogType==7">
-                                   <SignIn @dialogComponentEvent="dialogComponentEvent"></SignIn>
+                                   <SignIn @dialogComponentEvent="dialogComponentEvent" @btn_show="isshow"></SignIn>
                               </li>
                               <li v-else-if="dialogType==8">
                                    <noHaveBook
                                         :dialogOpations="dialogOpations"
-                                        @dialogComponentEvent="dialogComponentEvent"
+                                        @dialogComponentEvent="dialogComponentEvent" @btn_show="isshow"
                                    ></noHaveBook>
                               </li>
                               <li v-else-if="dialogType==9">
                                    <ReadBook
                                         :dialogOpations="dialogOpations"
-                                        @dialogComponentEvent="dialogComponentEvent"
+                                        @dialogComponentEvent="dialogComponentEvent" @btn_show="isshow"
                                    ></ReadBook>
                               </li>
                          </ul>
-                         <section class="closeBtn" @click="hideHandler"></section>
+                         <section class="closeBtn" @click="hideHandler" v-show="bshow"></section>
                     </section>
                </section>
           </section>
@@ -69,11 +69,15 @@ export default {
      data() {
           return {
                isShowDialog: true,
-               pageScrollYoffset: 400
+               pageScrollYoffset: 400,
+               bshow:false
           }
      },
 
      methods: {
+       isshow(){
+         this.bshow=true;
+       },
           census(type, starId = 0) {
                /**
                * @name 打点

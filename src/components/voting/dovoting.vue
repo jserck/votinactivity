@@ -47,6 +47,9 @@ export default {
             this.$emit('voteNumChange2', val)
         }
     },
+    mounted(){
+      this.$emit("btn_show",5);
+    }
 }
 </script>
 

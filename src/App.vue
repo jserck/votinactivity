@@ -12,6 +12,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+  *{
+    user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    -moz-user-select:none;
+  }
 // @font-face {
 //      font-family: "FZLTHJW"; //重命名字体名
 //      src: url("~@/assets/font/FZLTHJW.ttf"); //引入字体
