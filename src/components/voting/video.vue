@@ -13,6 +13,8 @@
                          @pause="onPlayerPause($event)"
                          @ended="onPlayerEnded($event)"
                          @error="errorHandler"
+                         @waiting="onPlayerWaiting($event)"
+                         @canplaythrough="onPlayerCanplaythrough($event)"
                     ></video-player>
                </section>
                <section class="g-inter displayFlex flexColumn flexAlignJustifyCenter" v-else>
@@ -89,7 +91,7 @@ export default {
                this.$emit('dialogClose', false);
           },
           onPlayerPlay() {
-
+               console.log('2');
           },
           onPlayerPause() {
 
@@ -99,6 +101,12 @@ export default {
           },
           errorHandler() {
                this.isInter = false;
+          },
+          onPlayerWaiting() {
+
+          },
+          onPlayerCanplaythrough() {
+
           },
           refale() {
                this.isInter = true;
@@ -132,7 +140,7 @@ export default {
 .g-video {
      // overflow: hidden;
      position: relative;
-     margin: auto;
+     margin: 30vh auto 0;
      box-sizing: border-box;
      background: #000;
      .g-video-container {

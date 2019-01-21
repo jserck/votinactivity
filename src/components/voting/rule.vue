@@ -47,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 $dialoghistory: "~@/assets/img/dialogbg/dialogrule.png"; //规则弹窗背景
 .g-rule {
-    margin: 0.5rem auto 0;
+    margin:5vh auto 0;
     overflow: hidden;
     padding-left: 0.43rem;
     padding-right: 0.33rem;
@@ -55,9 +55,6 @@ $dialoghistory: "~@/assets/img/dialogbg/dialogrule.png"; //规则弹窗背景
     width: 4.52rem /* 552/100 */;
     // height: 10.78rem /* 849/100 */;
     @include background($dialoghistory);
-    @media screen and (max-width: 359px) {
-        margin: 3.5rem auto 0;
-    }
     .u-tit {
         margin-top: 3rem /* 314/100 */;
         margin-bottom: 0.03rem;

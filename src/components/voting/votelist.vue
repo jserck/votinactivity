@@ -75,7 +75,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .g-ViteList {
-    margin: auto;
+    margin:8vh auto 0;
     padding-top: 2.54rem /* 314/100 */;
     width: 5.33rem /* 552/100 */;
     //     height: 8.14rem /* 849/100 */;

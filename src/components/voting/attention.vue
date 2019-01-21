@@ -39,7 +39,7 @@ export default {
 $dialogatt: "~@/assets/img/dialogbg/dialogatt.png";
 $dialogattbtn: "~@/assets/img/dialogbg/dialogattbtn.png";
 .g-attention {
-     margin: auto;
+     margin:15vh auto 0;
      padding-top: 3.66rem /* 314/100 */;
      width: 5.33rem /* 552/100 */;
      height: 4.8rem /* 849/100 */;

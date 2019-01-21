@@ -29,7 +29,7 @@
 <script>
 import '../../assets/js/lazyLoad.js'
 export default {
-     props: ['starBookData', 'myRecommend','userId'],
+     props: ['starBookData', 'myRecommend', 'userId'],
      data() {
           return {
                mySwiper: null,
@@ -92,13 +92,14 @@ export default {
                     des: false
                }
                this.$http(options).then((res) => {
-               }).catch((err) => { })
+               }).catch((err) => {
+               })
           },
           lazyHandler() {
                this.isLazy = true;
           },
           lookBook() {
-               this.census(6, this.myRecommend.did);
+               this.census(6, this.myRecommend.bid);
                this.$emit('lookBooks', this.myRecommend.did)
           },
           videoPlay() {
