@@ -172,7 +172,7 @@
                                         <span
                                              class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
                                         >
-                                             读书架上的1本书&nbsp;能量+
+                                             读书架上的1本书能量+
                                              <i>10</i>
                                         </span>
                                    </span>
@@ -730,6 +730,8 @@ export default {
                 * @name 分享
                */
                try {
+                    console.log('shareApp');
+
                     my.postMessage({
                          event: 'shareApp',
                          data: {
@@ -784,6 +786,15 @@ export default {
           },
           voteClick(type) {
                this.census(13)
+               if (this.isReadHandler) {
+                    this.isReadHandler = false;
+                    let timer = setTimeout(() => {
+                         this.isReadHandler = true;
+                         clearTimeout(timer);
+                    }, 1000);
+               } else {
+                    return;
+               }
                if (type === 1) {
                     this.attentionHandler()
                } else if (type === 2) {
@@ -794,17 +805,7 @@ export default {
                     this.obshareHandler()
                } else {
                     // 阅读
-                    if (this.isReadHandler) {
-                         this.isReadHandler = false;
-                         this.readHandler()
-                         let timer = setTimeout(() => {
-                              this.isReadHandler = true;
-                              clearTimeout(timer);
-                         }, 3000);
-                    } else {
-                         return;
-                    }
-
+                    this.readHandler()
                }
           },
 

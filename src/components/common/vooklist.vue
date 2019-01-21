@@ -13,7 +13,7 @@
                </section>
           </div>
           <section class="swiper-list displayFlex flexJustifyEnd">
-               <ul class="displayFlex flexJustifybetween" id="bookList">
+               <ul class="displayFlex flexJustifybetween" id="bookList" v-lazyLoad="lazyHandler">
                     <li
                          v-for="(item,index) in starBookDatas"
                          :key="index"

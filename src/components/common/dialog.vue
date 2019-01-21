@@ -206,7 +206,7 @@ export default {
      justify-content: center;
      align-items: center;
      .closeBtn {
-          margin: 0.25rem /* 46/100 */ auto 0;
+          margin: 0.25rem /* 46/100 */ auto 0.6rem;
           width: 1.01rem /* 113/100 */;
           height: 1.01rem /* 113/100 */;
           @include background("~@/assets/img/dialogbg/dialogclose.png");
