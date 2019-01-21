@@ -132,7 +132,10 @@ export default {
           player() {
                return this.$refs.videoPlayer.player
           }
-     }
+     },
+    mounted(){
+      this.$emit("btn_show",6);
+    }
 }
 </script>
 

@@ -39,6 +39,9 @@ export default {
     created() {
 
     },
+    mounted(){
+      this.$emit("btn_show",2);
+    },
     methods: {
 
     }

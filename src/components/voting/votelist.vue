@@ -42,6 +42,9 @@ export default {
         console.log(this.userId);
         this.getData()
     },
+  mounted(){
+    this.$emit("btn_show",3);
+  },
     methods: {
         getData() {
             /**
