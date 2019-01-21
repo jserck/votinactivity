@@ -53,7 +53,7 @@ export default {
 <style scoped lang="scss">
 .u-vote-btn {
     .g-noRightToVote {
-        margin: auto;
+        margin:15vh auto 0;
         padding-top: 3.44rem /* 314/100 */;
         width: 5.33rem /* 552/100 */;
         height: 4.45rem /* 849/100 */;
@@ -96,7 +96,7 @@ export default {
     }
 }
 .g-doDoting {
-    margin: auto;
+    margin:15vh auto 0;
     padding-top: 3.8rem /* 314/100 */;
     width: 5.33rem /* 552/100 */;
     height: 4.09rem /* 849/100 */;

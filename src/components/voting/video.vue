@@ -132,7 +132,7 @@ export default {
 .g-video {
      // overflow: hidden;
      position: relative;
-     margin: auto;
+     margin:30vh auto 0;
      box-sizing: border-box;
      background: #000;
      .g-video-container {

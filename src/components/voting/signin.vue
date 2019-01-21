@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .g-attention {
-     margin: auto;
+     margin:15vh auto 0;
      padding-top: 3.34rem /* 314/100 */;
      width: 5.33rem /* 552/100 */;
      height: 4.55rem /* 849/100 */;
