@@ -3,7 +3,7 @@
         <p class="u-tit">活动规则</p>
         <Scroller>
             <p class="u-header">一.活动时间：</p>
-            <p class="u-header">2019年1月20日——2019年2月10日</p>
+            <p class="u-header">2019年1月20日——2019年2月6日</p>
             <p class="u-header">二. 活动说明：</p>
             <p
                 class="u-text"
