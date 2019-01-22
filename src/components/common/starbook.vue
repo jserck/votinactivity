@@ -250,7 +250,7 @@ export default {
                @include background("~@/assets/img/l_starimg@2x.png");
                .g-u-box-item-img {
                     position: relative;
-                    padding-top: 0;
+                    padding-top: 0.07rem;
                     display: inline-block;
                     overflow: hidden;
                     margin: auto;
