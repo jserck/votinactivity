@@ -641,8 +641,8 @@ export default {
                     des: false
                }
                this.$http(options).then((res) => {
+                    this.userTicketCountChange(1)
                     if (res.data.code == 200) {
-                         this.userTicketCountChange(1)
                          if (type === 1) {
                               this.isFollow = 1
                               this.dialogShow(4, true)
@@ -651,6 +651,12 @@ export default {
                               this.isSignIn = true
                               this.dialogShow(7, true)
                          }
+                         // if (type == 3) {
+                         //      setTimeout(() => {
+                         //           this.userTicketCountChange(1)
+                         //      }, 3000);
+                         //      return;
+                         // }
                     } else if (res.data.code == 17) {
                          if (this.isFollow == 1) return
                          this.isFollow = 1

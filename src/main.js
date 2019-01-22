@@ -10,7 +10,7 @@ import toastRegistry from './assets/js/toastcreate'
 
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
-FastClick.attach(document.body)
+// FastClick.attach(document.body)
 setFontsize()
 router.afterEach((to, from, next) => {
     window.scrollTo(1, 1);

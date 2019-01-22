@@ -16,16 +16,23 @@
                          @error="errorHandler"
                          @waiting="onPlayerWaiting($event)"
                          @statechanged="playerStateChanged($event)"
-                         @canplaythrough="onPlayerCanplaythrough($event)"
+                         @canplay="onPlayerCanplaythrough($event)"
+                         @loadeddata="onloadstart($event)"
                     ></video-player>
                </section>
                <section
                     class="g-inter displayFlex flexColumn flexAlignJustifyCenter"
-                    v-show="!isInter"
+                    v-if="!isInter"
                >
                     <p>最糟糕的是没网了!</p>
                     <span class="refale" @click="refale">刷新</span>
                </section>
+               <!-- <section
+                    class="g-inter displayFlex flexColumn flexAlignJustifyCenter"
+                    v-if="isWait&&isInter"
+               >
+                    <p>视频正在努力加载中!</p>
+               </section>-->
           </section>
      </section>
 </template>
@@ -43,6 +50,7 @@ export default {
           return {
                isVideo: true,
                inter: 1,
+               isWait: false,
                isInter: true,
                playerOptions: {
                     playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
@@ -95,19 +103,32 @@ export default {
                this.isInter = false;
           },
           onPlayerWaiting() {
-               // this.isInter = false;
+               if (navigator && navigator.onLine == false) {
+                    this.isInter = false;
+                    return;
+               }
+               // this.isWait = true;
           },
           onPlayerCanplaythrough() {
-               this.isInter = true;
-          },
-          playerStateChanged(e) {
+               // this.isInter = true;
+               // this.isWait = false;
                if (navigator && navigator.onLine == false) {
                     this.isInter = false;
                }
           },
+          playerStateChanged(e) {
+               // if (navigator && navigator.onLine == false) {
+               //      this.isInter = false;
+               // }
+          },
+          onloadstart(e) {
+               // if (navigator && navigator.onLine == false) {
+               //      this.isInter = false;
+               // }
+          },
           refale() {
                if (!this.isInter) {
-                    return;
+                    this.isInter = true;
                }
                setTimeout(() => {
                     this.$nextTick(() => {
@@ -123,12 +144,14 @@ export default {
      },
      mounted() {
           this.$emit("btn_show", 6);
-          window.addEventListener("offline", function (e) {
-               this.isInter = false;
-          }.bind(this))
-          window.addEventListener("online", function (e) {
-               this.isInter = true;
-          }.bind(this))
+          if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+               window.addEventListener("offline", function (e) {
+                    this.isInter = false;
+               }.bind(this))
+               window.addEventListener("online", function (e) {
+                    this.isInter = true;
+               }.bind(this))
+          }
      }
 }
 </script>
