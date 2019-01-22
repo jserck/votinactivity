@@ -332,7 +332,7 @@ export default {
      },
      methods: {
           isVoted() {
-               let isVoted = IsDateBetween('2019/01/6 00:00', '2019/01/26 15:25');
+               let isVoted = IsDateBetween('2019/01/06 00:00', '2019/02/26 00:00');
                if (!isVoted) {// 判断是否结束
                     this.isVoting = false;
                }
