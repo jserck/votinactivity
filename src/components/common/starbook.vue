@@ -250,12 +250,12 @@ export default {
                @include background("~@/assets/img/l_starimg@2x.png");
                .g-u-box-item-img {
                     position: relative;
-                    padding-top: 0.12rem;
+                    padding-top: 0;
                     display: inline-block;
                     overflow: hidden;
                     margin: auto;
                     width: 0.82rem;
-                    height: 0.7rem;
+                    height: 0.79rem;
                     border-radius: 50%;
                }
           }
