@@ -308,6 +308,7 @@ export default {
           }
      },
      created() {
+          console.log(this.preLoad);
           this.preLoad()
           this.isVoted()
           this.setCookie()
