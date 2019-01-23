@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import FastClick from 'fastclick'
+// import FastClick from 'fastclick'
 import setFontsize from './assets/js/setFontsize';
 import Axios from './assets/js/axios'
 import './assets/css/common.css'
@@ -17,9 +17,9 @@ Vue.prototype.$http = Axios
 Vue.config.productionTip = false
 // FastClick.attach(document.body)
 setFontsize()
-router.afterEach((to, from, next) => {
-    window.scrollTo(1, 1);
-});
+// router.afterEach((to, from, next) => {
+//     window.scrollTo(1, 1);
+// });
 // let isVoted = IsDateBetween('2019/01/6 00:00', '2019/02/06 00:00');
 // router.beforeEach((to, from, next) => {
 //     if (!isVoted && (to.name != 'voted')) {// 判断是否结束
