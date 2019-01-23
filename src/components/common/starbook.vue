@@ -126,9 +126,6 @@ export default {
      components: {
           BookList: () => import('./vooklist.vue'),
      },
-     mounted() {
-          this.preLoad();
-     },
      methods: {
           preLoad() {
                let count = 0;
@@ -216,6 +213,7 @@ export default {
           }
      },
      created() {
+          this.preLoad();
           this.getStarBook('10002');
      }
 }
