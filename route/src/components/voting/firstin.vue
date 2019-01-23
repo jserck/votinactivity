@@ -54,7 +54,7 @@
                 @click="dialogComponentEvent('dialogComponentEvent',9)"
                 v-scroll="'rule'"
             >去做任务</span>
-            <span @click="dialogComponentEvent('fllowReadBtn')">关注阅读</span>
+            <span @click="dialogComponentEvent('fllowReadBtn')">立即阅读</span>
         </section>
         <!-- <section class="u-btn2" v-else>
             <span @click="dialogComponentEvent('dialogComponentEvent')" v-scroll="'rule'">去做任务</span>
