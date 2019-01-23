@@ -308,10 +308,7 @@ export default {
           }
      },
      created() {
-<<<<<<< HEAD
-=======
           this.preLoad()
->>>>>>> cdn
           this.isVoted()
           this.setCookie()
           this.voteInit()
