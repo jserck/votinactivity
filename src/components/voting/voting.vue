@@ -308,6 +308,10 @@ export default {
           }
      },
      created() {
+<<<<<<< HEAD
+=======
+          this.preLoad()
+>>>>>>> cdn
           this.isVoted()
           this.setCookie()
           this.voteInit()
@@ -333,6 +337,21 @@ export default {
           }
      },
      methods: {
+          preLoad() {
+               let count = 0;
+               let len = this.bannerlist.length;
+               for (let i = 0; i < len; i++) {
+                    let img = document.createElement('img');
+                    img.onload = function () {
+                         if (count == len - 1) {
+                              console.log('头图加载完成');
+                              return;
+                         };
+                         count++;
+                    }
+                    img.src = this.bannerlist[i].src;
+               }
+          },
           isVoted() {
                let isVoted = IsDateBetween('2019/01/06 00:00', '2019/02/06 00:00');
                if (!isVoted) {// 判断是否结束
@@ -395,7 +414,7 @@ export default {
                          this.$refs.star_book.starChange(this.bannerNum, this.bannerlist[this.bannerNum].bid)
                          return;
                     }
-                    this.bannerNum++;
+                    this.bannerNum++
                }
                this.$refs.star_book.starChange(this.bannerNum, this.bannerlist[this.bannerNum].bid)
           },

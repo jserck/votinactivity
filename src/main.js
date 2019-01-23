@@ -6,7 +6,12 @@ import setFontsize from './assets/js/setFontsize';
 import Axios from './assets/js/axios'
 import './assets/css/common.css'
 import toastRegistry from './assets/js/toastcreate'
-
+//新加
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+import VideoPlayer from 'vue-video-player'
+Vue.use(VideoPlayer);
+//import 'videojs-contrib-hls/dist/videojs-contrib-hls';
 
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
