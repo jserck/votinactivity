@@ -10,31 +10,28 @@
                     :playsinline="true"
                     :options="playerOptions"
                     webkit-playsinline="true"
+                    x5-video-player-fullscreen="true"
                     @play="onPlayerPlay($event)"
                     @pause="onPlayerPause($event)"
                     @ended="onPlayerEnded($event)"
                     @error="errorHandler"
                     @waiting="onPlayerWaiting($event)"
                     @statechanged="playerStateChanged($event)"
-                    @canplaythrough="onPlayerCanplaythrough($event)"
+                    @canplay="onPlayerCanplaythrough($event)"
+                    @loadeddata="onloadstart($event)"
                 ></video-player>
             </section>
-            <section
-                class="g-inter displayFlex flexColumn flexAlignJustifyCenter"
-                v-show="!isInter"
-            >
+            <section class="g-inter displayFlex flexColumn flexAlignJustifyCenter" v-if="!isInter">
                 <p>最糟糕的是没网了!</p>
                 <span class="refale" @click="refale">刷新</span>
             </section>
+            <!-- <section
+                    class="g-inter displayFlex flexColumn flexAlignJustifyCenter"
+                    v-if="isWait&&isInter"
+               >
+                    <p>视频正在努力加载中!</p>
+            </section>-->
         </section>
-
-        <!-- <div
-                              class="fullScreen vjs-fullscreen-control vjs-control vjs-button"
-                              aria-live="polite"
-                              @click="fullScreenHandle"
-                              aria-disabled="false"
-        >全屏</div>-->
-        <!-- <section class="u-icon" v-if="false"></section> -->
     </section>
 </template>
 <script>
@@ -51,12 +48,8 @@ export default {
         return {
             isVideo: true,
             inter: 1,
+            isWait: false,
             isInter: true,
-            dialogStyle: {
-                // width: '1rem',
-                // height: '13.066667rem'
-            },
-
             playerOptions: {
                 playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
                 autoplay: false, //如果true,浏览器准备好时开始回放。
@@ -108,52 +101,55 @@ export default {
             this.isInter = false;
         },
         onPlayerWaiting() {
-            // this.isInter = false;
+            if (navigator && navigator.onLine == false) {
+                this.isInter = false;
+                return;
+            }
+            // this.isWait = true;
         },
         onPlayerCanplaythrough() {
-            this.isInter = true;
-        },
-        playerStateChanged(e) {
+            // this.isInter = true;
+            // this.isWait = false;
             if (navigator && navigator.onLine == false) {
                 this.isInter = false;
             }
         },
+        playerStateChanged(e) {
+            // if (navigator && navigator.onLine == false) {
+            //      this.isInter = false;
+            // }
+        },
+        onloadstart(e) {
+            // if (navigator && navigator.onLine == false) {
+            //      this.isInter = false;
+            // }
+        },
         refale() {
             if (!this.isInter) {
-                return;
+                this.isInter = true;
             }
             setTimeout(() => {
                 this.$nextTick(() => {
                     this.onPlayerEnded()
                 })
             }, 0)
-        },
-        fullScreenHandle() {
-            // console.log(this.player);
-            // if (!this.player.isFullscreen()) {
-            //      this.player.requestFullscreen();
-            //      this.player.isFullscreen(true);
-            // } else {
-            //      this.player.exitFullscreen();
-            //      this.player.isFullscreen(false);
-            // }
         }
     },
     computed: {
-        //      this.$refs.videoPlayer.player.src('要切换的rtmp地址');
         player() {
             return this.$refs.videoPlayer.player
         }
     },
     mounted() {
         this.$emit("btn_show", 6);
-
-        window.addEventListener("offline", function (e) {
-            this.isInter = false;
-        }.bind(this))
-        window.addEventListener("online", function (e) {
-            this.isInter = true;
-        }.bind(this))
+        if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+            window.addEventListener("offline", function (e) {
+                this.isInter = false;
+            }.bind(this))
+            window.addEventListener("online", function (e) {
+                this.isInter = true;
+            }.bind(this))
+        }
     }
 }
 </script>

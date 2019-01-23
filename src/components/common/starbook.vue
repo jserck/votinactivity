@@ -66,7 +66,7 @@ export default {
                islookBooks: true,
                changeList: [
                     {
-                         video: 'http://activity.cun-tu.cn/v_wff.mov',
+                         video: 'http://activity.cun-tu.cn/videowff.mp4',
                          text: '"与孩子一起在书中的世界，感受天马行空的幻想"',
                          bid: '10003',
                          src: require('@/assets/img/star/b_wff.png'),
@@ -76,7 +76,7 @@ export default {
                     },
 
                     {
-                         video: 'http://activity.cun-tu.cn/y_yyw.mov',
+                         video: 'http://activity.cun-tu.cn/videoyyw.mp4',
                          text: '"没有谁是一座孤岛，每本书都是一个世界"',
                          bid: '10004',
                          src: require('@/assets/img/star/b_yyw.png'),
@@ -85,7 +85,7 @@ export default {
                          did: 491
                     },
                     {
-                         video: 'http://activity.cun-tu.cn/v_zzx.mov',
+                         video: 'http://activity.cun-tu.cn/videozxx.mp4',
                          text: '"曾经以为，拥有是不容易的；后来才知道，舍弃更难。"',
                          bid: '10001',
                          src: require('@/assets/img/star/b_zxx.png'),
@@ -94,7 +94,7 @@ export default {
                          did: 485
                     },
                     {
-                         video: 'http://activity.cun-tu.cn/v_wl.mov',
+                         video: 'http://activity.cun-tu.cn/videowl.mp4',
                          text: '"青春进行时，阅读正当时。青春、梦想、勇气，不止于现在"',
                          bid: '10002',
                          src: require('@/assets/img/star/b_wl.png'),
@@ -103,7 +103,7 @@ export default {
                          did: 487
                     },
                     {
-                         video: 'http://activity.cun-tu.cn/v_sy.mov',
+                         video: 'http://activity.cun-tu.cn/videosy.mp4',
                          text: '"享受生命中的小美好，等着风来，也等着你"',
                          bid: '10005',
                          src: require('@/assets/img/star/b_sy.png'),
@@ -112,12 +112,12 @@ export default {
                          did: 489
                     },
                     {
-                         video: 'http://activity.cun-tu.cn/v_wcz.mov',
-                         text: '"徜徉在历史的浩瀚长河中，将古往今来的睿智思考收入囊中"',
+                         video: 'http://activity.cun-tu.cn/videohcz.mp4',
+                         text: '"尽阅历史，岁月无声，将古往今来的睿智思考收入囊中"',
                          bid: '10000',
-                         src: require('@/assets/img/star/b_hcz.png'),
-                         atherImg: require('@/assets/img/ather/hcz_x.png'),
-                         name: '何常在',
+                         src: require('@/assets/img/star/b_mby.png'),
+                         atherImg: require('@/assets/img/ather/mby_x.png'),
+                         name: '马伯庸',
                          did: 483
                     }
                ]
@@ -250,7 +250,7 @@ export default {
                @include background("~@/assets/img/l_starimg@2x.png");
                .g-u-box-item-img {
                     position: relative;
-                    padding-top: 0;
+                    padding-top: 0.07rem;
                     display: inline-block;
                     overflow: hidden;
                     margin: auto;

@@ -1,223 +1,234 @@
 <template>
-    <section class="m-voting-template" v-timeoutLazy="bg_min_src">
-        <Dialog
-            v-if="isShowDialog"
-            :dialogType="dialogType"
-            :dialogOpations="dialogOpations"
-            :userId="userId"
-            @isCloase="dialogClose"
-            @dialogListenEvent="dialogListenEvent"
-            @voteNumChange3="voteNumChange3"
-        ></Dialog>
-        <section class="u-vote-count" v-scroll="'rule'" @click="census(3)">
-            <section class="u-vote-count-box">
-                <span>{{userTicketCount}}</span>
-                <p>点击获得能量</p>
-            </section>
-        </section>
-        <section class="u-rule" @click="ruleHandler"></section>
-        <section class="u-myVoteCon-link" @click="myVoteCon"></section>
-        <header>
-            <section class="g-video-container">
-                <section class="g-titleImg">
-                    <img src="@/assets/img/title.png" alt>
+    <section>
+        <section v-if="isVoting" class="m-voting-template" v-timeoutLazy="bg_min_src">
+            <Dialog
+                v-if="isShowDialog"
+                :dialogType="dialogType"
+                :dialogOpations="dialogOpations"
+                :userId="userId"
+                @isCloase="dialogClose"
+                @dialogListenEvent="dialogListenEvent"
+                @voteNumChange3="voteNumChange3"
+            ></Dialog>
+            <section class="u-vote-count" v-scroll="'rule'" @click="census(3)">
+                <section class="u-vote-count-box">
+                    <span>{{userTicketCount}}</span>
+                    <p>点击获得能量</p>
                 </section>
-                <section class="g-video">
-                    <span class="u-left" @click="bannerChange(0)">
-                        <span class="u-left-icon"></span>
-                    </span>
-                    <span class="u-right" @click="bannerChange(1)">
-                        <span class="u-right-icon"></span>
-                    </span>
-                    <div class="u-name">
-                        <i>领读官</i>
-                        <i>{{starName_header}}</i>
-                    </div>
-                    <section class="g-video-banner" v-scroll="'star'">
-                        <section class="g-video-box">
-                            <img :src="bannerSrc" @click="census(1,bannerlist[bannerNum].bid)" alt>
-                        </section>
+            </section>
+            <section class="u-rule" @click="ruleHandler"></section>
+            <section class="u-myVoteCon-link" @click="myVoteCon"></section>
+            <header>
+                <section class="g-video-container">
+                    <section class="g-titleImg">
+                        <img src="@/assets/img/title.png" alt>
                     </section>
-                </section>
-                <section class="g-vote-msg">
-                    <span>
-                        已有
-                        <i>{{personCount}}</i>人参与加能量，共计领到
-                        <i>{{bookCount}}</i>本书
-                    </span>
-                </section>
-            </section>
-        </header>
-
-        <!-- 投票记录 -->
-        <section class="g-myVoteCon" id="scroll">
-            <section class="g-vote-list">
-                <ul class="displayFlex flexWrap flexJustifybetween">
-                    <li v-for="(item,index) in starSoltData2" :key="index">
-                        <section class="g-vote-li">
-                            <span
-                                class="u-img"
-                                :style="`background:url(${item.starPicUrl});
-                                            backgroundRepeat:no-repeat;
-                                            backgroundSize:cover`"
-                            ></span>
-                            <section>
-                                <span
-                                    :id="index == 4 ? 'rule':''"
-                                    class="u-vote-num"
-                                >领读官&nbsp;&nbsp;{{item.starName}}</span>
-                                <span class="u-nums">
-                                    <i>{{item.ticketCount}}</i>&nbsp;阅读能量
-                                </span>
+                    <section class="g-video">
+                        <span class="u-left" @click="bannerChange(0)">
+                            <span class="u-left-icon"></span>
+                        </span>
+                        <span class="u-right" @click="bannerChange(1)">
+                            <span class="u-right-icon"></span>
+                        </span>
+                        <div class="u-name">
+                            <i>领读官</i>
+                            <i>{{starName_header}}</i>
+                        </div>
+                        <section class="g-video-banner" v-scroll="'star'">
+                            <section class="g-video-box">
+                                <img
+                                    :src="bannerSrc"
+                                    @click="census(1,bannerlist[bannerNum].bid)"
+                                    alt
+                                >
                             </section>
                         </section>
-                        <section
-                            :class="index<3?'g-btn':'g-btn2'"
-                            @click="doVotingHandler(item['starId'],item['starName'])"
-                        >
-                            <span>
-                                <i class="u-icon">
-                                    <img src="@/assets/img/sd.png" alt>
-                                </i>&nbsp;加能量&nbsp;&nbsp;领好书
-                            </span>
-                        </section>
-                    </li>
-                </ul>
-            </section>
-        </section>
-        <!-- 我的选票 -->
-        <section class="g-myVote">
-            <section class="u-myVote-tit diaplayFlex">
-                <span></span>
-            </section>
-            <section class="g-vote-context">
+                    </section>
+                    <section class="g-vote-msg">
+                        <span>
+                            已有
+                            <i>{{personCount}}</i>人参与加能量，共计领到
+                            <i>{{bookCount}}</i>本书
+                        </span>
+                    </section>
+                </section>
+            </header>
+
+            <!-- 投票记录 -->
+            <section class="g-myVoteCon" id="scroll">
                 <section class="g-vote-list">
-                    <ul class="displayFlex flexJustifybetween flexAlignItemsCenter flexWrap">
-                        <li
-                            :class="isFollow!=1?touch1:'active-li'"
-                            @touchend="mousedownHandler($event,0,1)"
-                            @touchstart="mousedownHandler($event,1,1)"
-                        >
-                            <span
-                                v-if="isFollow!=1"
-                                @click="voteClick(1)"
-                                class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
-                            >
-                                <span class="u-icon1"></span>
+                    <ul class="displayFlex flexWrap flexJustifybetween">
+                        <li v-for="(item,index) in starSoltData2" :key="index">
+                            <section class="g-vote-li">
                                 <span
-                                    class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
-                                >
-                                    <span>关注小程序能量+</span>
-                                    <i>10</i>
-                                </span>
-                            </span>
-                            <span
-                                v-else
-                                class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
+                                    class="u-img"
+                                    :style="`background:url(${item.starPicUrl});
+                                            backgroundRepeat:no-repeat;
+                                            backgroundSize:cover`"
+                                ></span>
+                                <section>
+                                    <span
+                                        :id="index == 4 ? 'rule':''"
+                                        class="u-vote-num"
+                                    >领读官&nbsp;&nbsp;{{item.starName}}</span>
+                                    <span class="u-nums">
+                                        <i>{{item.ticketCount}}</i>&nbsp;阅读能量
+                                    </span>
+                                </section>
+                            </section>
+                            <section
+                                :class="index<3?'g-btn':'g-btn2'"
+                                @click="doVotingHandler(item['starId'],item['starName'])"
                             >
-                                <span class="u-icon1"></span>
-                                <span
-                                    class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
-                                >
-                                    关注小程序能量+
-                                    <i>10</i>
+                                <span>
+                                    <i class="u-icon">
+                                        <img src="@/assets/img/sd.png" alt>
+                                    </i>&nbsp;加能量&nbsp;&nbsp;领好书
                                 </span>
-                            </span>
-                        </li>
-                        <li
-                            :class="isSignIn!=1?touch2:'active-li'"
-                            @touchend="mousedownHandler($event,0,2)"
-                            @touchstart="mousedownHandler($event,1,2)"
-                        >
-                            <span
-                                v-if="isSignIn!=1"
-                                @click="voteClick(2)"
-                                class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
-                            >
-                                <span class="u-icon2"></span>
-                                <span
-                                    class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
-                                >
-                                    每日签到能量+
-                                    <i>10</i>
-                                </span>
-                            </span>
-                            <span
-                                v-else
-                                class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
-                            >
-                                <span class="u-icon2"></span>
-                                <span
-                                    class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
-                                >
-                                    每日签到能量+
-                                    <i>10</i>
-                                </span>
-                            </span>
-                        </li>
-                        <li
-                            :class="touch4"
-                            @touchend="mousedownHandler($event,0,4)"
-                            @touchstart="mousedownHandler($event,1,4)"
-                        >
-                            <span
-                                class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
-                                @click="voteClick(4)"
-                            >
-                                <span class="u-icon3"></span>
-                                <span
-                                    class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
-                                >
-                                    读书架上的1本书能量+
-                                    <i>10</i>
-                                </span>
-                            </span>
-                        </li>
-                        <li
-                            :class="touch3"
-                            @touchend="mousedownHandler($event,0,3)"
-                            @touchstart="mousedownHandler($event,1,3)"
-                        >
-                            <span
-                                class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
-                                @click="voteClick(3)"
-                            >
-                                <span class="u-icon4"></span>
-                                <span
-                                    class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
-                                >
-                                    分享活动能量+
-                                    <i>10</i>
-                                </span>
-                            </span>
+                            </section>
                         </li>
                     </ul>
                 </section>
             </section>
+            <!-- 我的选票 -->
+            <section class="g-myVote">
+                <section class="u-myVote-tit diaplayFlex">
+                    <span></span>
+                </section>
+                <section class="g-vote-context">
+                    <section class="g-vote-list">
+                        <ul class="displayFlex flexJustifybetween flexAlignItemsCenter flexWrap">
+                            <li
+                                :class="isFollow!=1?touch1:'active-li'"
+                                @touchend="mousedownHandler($event,0,1)"
+                                @touchstart="mousedownHandler($event,1,1)"
+                            >
+                                <span
+                                    v-if="isFollow!=1"
+                                    @click="voteClick(1)"
+                                    class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
+                                >
+                                    <span class="u-icon1"></span>
+                                    <span
+                                        class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
+                                    >
+                                        <span>关注小程序能量+</span>
+                                        <i>10</i>
+                                    </span>
+                                </span>
+                                <span
+                                    v-else
+                                    class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
+                                >
+                                    <span class="u-icon1"></span>
+                                    <span
+                                        class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
+                                    >
+                                        关注小程序能量+
+                                        <i>10</i>
+                                    </span>
+                                </span>
+                            </li>
+                            <li
+                                :class="isSignIn!=1?touch2:'active-li'"
+                                @touchend="mousedownHandler($event,0,2)"
+                                @touchstart="mousedownHandler($event,1,2)"
+                            >
+                                <span
+                                    v-if="isSignIn!=1"
+                                    @click="voteClick(2)"
+                                    class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
+                                >
+                                    <span class="u-icon2"></span>
+                                    <span
+                                        class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
+                                    >
+                                        每日签到能量+
+                                        <i>10</i>
+                                    </span>
+                                </span>
+                                <span
+                                    v-else
+                                    class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
+                                >
+                                    <span class="u-icon2"></span>
+                                    <span
+                                        class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
+                                    >
+                                        每日签到能量+
+                                        <i>10</i>
+                                    </span>
+                                </span>
+                            </li>
+                            <li
+                                :class="touch4"
+                                @touchend="mousedownHandler($event,0,4)"
+                                @touchstart="mousedownHandler($event,1,4)"
+                            >
+                                <span
+                                    class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
+                                    @click="voteClick(4)"
+                                >
+                                    <span class="u-icon3"></span>
+                                    <span
+                                        class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
+                                    >
+                                        读书架上的1本书能量+
+                                        <i>10</i>
+                                    </span>
+                                </span>
+                            </li>
+                            <li
+                                :class="touch3"
+                                @touchend="mousedownHandler($event,0,3)"
+                                @touchstart="mousedownHandler($event,1,3)"
+                            >
+                                <span
+                                    class="u-ticketbtn displayFlex flexAlignJustifyCenter flexAlignItemsCenter"
+                                    @click="voteClick(3)"
+                                >
+                                    <span class="u-icon4"></span>
+                                    <span
+                                        class="u-text displayFlex flexJustifybetween flexAlignItemsCenter"
+                                    >
+                                        分享活动能量+
+                                        <i>10</i>
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+            </section>
+            <!-- 明星书单 -->
+            <section class="g-star-bookList" id="star">
+                <StarBook
+                    ref="star_book"
+                    :userId="userId"
+                    @votingStarChange="votingStarChange"
+                    @videoPlay="videoPlay"
+                ></StarBook>
+            </section>
+            <footer>
+                <section class="g-footer"></section>
+            </footer>
         </section>
-        <!-- 明星书单 -->
-        <section class="g-star-bookList" id="star">
-            <StarBook
-                ref="star_book"
-                :userId="userId"
-                @votingStarChange="votingStarChange"
-                @videoPlay="videoPlay"
-            ></StarBook>
+        <section v-else>
+            <Voted></Voted>
         </section>
-        <footer>
-            <section class="g-footer"></section>
-        </footer>
     </section>
 </template>
 <script>
 
 import '../../assets/js/timeoutLazy'
+import IsDateBetween from '../../assets/js/date.js'
 import '../../assets/js/href.js'
 import { setTimeout } from 'timers'
 import Cookies from 'js-cookie'
 
 export default {
     components: {
+        Voted: () => import('../voted/voted.vue'),
         StarBook: () => import('../common/starbook.vue'),
         Dialog: () => import('../common/dialog.vue'),
     },
@@ -228,6 +239,7 @@ export default {
             touch2: 'link-li',
             touch1: 'link-li',
             readVal: 0,
+            isVoting: true,
             myVoteData: {
                 userTicketCount: null
             },//我的投票纪录
@@ -256,6 +268,8 @@ export default {
             timer: null,
             isInter: true,
             isReadHandler: true,
+            votingTime: '2019/01/06 00:00',
+            votedTime: '2019/02/06 00:00',
             bannerlist: [
                 {
                     src: require('@/assets/img/star/wff.png'),
@@ -283,8 +297,8 @@ export default {
                     name: '沈月'
                 },
                 {
-                    src: require('@/assets/img/star/hcz.png'),
-                    name: '何常在',
+                    src: require('@/assets/img/star/mby.png'),
+                    name: '马伯庸',
                     bid: '10000'
                 },
             ],
@@ -292,6 +306,7 @@ export default {
         }
     },
     created() {
+        this.isVoted()
         this.setCookie()
         this.voteInit()
     },
@@ -316,8 +331,14 @@ export default {
         }
     },
     methods: {
+        isVoted() {
+            let isVoted = IsDateBetween('2019/01/06 00:00', '2019/02/06 00:00');
+            if (!isVoted) {// 判断是否结束
+                this.isVoting = false;
+            }
+        },
         setCookie() {
-            if (!this.userId) {
+            if (!this.userId && this.isVoting) {
                 this.userId = Cookies.get('userId');
                 this.tsid = Cookies.get('tsid');
                 this.isFollow = Cookies.get('isFollow');
@@ -621,14 +642,22 @@ export default {
             }
             this.$http(options).then((res) => {
                 if (res.data.code == 200) {
-                    this.userTicketCountChange(1)
                     if (type === 1) {
+                        this.userTicketCountChange(1)
                         this.isFollow = 1
                         this.dialogShow(4, true)
                     }
                     if (type === 2) {
+                        this.userTicketCountChange(1)
                         this.isSignIn = true
                         this.dialogShow(7, true)
+                    }
+                    if (type == 3) {
+                        this.obshareHandler();
+                        setTimeout(() => {
+                            this.userTicketCountChange(1);
+                        }, 3000);
+                        return;
                     }
                 } else if (res.data.code == 17) {
                     if (this.isFollow == 1) return
@@ -640,9 +669,12 @@ export default {
                     // this.$toast('今日已签到')
                 } else if (res.data.code == 19) {
                     this.$toast('今日已达上限')
+                    let timer = setTimeout(() => {
+                        this.obshareHandler();
+                        clearTimeout(timer);
+                    }, 1100);
                 }
                 this.followedRead(bid)
-
             }).catch((err) => { })
 
         },
@@ -711,6 +743,7 @@ export default {
              * @name 关注
             */
             try {
+                console.log('关注');
                 my.postMessage({
                     event: 'followApp',
                     data: {}
@@ -727,7 +760,6 @@ export default {
             */
             try {
                 console.log('shareApp');
-
                 my.postMessage({
                     event: 'shareApp',
                     data: {
@@ -742,9 +774,6 @@ export default {
                 // this.$toast('分享未成功!')
                 return;
             }
-            let itemr = setTimeout(() => {
-                this.getTicket(3)
-            }, 3000)
         },
         sugnInHandler() {
             /**
@@ -798,7 +827,7 @@ export default {
                 this.sugnInHandler()
             } else if (type === 3) {
                 // 分享
-                this.obshareHandler()
+                this.getTicket(3)
             } else {
                 // 阅读
                 this.readHandler()
