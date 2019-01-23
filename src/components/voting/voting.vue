@@ -654,10 +654,10 @@ export default {
                     }
                     if (type == 3) {
                         this.obshareHandler();
-                        setTimeout(() => {
-                            this.userTicketCountChange(1);
-                        }, 3000);
-                        return;
+                    //     setTimeout(() => {
+                    //         this.userTicketCountChange(1);
+                    //     }, 3000);
+                    //     return;
                     }
                 } else if (res.data.code == 17) {
                     if (this.isFollow == 1) return
