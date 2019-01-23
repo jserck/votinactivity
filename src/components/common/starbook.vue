@@ -113,11 +113,11 @@ export default {
                     },
                     {
                          video: 'http://activity.cun-tu.cn/videohcz.mp4',
-                         text: '"徜徉在历史的浩瀚长河中，将古往今来的睿智思考收入囊中"',
+                         text: '"尽阅历史，岁月无声，将古往今来的睿智思考收入囊中"',
                          bid: '10000',
-                         src: require('@/assets/img/star/b_hcz.png'),
-                         atherImg: require('@/assets/img/ather/hcz_x.png'),
-                         name: '何常在',
+                         src: require('@/assets/img/star/b_mby.png'),
+                         atherImg: require('@/assets/img/ather/mby_x.png'),
+                         name: '马伯庸',
                          did: 483
                     }
                ]

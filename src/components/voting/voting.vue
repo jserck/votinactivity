@@ -297,8 +297,8 @@ export default {
                     name: '沈月'
                 },
                 {
-                    src: require('@/assets/img/star/hcz.png'),
-                    name: '何常在',
+                    src: require('@/assets/img/star/mby.png'),
+                    name: '马伯庸',
                     bid: '10000'
                 },
             ],
