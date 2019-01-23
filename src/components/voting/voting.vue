@@ -308,9 +308,8 @@ export default {
           }
      },
      created() {
-          console.log(this.preLoad);
+          this.getStarSolt(1, 'voted')
           this.preLoad()
-          this.isVoted()
           this.setCookie()
           this.voteInit()
      },
@@ -350,8 +349,8 @@ export default {
                     img.src = this.bannerlist[i].src;
                }
           },
-          isVoted() {
-               let isVoted = IsDateBetween('2019/01/06 00:00', '2019/02/06 00:00');
+          isVoted(newDa) {
+               let isVoted = IsDateBetween(newDa, this.votingTime, this.votedTime);
                if (!isVoted) {// 判断是否结束
                     this.isVoting = false;
                }
@@ -527,7 +526,7 @@ export default {
                     clearTimeout(itmer);
                }, 500)
           },
-          getStarSolt(type) {
+          getStarSolt(type, isVoted) {
                /**
                 * @name 获取明星排名列表接口
                 * @method post
@@ -542,6 +541,11 @@ export default {
                }
                this.$http(options).then((res) => {
                     if (res.data.code === 200) {
+                         this.isVoted(new Date().getTime());
+                         if (isVoted == 'voted') {
+                              // console.log(new Date().getTime());
+                              return;
+                         }
                          this.starSoltData = res.data.data.starList
                          this.personCount = res.data.data.personCount
                          this.bookCount = res.data.data.bookCount
