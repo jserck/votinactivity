@@ -1059,9 +1059,10 @@ export default {
                 position: absolute;
                 bottom: -0.04rem;
                 left: 50%;
-                margin-left: -3.065rem;
+                margin-left: -3.25rem;
+                //margin-left: -3.065rem;
                 // margin: 0.29rem auto 0.43rem;
-                width: 6.13rem;
+                width: 6.5rem;
                 height: 0.67rem;
                 @include setFont(
                     0.22rem,
