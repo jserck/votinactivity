@@ -20,7 +20,7 @@
                          @click="nativeto(item,index)"
                          :style="index==0?'padding-left:0.45rem':''"
                     >
-                         <book-item :indexNum="index" :obj="item"></book-item>
+                         <book-item :indexNum="index" :obj="item" :userId="userId"></book-item>
                     </li>
                </ul>
           </section>
