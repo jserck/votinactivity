@@ -103,7 +103,9 @@ export default {
             //    this.$refs.videoPlayer.player.src(this.dialogOpations.src);
         },
         errorHandler() {
+            // this.$toast('网络不调顺畅，请重新播放');
             this.isInter = false;
+
         },
         onPlayerWaiting() {
             // if (navigator && navigator.onLine == false) {
