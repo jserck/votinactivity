@@ -12,18 +12,21 @@
                     webkit-playsinline="true"
                     x5-video-player-fullscreen="true"
                     @play="onPlayerPlay($event)"
-                    @pause="onPlayerPause($event)"
                     @ended="onPlayerEnded($event)"
                     @error="errorHandler"
                     @waiting="onPlayerWaiting($event)"
-                    @statechanged="playerStateChanged($event)"
                     @canplay="onPlayerCanplaythrough($event)"
-                    @loadeddata="onloadstart($event)"
                 ></video-player>
             </section>
-            <section class="g-inter displayFlex flexColumn flexAlignJustifyCenter" v-if="!isInter">
-                <p>最糟糕的是没网了!</p>
-                <span class="refale" @click="refale">刷新</span>
+            <section
+                class="g-inter displayFlex flexColumn flexAlignJustifyCenter"
+                v-if="!isInter"
+            >
+                <section v-if="!isInter">
+                    <p>最糟糕的是没网了!</p>
+                    <span class="refale" @click="refale">刷新</span>
+                </section>
+                <!-- <p v-if="isWait">正在努力加载视频</p> -->
             </section>
             <!-- <section
                     class="g-inter displayFlex flexColumn flexAlignJustifyCenter"
@@ -51,7 +54,7 @@ export default {
             isWait: false,
             isInter: true,
             playerOptions: {
-                playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+                // playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
                 autoplay: false, //如果true,浏览器准备好时开始回放。
                 muted: false, // 默认情况下将会消除任何音频。
                 loop: false, // 导致视频一结束就重新开始。
@@ -63,7 +66,7 @@ export default {
                     type: "",
                     src: this.dialogOpations.src
                 }],
-                poster: "", //你的封面地址
+                // poster: "", //你的封面地址
                 width: document.documentElement.clientWidth,
                 notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
                 controlBar: {
@@ -95,35 +98,37 @@ export default {
 
         },
         onPlayerEnded() {
-            this.$refs.videoPlayer.player.src(this.dialogOpations.src);
+            //   this.$refs.videoPlayer.player.play();
+            //   this.$refs.videoPlayer.player.load();
+            //    this.$refs.videoPlayer.player.src(this.dialogOpations.src);
         },
         errorHandler() {
             this.isInter = false;
         },
         onPlayerWaiting() {
-            if (navigator && navigator.onLine == false) {
-                this.isInter = false;
-                return;
-            }
+            // if (navigator && navigator.onLine == false) {
+            // this.isWait = true;
+            //     return;
+            // }
             // this.isWait = true;
         },
         onPlayerCanplaythrough() {
-            // this.isInter = true;
             // this.isWait = false;
-            if (navigator && navigator.onLine == false) {
-                this.isInter = false;
-            }
+            // this.isWait = false;
+            //    if (navigator && navigator.onLine == false) {
+            //         this.isInter = false;
+            //    }
         },
-        playerStateChanged(e) {
-            // if (navigator && navigator.onLine == false) {
-            //      this.isInter = false;
-            // }
-        },
-        onloadstart(e) {
-            // if (navigator && navigator.onLine == false) {
-            //      this.isInter = false;
-            // }
-        },
+        //   playerStateChanged(e) {
+        //        if (navigator && navigator.onLine == false) {
+        //             this.isInter = false;
+        //        }
+        //   },
+        //   onloadstart(e) {
+        // if (navigator && navigator.onLine == false) {
+        //      this.isInter = false;
+        // }
+        //   },
         refale() {
             if (!this.isInter) {
                 this.isInter = true;
@@ -140,16 +145,28 @@ export default {
             return this.$refs.videoPlayer.player
         }
     },
+    beforeDestroy() {
+        window.removeEventListener("offline", function (e) {
+            this.isInter = false;
+            this.$refs.videoPlayer.player.pause();
+        }.bind(this))
+        window.removeEventListener("online", function (e) {
+            this.isInter = true;
+            // this.$refs.videoPlayer.player.play();
+        }.bind(this))
+    },
     mounted() {
         this.$emit("btn_show", 6);
-        if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-            window.addEventListener("offline", function (e) {
-                this.isInter = false;
-            }.bind(this))
-            window.addEventListener("online", function (e) {
-                this.isInter = true;
-            }.bind(this))
-        }
+        //   if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+        window.addEventListener("offline", function (e) {
+            this.isInter = false;
+            this.$refs.videoPlayer.player.pause();
+        }.bind(this))
+        window.addEventListener("online", function (e) {
+            this.isInter = true;
+            // this.$refs.videoPlayer.player.play();
+        }.bind(this))
+        //   }
     }
 }
 </script>
