@@ -112,7 +112,7 @@ export default {
                          did: 489
                     },
                     {
-                         video: 'http://plpx17qc7.bkt.clouddn.com/mby.mov',
+                         video: 'http://activity.cun-tu.cn/video_mby.mp4',
                          text: '"尽阅历史，岁月无声，将古往今来的睿智思考收入囊中"',
                          bid: '10000',
                          src: require('@/assets/img/star/b_mby.png'),
