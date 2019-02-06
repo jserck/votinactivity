@@ -352,7 +352,7 @@ export default {
                }
           },
           isVoted(newDa) {
-               if (newDa == 3) {// 判断是否结束
+               if (newDa == 2) {// 判断是否结束
                     this.isVoting = false;
                }
           },
@@ -542,6 +542,7 @@ export default {
                }
                this.$http(options).then((res) => {
                     if (res.data.code === 200) {
+                        console.log(res);
                          this.isVoted(res.data.data.activityStatus);
                          if (isVoted == 'voted') {
                               if (!this.isVoteStatus) {
